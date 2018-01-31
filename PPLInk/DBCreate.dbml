@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ProHelp" Class="DBCreateDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=KR2012\SQLEXPRESS;Initial Catalog=ProHelp;Integrated Security=True" SettingsObjectName="PPLInk.My.MySettings" SettingsPropertyName="ProHelpConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.t_files" Member="t_files">
+    <Type Name="t_file">
+      <Column Name="file_no" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="f_name" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="f_path" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="f_altname" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="selected" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="create_dt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="last_dt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="last_action" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="inactive" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Association Name="t_file_tx_playlist_song" Member="tx_playlist_songs" ThisKey="file_no" OtherKey="file_no" Type="tx_playlist_song" />
+    </Type>
+  </Table>
+  <Table Name="dbo.t_playlists" Member="t_playlists">
+    <Type Name="t_playlist">
+      <Column Name="list_no" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="play_dt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="l_name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Association Name="t_playlist_tx_playlist_song" Member="tx_playlist_songs" ThisKey="list_no" OtherKey="list_no" Type="tx_playlist_song" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tx_playlist_song" Member="tx_playlist_songs">
+    <Type Name="tx_playlist_song">
+      <Column Name="rec_no" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="list_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="seq_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="file_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="t_file_tx_playlist_song" Member="t_file" ThisKey="file_no" OtherKey="file_no" Type="t_file" IsForeignKey="true" />
+      <Association Name="t_playlist_tx_playlist_song" Member="t_playlist" ThisKey="list_no" OtherKey="list_no" Type="t_playlist" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.v_playlist" Member="v_playlists">
+    <Type Name="v_playlist">
+      <Column Name="list_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="seq_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="f_name" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="rec_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="file_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
