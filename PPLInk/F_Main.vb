@@ -113,4 +113,8 @@
     Private Sub F_Main_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         TxtSearch.Focus()
     End Sub
+
+    Private Sub BtnAdvanced_Click(sender As Object, e As EventArgs) Handles BtnAdvanced.Click
+        F_Advanced.ShowDialog()
+    End Sub
 End Class

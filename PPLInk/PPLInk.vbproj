@@ -119,6 +119,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBCreate.dbml</DependentUpon>
     </Compile>
+    <Compile Include="F_Advanced.Designer.vb">
+      <DependentUpon>F_Advanced.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F_Advanced.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F_FillTables.designer.vb">
       <DependentUpon>F_FillTables.vb</DependentUpon>
     </Compile>
@@ -176,6 +182,9 @@
     <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="F_Advanced.resx">
+      <DependentUpon>F_Advanced.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_FillTables.resx">
       <DependentUpon>F_FillTables.vb</DependentUpon>
       <SubType>Designer</SubType>

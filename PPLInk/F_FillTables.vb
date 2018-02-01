@@ -4,7 +4,7 @@ Public Class F_FillTables
     Private nMatched As Integer, nMissing As Integer
     Private nNew As Integer, nAlready As Integer
     Private szFolder As String = ""
-    Private iFilesStart, iFilesEnd
+    Private iFilesStart, iFilesEnd As Integer
     Private filesView As DataView
 
 

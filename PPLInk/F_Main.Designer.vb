@@ -44,6 +44,7 @@ Partial Class F_Main
         Me.BtnSetup = New System.Windows.Forms.Button()
         Me.LBInstant = New System.Windows.Forms.ListBox()
         Me.LblVersion = New System.Windows.Forms.Label()
+        Me.BtnAdvanced = New System.Windows.Forms.Button()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -222,11 +223,22 @@ Partial Class F_Main
         Me.LblVersion.Text = "Version"
         Me.LblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
+        'BtnAdvanced
+        '
+        Me.BtnAdvanced.Location = New System.Drawing.Point(12, 412)
+        Me.BtnAdvanced.Name = "BtnAdvanced"
+        Me.BtnAdvanced.Size = New System.Drawing.Size(100, 23)
+        Me.BtnAdvanced.TabIndex = 12
+        Me.BtnAdvanced.Text = "Advanced"
+        Me.ToolTip1.SetToolTip(Me.BtnAdvanced, "Open the advanced features screen")
+        Me.BtnAdvanced.UseVisualStyleBackColor = True
+        '
         'F_Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(787, 444)
+        Me.Controls.Add(Me.BtnAdvanced)
         Me.Controls.Add(Me.LblVersion)
         Me.Controls.Add(Me.LBInstant)
         Me.Controls.Add(Me.BtnSetup)
@@ -269,4 +281,5 @@ Partial Class F_Main
     Friend WithEvents BtnSetup As Button
     Friend WithEvents LBInstant As ListBox
     Friend WithEvents LblVersion As Label
+    Friend WithEvents BtnAdvanced As Button
 End Class
