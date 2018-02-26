@@ -21,7 +21,7 @@
             fileName = "PPLink" & iRandom.Next & ".txt"
             'txtResults.Text = txtResults.Text & vbCrLf & "Files record has " & filesView.Count() & " rows"
             Try
-                filePath = System.IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyDocuments, fileName)
+                filePath = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyDocuments, fileName)
                 My.Computer.FileSystem.WriteAllText(filePath,
                     "F_name" & vbTab & "F_Path" & vbTab & "F_altname" & vbTab & "Selected" & vbTab & "Inactive" & vbCrLf,
                      False)
@@ -30,16 +30,25 @@
                                 MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End Try
+
+            MessageBox.Show("This will write " & filesView.Count & " lines to a file " & filePath & " in Documents",
+                            "PowerPoint Link Export", MessageBoxButtons.OK, MessageBoxIcon.Information)
             For Each fViewRow In filesView
                 szF_name = fViewRow("F_NAME")
                 szF_path = fViewRow("F_PATH")
-                szF_altname = fViewRow("F_ALTNAME")
-                szSelected = fViewRow("SELECTED")
-                szInactive = fViewRow("INACTIVE")
+                'Try
+                szF_altname = IIf(fViewRow("F_ALTNAME") Is Nothing, "", fViewRow("F_ALTNAME"))
+                szSelected = IIf(fViewRow("SELECTED") Is Nothing, "", fViewRow("SELECTED"))
+                szInactive = IIf(fViewRow("INACTIVE") Is Nothing, "", fViewRow("INACTIVE"))
                 My.Computer.FileSystem.WriteAllText(filePath,
                     szF_name & vbTab & szF_path & vbTab & szF_altname & vbTab & szSelected & vbTab & szInactive & vbCrLf,
                     True)
+                'Catch convException As Exception
+                'MessageBox.Show("Conversion failure at " & fViewRow("FILE_NO") & "; " & fViewRow("F_NAME") _
+                '                    & "[" & szF_altname & "]" & "[" & szSelected & "]" & "[" & szInactive & "]")
+                'End Try
             Next
+            MessageBox.Show("File creation complete", "PowerPoint Link Export", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
 
     End Sub

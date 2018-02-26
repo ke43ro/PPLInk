@@ -56,8 +56,9 @@ Public Class PlayList
                 PPPres.Presentations.Open(szFileName)
             With PPPres.Presentations(szFileName)
                 SSWin = .SlideShowSettings.Run()
+                'System.Threading.Thread.Sleep(500)
                 SSWin.Activate()
-                'System.Threading.Thread.Sleep(2000)
+                'setfocus(SSWin.HWND)
                 Do
                     If SSWin Is Nothing Then Exit Do
                     Try
