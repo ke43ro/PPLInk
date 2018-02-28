@@ -1,10 +1,13 @@
-﻿'Imports Microsoft.Office
-Imports Microsoft.Office.Interop.PowerPoint
+﻿Imports Microsoft.Office.Interop.PowerPoint
+'Imports System.IO
+'Imports System.Diagnostics
+'Imports System.Runtime.InteropServices
 
 Public Class PlayList
     Private myDataSet As New ProHelpDataSet
+    Private myKeyParser As New KeyParser
     Dim TFadap As New ProHelpDataSetTableAdapters.t_filesTableAdapter
-
+    Private Declare Function SetForegroundWindow Lib "user32" (ByVal hWnd As IntPtr) As Integer
 
     Public Sub Run(ByRef arPlayList As ListBox.ObjectCollection)
         Dim PPPres As Microsoft.Office.Interop.PowerPoint.Application
@@ -32,33 +35,34 @@ Public Class PlayList
             szFileName = arPlayList.Item(i)
 
             ' get file_no
-            ParseKeyValue(szFileName, "::", myParts)
-                iFileNo = myParts(0)
-                szFileName = myParts(1)
+            myKeyParser.GetKeyValues(szFileName, "::", myParts)
+            iFileNo = myParts(0)
+            szFileName = myParts(1)
 
-                ' build path into szFN
-                iIndex = filesView.Find(iFileNo)
-                If iIndex < 0 Then
+            ' build path into szFN
+            iIndex = filesView.Find(iFileNo)
+            If iIndex < 0 Then
                 MessageBox.Show("Can't find a record in the table for " & szFileName & ".  Skipping",
                                 "PowerPoint Link: Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Continue Do
-                Else
-                    szFPath = filesView(iIndex)("f_path")
-                End If
+            Else
+                szFPath = filesView(iIndex)("f_path")
+            End If
 
-                szFileName = szFPath & "\" & szFileName
-                If Dir(szFileName) = "" Then
+            szFileName = szFPath & "\" & szFileName
+            If Dir(szFileName) = "" Then
                 MessageBox.Show("Can't find show file " & szFileName & " on the disk", "PowerPoint Link: Running a show",
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Continue Do
-                End If
+            End If
 
-                PPPres.Presentations.Open(szFileName)
+            PPPres.Presentations.Open(szFileName)
             With PPPres.Presentations(szFileName)
                 SSWin = .SlideShowSettings.Run()
                 'System.Threading.Thread.Sleep(500)
                 SSWin.Activate()
-                'setfocus(SSWin.HWND)
+                SSWin.View.First()
+                SetForegroundWindow(SSWin.HWND)
                 Do
                     If SSWin Is Nothing Then Exit Do
                     Try
@@ -75,29 +79,4 @@ Public Class PlayList
         PPPres.WindowState = PpWindowState.ppWindowMinimized
         PPPres.Quit()
     End Sub
-
-    Private Sub ParseKeyValue(szInput As String, szSeparator As String, ByRef szParms() As String)
-        Dim iPos, iSep As Integer
-        Dim iLoop As Integer = -1
-
-        If szInput = "" Then
-            ReDim szParms(0)
-            Exit Sub
-        End If
-
-        iSep = szSeparator.Length
-
-        Do
-            iLoop = iLoop + 1
-            iPos = szInput.IndexOf(szSeparator)
-            If iPos < 0 Then
-                szParms(iLoop) = szInput
-                Exit Do
-            End If
-
-            szParms(iLoop) = szInput.Substring(0, iPos)
-            szInput = szInput.Substring(iPos + iSep, szInput.Length - iPos - iSep)
-        Loop
-    End Sub
-
 End Class

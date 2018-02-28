@@ -7,7 +7,7 @@
         Dim mySettings As New PPLInk.Settings
         Dim szConn = mySettings.ProHelpConnectionUser
         Dim szDebug = mySettings.ProHelpDebug
-        LblVersion.Text = "1.2.23"     'Me.ProductVersion
+        LblVersion.Text = "1.3.26"     'Me.ProductVersion
         'Z.Y.X.W - Z.Y is major/minor version; X is VS publish number; W is not used
         'See the end of the file for history
 
@@ -200,11 +200,22 @@
     Private Sub BtnHelp_Click(sender As Object, e As EventArgs) Handles BtnHelp.Click
 
     End Sub
+
+    Private Sub BtnLoadList_Click(sender As Object, e As EventArgs) Handles BtnLoadList.Click
+        DlgLoadList.Fillqueue(LBPlayList)
+        DlgLoadList.ShowDialog()
+        ' returns No if a Save was done, Yes if a Load was done or Cancel
+        If DlgLoadList.DialogResult = DialogResult.Yes Then
+            DlgLoadList.GetList(LBPlayList)
+        End If
+    End Sub
 End Class
 
 'Version nuber
 'Z.Y.X.W - Z.Y is major/minor version; X is VS publish number
-'1.2    add handling for up arrow, down arrow to search box and clear it after ENTER
+'1.3.26 add save and load for Play Lists
+'1.2.25 experiment with PP focus
+'1.2.24 add handling for up arrow, down arrow to search box and clear it after ENTER
 '       add edit features to the Play List
 '1.1.18 bug fix in List Export when column is null
 '1.1.17 used the actual VS publish number as the third segment 
