@@ -2,6 +2,7 @@
 
 Public Class DlgLoadList
     Private bFuture As Boolean
+    Private isLoaded As Boolean = False
 
     Friend Sub GetList(ByRef myList As ListBox)
         For Each listItem In LstQueue.Items
@@ -89,6 +90,7 @@ Public Class DlgLoadList
         TxtStatus.Text = "There are " & nSongs & " songs in the current unsaved Play List"
         bFuture = True
         ChkFuture.Checked = True
+        isLoaded = True
     End Sub
 
     Private Sub Save_Button_Click(sender As Object, e As EventArgs) Handles Save_Button.Click
@@ -162,10 +164,12 @@ Public Class DlgLoadList
             bFuture = False
         End If
 
-        If bFuture Then
-            T_playlistsTableAdapter.FillFuture(Me.ProHelpDataSet.t_playlists, Today)
-        Else
-            T_playlistsTableAdapter.Fill(Me.ProHelpDataSet.t_playlists)
+        If isLoaded Then
+            If bFuture Then
+                T_playlistsTableAdapter.FillFuture(Me.ProHelpDataSet.t_playlists, Today)
+            Else
+                T_playlistsTableAdapter.Fill(Me.ProHelpDataSet.t_playlists)
+            End If
         End If
     End Sub
 End Class

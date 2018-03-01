@@ -7,7 +7,7 @@
         Dim mySettings As New PPLInk.Settings
         Dim szConn = mySettings.ProHelpConnectionUser
         Dim szDebug = mySettings.ProHelpDebug
-        LblVersion.Text = "1.3.26"     'Me.ProductVersion
+        LblVersion.Text = "1.3.27"     'Me.ProductVersion
         'Z.Y.X.W - Z.Y is major/minor version; X is VS publish number; W is not used
         'See the end of the file for history
 

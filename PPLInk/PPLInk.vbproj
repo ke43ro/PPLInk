@@ -26,7 +26,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>26</ApplicationRevision>
+    <ApplicationRevision>28</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -137,12 +137,6 @@
     <Compile Include="F_FillTables.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_LoadList.Designer.vb">
-      <DependentUpon>F_LoadList.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F_LoadList.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="F_Main.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -204,9 +198,6 @@
     <EmbeddedResource Include="F_FillTables.resx">
       <DependentUpon>F_FillTables.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F_LoadList.resx">
-      <DependentUpon>F_LoadList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_Main.resx">
       <DependentUpon>F_Main.vb</DependentUpon>
