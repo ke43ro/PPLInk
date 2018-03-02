@@ -48,6 +48,8 @@ Partial Class F_Main
         Me.LBInstant = New System.Windows.Forms.ListBox()
         Me.LblVersion = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -103,7 +105,7 @@ Partial Class F_Main
         Me.T_filesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.T_filesDataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn9})
         Me.T_filesDataGridView.DataSource = Me.T_filesBindingSource
-        Me.T_filesDataGridView.Location = New System.Drawing.Point(12, 251)
+        Me.T_filesDataGridView.Location = New System.Drawing.Point(12, 269)
         Me.T_filesDataGridView.MultiSelect = False
         Me.T_filesDataGridView.Name = "T_filesDataGridView"
         Me.T_filesDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -199,7 +201,7 @@ Partial Class F_Main
         '
         'BtnAdvanced
         '
-        Me.BtnAdvanced.Location = New System.Drawing.Point(12, 481)
+        Me.BtnAdvanced.Location = New System.Drawing.Point(12, 499)
         Me.BtnAdvanced.Name = "BtnAdvanced"
         Me.BtnAdvanced.Size = New System.Drawing.Size(100, 28)
         Me.BtnAdvanced.TabIndex = 12
@@ -209,7 +211,7 @@ Partial Class F_Main
         '
         'BtnHelp
         '
-        Me.BtnHelp.Location = New System.Drawing.Point(338, 481)
+        Me.BtnHelp.Location = New System.Drawing.Point(338, 499)
         Me.BtnHelp.Name = "BtnHelp"
         Me.BtnHelp.Size = New System.Drawing.Size(100, 28)
         Me.BtnHelp.TabIndex = 14
@@ -219,7 +221,7 @@ Partial Class F_Main
         '
         'BtnSetup
         '
-        Me.BtnSetup.Location = New System.Drawing.Point(664, 481)
+        Me.BtnSetup.Location = New System.Drawing.Point(667, 499)
         Me.BtnSetup.Name = "BtnSetup"
         Me.BtnSetup.Size = New System.Drawing.Size(100, 28)
         Me.BtnSetup.TabIndex = 9
@@ -233,14 +235,14 @@ Partial Class F_Main
         Me.BtnLoadList.Name = "BtnLoadList"
         Me.BtnLoadList.Size = New System.Drawing.Size(138, 37)
         Me.BtnLoadList.TabIndex = 16
-        Me.BtnLoadList.Text = "Save or Load a List"
+        Me.BtnLoadList.Text = "Save or Load a Play List"
         Me.ToolTip1.SetToolTip(Me.BtnLoadList, "Load a Play List that was previously saved")
         Me.BtnLoadList.UseVisualStyleBackColor = True
         '
         'LBInstant
         '
         Me.LBInstant.FormattingEnabled = True
-        Me.LBInstant.Location = New System.Drawing.Point(214, 226)
+        Me.LBInstant.Location = New System.Drawing.Point(385, 167)
         Me.LBInstant.Name = "LBInstant"
         Me.LBInstant.Size = New System.Drawing.Size(120, 17)
         Me.LBInstant.TabIndex = 10
@@ -268,11 +270,33 @@ Partial Class F_Main
         Me.TextBox1.Text = "To Edit the Play List: + moves selected line down; - moves it up, DEL deletes it"
         Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(119, 226)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(648, 20)
+        Me.TextBox2.TabIndex = 17
+        Me.TextBox2.Text = "While searching:  use UP and DOWN arrow keys to move the selection; use ENTER to " &
+    "add the current selection to the list."
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Location = New System.Drawing.Point(12, 249)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.ReadOnly = True
+        Me.TextBox3.Size = New System.Drawing.Size(755, 20)
+        Me.TextBox3.TabIndex = 18
+        Me.TextBox3.TabStop = False
+        Me.TextBox3.Text = "Double click a row in the table to play that song immediately."
+        Me.TextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'F_Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(787, 517)
+        Me.ClientSize = New System.Drawing.Size(787, 534)
+        Me.Controls.Add(Me.TextBox3)
+        Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.BtnLoadList)
         Me.Controls.Add(Me.BtnHelp)
         Me.Controls.Add(Me.TextBox1)
@@ -323,4 +347,6 @@ Partial Class F_Main
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents BtnHelp As Button
     Friend WithEvents BtnLoadList As Button
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TextBox3 As TextBox
 End Class

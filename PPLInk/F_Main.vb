@@ -7,7 +7,7 @@
         Dim mySettings As New PPLInk.Settings
         Dim szConn = mySettings.ProHelpConnectionUser
         Dim szDebug = mySettings.ProHelpDebug
-        LblVersion.Text = "1.3.27"     'Me.ProductVersion
+        LblVersion.Text = "1.3.28"     'Me.ProductVersion
         'Z.Y.X.W - Z.Y is major/minor version; X is VS publish number; W is not used
         'See the end of the file for history
 
@@ -80,6 +80,7 @@
         Select Case e.KeyCode
             Case Keys.Enter
                 PlayList_AddRecord()
+                TxtSearch.Text = ""
             Case Keys.Up
                 T_filesChangeSelection(-1)
             Case Keys.Down
@@ -89,7 +90,6 @@
         End Select
 
         e.SuppressKeyPress = True
-        TxtSearch.Text = ""
         TxtSearch.Focus()
     End Sub
 
@@ -108,7 +108,7 @@
         ElseIf iChange = 1 And iRow = T_filesDataGridView.RowCount - 1 Then
             ' at end of list
             Exit Sub
-        ElseIf iChange = -11 And iRow = 0 Then
+        ElseIf iChange = -1 And iRow = 0 Then
             ' at beginning of list
             Exit Sub
         End If
@@ -198,7 +198,8 @@
     End Sub
 
     Private Sub BtnHelp_Click(sender As Object, e As EventArgs) Handles BtnHelp.Click
-
+        MessageBox.Show("Help Pages will be available in the next release", "Powerpoint Link: Help",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub BtnLoadList_Click(sender As Object, e As EventArgs) Handles BtnLoadList.Click
@@ -211,13 +212,15 @@
     End Sub
 End Class
 
-'Version nuber
+'Version number
 'Z.Y.X.W - Z.Y is major/minor version; X is VS publish number
+'1.3.28 fix bug in handling keys in search box (cleared text on arrow up or down)
+'1.3.27 fix bug in table connection in DlgLoadList (tried to connect iwhen setting checkbox on load)
 '1.3.26 add save and load for Play Lists
 '1.2.25 experiment with PP focus
 '1.2.24 add handling for up arrow, down arrow to search box and clear it after ENTER
 '       add edit features to the Play List
-'1.1.18 bug fix in List Export when column is null
+'1.1.18 bug fix attempt in List Export when column is null - fixed in tables, not code
 '1.1.17 used the actual VS publish number as the third segment 
 '1.1.16 included manual setting of the version number on the main screen (used 1.1.1)
 '1.1.15 included Export of file list
