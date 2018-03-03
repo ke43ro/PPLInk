@@ -1,4 +1,4 @@
-# PPLInk
+# PPLink
 Provides a link to MS PowerPoint to simplify presentation of a selection of files listed in an SQL database
 
 This Windows-only application is a simplified version of Projection Helper (ProHelp).  This version provides a screen on which the user can search the database and create a temporary playlist that can be used to show a selection of PowerPoint files using just the Next/Previous/Black/White keys. The main purpose of PPLink is to avoid the use of Windows Explorer to find the files on disk thus avoiding mistakes that can delete or move files.  It also enhances the poresentation by automatically advancing to the next file.
