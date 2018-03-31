@@ -5,7 +5,7 @@
       <Column Name="file_no" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="f_name" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
       <Column Name="f_path" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="f_altname" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="f_altname" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="selected" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
       <Column Name="create_dt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="last_dt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />

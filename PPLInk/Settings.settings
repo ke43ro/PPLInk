@@ -28,5 +28,8 @@
     <Setting Name="ProHelpMasterFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">%DOCUMENTS%\Kairos\Music for Parklea\MASTERS</Value>
     </Setting>
+    <Setting Name="ProHelpVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

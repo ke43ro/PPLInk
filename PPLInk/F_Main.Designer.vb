@@ -25,16 +25,7 @@ Partial Class F_Main
         Me.components = New System.ComponentModel.Container()
         Me.LBPlayList = New System.Windows.Forms.ListBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
-        Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
-        Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.T_filesDataGridView = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TxtSearch = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -47,12 +38,20 @@ Partial Class F_Main
         Me.BtnLoadList = New System.Windows.Forms.Button()
         Me.LBInstant = New System.Windows.Forms.ListBox()
         Me.LblVersion = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
+        Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
+        Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         CType(Me.T_filesDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LBPlayList
@@ -74,29 +73,6 @@ Partial Class F_Main
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Play List"
         '
-        'ProHelpDataSet
-        '
-        Me.ProHelpDataSet.DataSetName = "ProHelpDataSet"
-        Me.ProHelpDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'T_filesBindingSource
-        '
-        Me.T_filesBindingSource.DataMember = "t_files"
-        Me.T_filesBindingSource.DataSource = Me.ProHelpDataSet
-        '
-        'T_filesTableAdapter
-        '
-        Me.T_filesTableAdapter.ClearBeforeFill = True
-        '
-        'TableAdapterManager
-        '
-        Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
-        Me.TableAdapterManager.t_files_saveTableAdapter = Nothing
-        Me.TableAdapterManager.t_filesTableAdapter = Me.T_filesTableAdapter
-        Me.TableAdapterManager.t_playlistsTableAdapter = Nothing
-        Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing
-        Me.TableAdapterManager.UpdateOrder = PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
-        '
         'T_filesDataGridView
         '
         Me.T_filesDataGridView.AllowUserToAddRows = False
@@ -115,42 +91,6 @@ Partial Class F_Main
         Me.ToolTip1.SetToolTip(Me.T_filesDataGridView, "The PPT Name is the actual file name of the song on the hard disk.  The Other Nam" &
         "e is an alternative title of the song.")
         '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.DataPropertyName = "file_no"
-        Me.DataGridViewTextBoxColumn1.HeaderText = "#"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 5
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.DataPropertyName = "f_name"
-        Me.DataGridViewTextBoxColumn2.HeaderText = "PPT Name"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.Width = 350
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.DataPropertyName = "f_path"
-        Me.DataGridViewTextBoxColumn3.HeaderText = "L"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.Width = 5
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.DataPropertyName = "f_altname"
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Other Name"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.Width = 350
-        '
-        'DataGridViewTextBoxColumn9
-        '
-        Me.DataGridViewTextBoxColumn9.DataPropertyName = "inactive"
-        Me.DataGridViewTextBoxColumn9.HeaderText = "X"
-        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
-        Me.DataGridViewTextBoxColumn9.Width = 5
-        '
         'TxtSearch
         '
         Me.TxtSearch.Location = New System.Drawing.Point(12, 226)
@@ -165,9 +105,10 @@ Partial Class F_Main
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(12, 208)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(41, 13)
+        Me.Label2.Size = New System.Drawing.Size(630, 13)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Search"
+        Me.Label2.Text = "Search  (While searching:  use UP and DOWN arrow keys to move the selection; use " &
+    "ENTER to add the current selection to the list)"
         '
         'BtnPlay
         '
@@ -259,47 +200,93 @@ Partial Class F_Main
         Me.LblVersion.Text = "Version"
         Me.LblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'TextBox1
+        'DataGridViewTextBoxColumn1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(12, 132)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(755, 20)
-        Me.TextBox1.TabIndex = 13
-        Me.TextBox1.TabStop = False
-        Me.TextBox1.Text = "To Edit the Play List: + moves selected line down; - moves it up, DEL deletes it"
-        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "file_no"
+        Me.DataGridViewTextBoxColumn1.HeaderText = "#"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 5
         '
-        'TextBox2
+        'DataGridViewTextBoxColumn2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(119, 226)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(648, 20)
-        Me.TextBox2.TabIndex = 17
-        Me.TextBox2.Text = "While searching:  use UP and DOWN arrow keys to move the selection; use ENTER to " &
-    "add the current selection to the list."
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "f_name"
+        Me.DataGridViewTextBoxColumn2.HeaderText = "PPT Name"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.Width = 350
         '
-        'TextBox3
+        'DataGridViewTextBoxColumn3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(12, 249)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.ReadOnly = True
-        Me.TextBox3.Size = New System.Drawing.Size(755, 20)
-        Me.TextBox3.TabIndex = 18
-        Me.TextBox3.TabStop = False
-        Me.TextBox3.Text = "Double click a row in the table to play that song immediately."
-        Me.TextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "f_path"
+        Me.DataGridViewTextBoxColumn3.HeaderText = "L"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.Width = 5
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.DataPropertyName = "f_altname"
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Other Name"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.Width = 350
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.DataPropertyName = "inactive"
+        Me.DataGridViewTextBoxColumn9.HeaderText = "X"
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.Width = 5
+        '
+        'T_filesBindingSource
+        '
+        Me.T_filesBindingSource.DataMember = "t_files"
+        Me.T_filesBindingSource.DataSource = Me.ProHelpDataSet
+        '
+        'ProHelpDataSet
+        '
+        Me.ProHelpDataSet.DataSetName = "ProHelpDataSet"
+        Me.ProHelpDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'T_filesTableAdapter
+        '
+        Me.T_filesTableAdapter.ClearBeforeFill = True
+        '
+        'TableAdapterManager
+        '
+        Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
+        Me.TableAdapterManager.t_files_saveTableAdapter = Nothing
+        Me.TableAdapterManager.t_filesTableAdapter = Me.T_filesTableAdapter
+        Me.TableAdapterManager.t_playlistsTableAdapter = Nothing
+        Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing
+        Me.TableAdapterManager.UpdateOrder = PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(205, 135)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(388, 13)
+        Me.Label3.TabIndex = 19
+        Me.Label3.Text = "To Edit the Play List: '+' moves selected line down; '-' moves it up, 'DEL' delet" &
+    "es it"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(249, 252)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(288, 13)
+        Me.Label4.TabIndex = 20
+        Me.Label4.Text = "Double click a row in the table to play that song immediately"
         '
         'F_Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(787, 534)
-        Me.Controls.Add(Me.TextBox3)
-        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.BtnLoadList)
         Me.Controls.Add(Me.BtnHelp)
-        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.BtnAdvanced)
         Me.Controls.Add(Me.LblVersion)
         Me.Controls.Add(Me.LBInstant)
@@ -314,9 +301,9 @@ Partial Class F_Main
         Me.Controls.Add(Me.LBPlayList)
         Me.Name = "F_Main"
         Me.Text = "PowerPoint Link"
-        CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.T_filesDataGridView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -344,9 +331,8 @@ Partial Class F_Main
     Friend WithEvents LBInstant As ListBox
     Friend WithEvents LblVersion As Label
     Friend WithEvents BtnAdvanced As Button
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents BtnHelp As Button
     Friend WithEvents BtnLoadList As Button
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
 End Class

@@ -634,7 +634,7 @@ Partial Public Class ProHelpDataSet
             Me.columnf_name.MaxLength = 80
             Me.columnf_path.AllowDBNull = false
             Me.columnf_path.MaxLength = 250
-            Me.columnf_altname.MaxLength = 80
+            Me.columnf_altname.MaxLength = 250
             Me.columnselected.MaxLength = 1
             Me.columncreate_dt.AllowDBNull = false
             Me.columnlast_action.MaxLength = 30
@@ -1005,7 +1005,7 @@ Partial Public Class ProHelpDataSet
             Me.columnf_name.MaxLength = 80
             Me.columnf_path.AllowDBNull = false
             Me.columnf_path.MaxLength = 250
-            Me.columnf_altname.MaxLength = 80
+            Me.columnf_altname.MaxLength = 250
             Me.columnselected.MaxLength = 1
             Me.columncreate_dt.AllowDBNull = false
             Me.columnlast_action.MaxLength = 30

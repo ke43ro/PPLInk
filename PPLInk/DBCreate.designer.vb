@@ -227,7 +227,7 @@ Partial Public Class t_file
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_f_altname", DbType:="VarChar(80)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_f_altname", DbType:="VarChar(250)")>  _
 	Public Property f_altname() As String
 		Get
 			Return Me._f_altname

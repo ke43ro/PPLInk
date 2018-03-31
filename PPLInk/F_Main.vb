@@ -1,4 +1,7 @@
-﻿Public Class F_Main
+﻿Imports System.Diagnostics
+Imports System.Data.SqlClient
+
+Public Class F_Main
     Private szText As String
     Private PlayList As New PlayList
 
@@ -7,7 +10,15 @@
         Dim mySettings As New PPLInk.Settings
         Dim szConn = mySettings.ProHelpConnectionUser
         Dim szDebug = mySettings.ProHelpDebug
-        LblVersion.Text = "1.3.28"     'Me.ProductVersion
+        Dim connection As SqlConnection
+        Dim szVersion As String
+
+        Try
+            szVersion = PPLInk.My.Application.Deployment.CurrentVersion.ToString
+        Catch
+            szVersion = "1.4.36 Proto"
+        End Try
+        LblVersion.Text = szVersion
         'Z.Y.X.W - Z.Y is major/minor version; X is VS publish number; W is not used
         'See the end of the file for history
 
@@ -19,13 +30,28 @@
         Else
             Try
                 If szDebug = "Yes" Then MessageBox.Show("trying " & szConn)
-                Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
+                connection = New SqlConnection(szConn)
                 T_filesTableAdapter.Connection = connection
             Catch ex As Exception
                 MessageBox.Show("Connection Failure:" & vbCrLf & ex.Message & vbCrLf & ex.StackTrace,
                                 "PowerPoint Link: Connecting", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End If
+
+        ' Do necessary upgrades
+        Dim priorVersion = mySettings.ProHelpVersion
+        Select Case priorVersion
+            Case ""
+                ' Doesn't have extended length of t_files.f_altname
+                Dim cmd1 As SqlCommand = New SqlCommand("use ProHelp", connection)
+                Dim cmd2 As SqlCommand = New SqlCommand("Alter table t_files Alter column f_altname varchar(250)", connection)
+                connection.Open()
+                cmd1.ExecuteNonQuery()
+                cmd2.ExecuteNonQuery()
+                mySettings.ProHelpVersion = "1.4.36"
+                MessageBox.Show("Upgraded f_altname")
+            Case "1.4.36"
+        End Select
 
         If szDebug = "Yes" Then MessageBox.Show("filling")
         Me.T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
@@ -144,8 +170,17 @@
     End Sub
 
     Private Sub BtnSetup_Click(sender As Object, e As EventArgs) Handles BtnSetup.Click
+        Dim mySettings As New PPLInk.Settings, newSettings As PPLInk.Settings
+        Dim szConn = mySettings.ProHelpConnectionUser
         F_SetUp.ShowDialog()
         TxtSearch.Focus()
+
+        newSettings = New PPLInk.Settings
+        If szConn <> newSettings.ProHelpConnectionUser Then
+            MessageBox.Show("The database connection has been changed.  PPLink needs to close.  Please reopen it to continue",
+                            "PowerPoint Link: Setup", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Close()
+        End If
     End Sub
 
     Private Sub F_Main_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -198,8 +233,12 @@
     End Sub
 
     Private Sub BtnHelp_Click(sender As Object, e As EventArgs) Handles BtnHelp.Click
-        MessageBox.Show("Help Pages will be available in the next release", "Powerpoint Link: Help",
+        Try
+            Process.Start(Application.StartupPath & "\PPLink Documentation.pdf")
+        Catch ex As Exception
+            MessageBox.Show("Can't open Help Pages" & vbCrLf & ex.Message, "Powerpoint Link: Help",
                         MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End Try
     End Sub
 
     Private Sub BtnLoadList_Click(sender As Object, e As EventArgs) Handles BtnLoadList.Click
@@ -214,6 +253,9 @@ End Class
 
 'Version number
 'Z.Y.X.W - Z.Y is major/minor version; X is VS publish number
+'1.4.36 get version number from the deployment
+'1.4.33 make instructions text read only; extend Import File List feature; Alternative Name field extended to 250 characters
+'1.4.32 included list import and Help button to open PDF file
 '1.3.28 fix bug in handling keys in search box (cleared text on arrow up or down)
 '1.3.27 fix bug in table connection in DlgLoadList (tried to connect iwhen setting checkbox on load)
 '1.3.26 add save and load for Play Lists
