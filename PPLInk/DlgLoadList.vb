@@ -130,7 +130,6 @@ Public Class DlgLoadList
 
             For Each deleteRow In searchView.FindRows(iListNo)
                 Tx_playlist_songTableAdapter.Delete(deleteRow("REC_NO"), deleteRow("LIST_NO"), deleteRow("SEQ_NO"), deleteRow("FILE_NO"))
-                'deleteRow.Delete()
             Next
 
             ProHelpDataSet.tx_playlist_song.AcceptChanges()

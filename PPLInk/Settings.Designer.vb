@@ -29,7 +29,7 @@ Partial Friend NotInheritable Class Settings
     <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("Data Source=KR2012\SQLEXPRESS;Initial Catalog=ProHelp;Integrated Security=True")>  _
+     Global.System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\v11.0;Initial Catalog=ProHelp;Integrated Security=True")>  _
     Public ReadOnly Property ProHelpConnectionString() As String
         Get
             Return CType(Me("ProHelpConnectionString"),String)

@@ -1,5 +1,6 @@
 ﻿Imports System.Data.Linq
 Imports System.Data.Sql
+Imports System.Windows.Input
 
 
 Public Class F_SetUp
@@ -7,6 +8,9 @@ Public Class F_SetUp
         Dim mySettings As New PPLInk.Settings
         If mySettings.ProHelpServerUser <> "" Then
             TxtServer.Text = mySettings.ProHelpServerUser
+        Else
+            ' string for MS LocalDB
+            TxtServer.Text = "(LocalDB)\v11.0"
         End If
         Dim szFolder As String = mySettings.ProHelpMasterFolder
         If szFolder <> "" Then
@@ -26,17 +30,19 @@ Public Class F_SetUp
         BtnTest3.Enabled = False
         BtnBrowse.Enabled = False
         OK_Button.Enabled = False
-        '       GetServers() 'CmbServer.Items)
     End Sub
 
     Private Sub BtnTest1_Click(sender As Object, e As EventArgs) Handles BtnTest1.Click
         ' test the connection
-        Dim szConn As String = "Data Source=" & TxtServer.Text & ";Integrated Security=True"
+        Cursor = Cursors.WaitCursor
+        Dim szConn As String = "Data Source=" & TxtServer.Text & ";Integrated Security=True;Connection Timeout=5"
         Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
         Try
             connection.Open()
         Catch ex As Exception
-            MessageBox.Show("That connection failed.  Please try another server name:" & vbCrLf & "[" & ex.Message & "]")
+            MessageBox.Show("Connection " & TxtServer.Text & " failed.  Please try another." & vbCrLf & "[" & ex.Message & "]",
+                            "PowerPoint Link: Testing SQL Connection")
+            Cursor = Cursors.Default
             Exit Sub
         End Try
 
@@ -48,7 +54,9 @@ Public Class F_SetUp
         GroupBox2.BackColor = Color.FromArgb(255, 255, 230)
         ChkStep1.Text = "Step 1. Succeeded"
         ChkStep1.Checked = True
+        BtnTest1.Enabled = False
         BtnTest2.Enabled = True
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub OK_Button_Click(sender As Object, e As EventArgs) Handles OK_Button.Click
@@ -75,6 +83,7 @@ Public Class F_SetUp
 
     Private Sub BtnTest2_Click(sender As Object, e As EventArgs) Handles BtnTest2.Click
         ' test the database
+        Cursor = Cursors.WaitCursor
         Dim mySettings As New PPLInk.Settings
         Dim szConn As String = "Data Source=" & mySettings.ProHelpServerUser & ";" & mySettings.ProHelpConnectionSuffix
         Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
@@ -83,19 +92,23 @@ Public Class F_SetUp
 
         Catch ex1 As Exception
             ' can't open the database
-            MessageBox.Show("That connection failed." & vbCrLf & "[" & ex1.Message & "]" & vbCrLf & vbCrLf &
+            Cursor = Cursors.Default
+            MessageBox.Show("The connection failed." & vbCrLf & "[" & ex1.Message & "]" & vbCrLf & vbCrLf &
                             "Assuming that there is no ProHelp database installed and will install it now.",
                             "PowerPoint Link: Database not found", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             ' install it
+            Cursor = Cursors.WaitCursor
             Try
                 szConn = "Data Source=" & mySettings.ProHelpServerUser & ";Integrated Security=True"
                 Dim DBDataContext As DataContext
                 DBDataContext = New DBCreateDataContext(szConn)
                 DBDataContext.CreateDatabase()
+                DBDataContext.Dispose()
 
             Catch ex2 As Exception
                 ' can't install it
+                Cursor = Cursors.Default
                 MessageBox.Show("There was a failure while trying to install the ProHelp database.  Please contact the application vendor" &
                                 "And provide the following message:" & vbCrLf & ex2.Message,
                                 "PowerPoint Link: Install failure", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -107,6 +120,7 @@ Public Class F_SetUp
             End Try
         End Try
 
+
         ' if successful
         mySettings.ProHelpConnectionUser = szConn
         mySettings.Save()
@@ -114,11 +128,14 @@ Public Class F_SetUp
         GroupBox3.BackColor = Color.FromArgb(255, 255, 230)
         ChkStep2.Text = "Step 2. Succeeded"
         ChkStep2.Checked = True
+        BtnTest2.Enabled = False
         BtnTest3.Enabled = True
         BtnBrowse.Enabled = True
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub BtnBrowse_Click(sender As Object, e As EventArgs) Handles BtnBrowse.Click
+        FolderBrowserDialog1.SelectedPath = TxtFolder.Text
         If FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             TxtFolder.Text = FolderBrowserDialog1.SelectedPath
         Else
@@ -130,10 +147,12 @@ Public Class F_SetUp
 
     Private Sub BtnTest3_Click(sender As Object, e As EventArgs) Handles BtnTest3.Click
         ' fill the database
+        Cursor = Cursors.WaitCursor
         Dim FillForm As New F_FillTables
         Dim result As DialogResult
 
         If Dir(TxtFolder.Text, vbDirectory) = "" Then
+            Cursor = Cursors.Default
             MessageBox.Show("Please choose a valid folder name")
             Exit Sub
         End If
@@ -142,6 +161,7 @@ Public Class F_SetUp
         FillForm.LoadFolder(TxtFolder.Text)
         result = FillForm.ShowDialog()
         If result <> DialogResult.OK Then
+            Cursor = Cursors.Default
             MessageBox.Show("PowerPoint Link cannot work without the tables filled")
             Exit Sub
         End If
@@ -154,6 +174,7 @@ Public Class F_SetUp
         ChkStep3.Text = "Step 3. Succeeded"
         ChkStep3.Checked = True
         OK_Button.Enabled = True
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub ParseKeyValue(szInput As String, szSeparator As String, ByRef szParms() As String)

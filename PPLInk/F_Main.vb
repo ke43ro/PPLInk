@@ -6,20 +6,20 @@ Public Class F_Main
     Private PlayList As New PlayList
 
     Private Sub F_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Dim PlayList As New PlayList
         Dim mySettings As New PPLInk.Settings
         Dim szConn = mySettings.ProHelpConnectionUser
         Dim szDebug = mySettings.ProHelpDebug
-        Dim connection As SqlConnection
+        Dim connection As New SqlConnection(mySettings.ProHelpConnectionString)
         Dim szVersion As String
 
         Try
             szVersion = PPLInk.My.Application.Deployment.CurrentVersion.ToString
         Catch
-            szVersion = "1.4.36 Proto"
+            szVersion = "1.4.0.42 Proto"
         End Try
         LblVersion.Text = szVersion
-        'Z.Y.X.W - Z.Y is major/minor version; X is VS publish number; W is not used
+        'Z.Y.X.W - Z.Y is major/minor version; X is build number, always 0; W is VS publish number
+        'Z.X.Y are set in Project Properties, W is automatic (also controlled in Prroject Properties)
         'See the end of the file for history
 
         If szDebug = "Yes" Then MessageBox.Show("loading")
@@ -40,6 +40,7 @@ Public Class F_Main
 
         ' Do necessary upgrades
         Dim priorVersion = mySettings.ProHelpVersion
+        Dim bUpdated As Boolean = False
         Select Case priorVersion
             Case ""
                 ' Doesn't have extended length of t_files.f_altname
@@ -48,10 +49,40 @@ Public Class F_Main
                 connection.Open()
                 cmd1.ExecuteNonQuery()
                 cmd2.ExecuteNonQuery()
-                mySettings.ProHelpVersion = "1.4.36"
-                MessageBox.Show("Upgraded f_altname")
+                mySettings.ProHelpVersion = "1.4.0.36"
+                mySettings.Save()
+                MessageBox.Show("Upgraded length of t_files.f_altname",
+                                "PowerPointLink: Automatic Upgrader", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                bUpdated = True
+
             Case "1.4.36"
+                mySettings.ProHelpVersion = "1.4.0.36"
+                mySettings.Save()
+
+            Case szVersion
+                ' NOP
+
+            Case >= "1.4.0.39"
+                mySettings.ProHelpVersion = szVersion
+                mySettings.Save()
+
+            Case >= "1.4.0.36"
+                Dim cmd1 As SqlCommand = New SqlCommand("use ProHelp", connection)
+                Dim cmd2 As SqlCommand = New SqlCommand("update t_files set last_dt = create_dt where last_dt is null", connection)
+                connection.Open()
+                cmd1.ExecuteNonQuery()
+                cmd2.ExecuteNonQuery()
+                mySettings.ProHelpVersion = szVersion
+                mySettings.Save()
+                MessageBox.Show("Upgraded t_files.last_dt - never null, 1.4.0.36")
+                bUpdated = True
+
         End Select
+        If bUpdated Then
+            MessageBox.Show("An upgrade was done.  PowerPoint Link must be restarted",
+                                "PowerPointLink: Automatic Upgrader", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Close()
+        End If
 
         If szDebug = "Yes" Then MessageBox.Show("filling")
         Me.T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
@@ -172,7 +203,7 @@ Public Class F_Main
     Private Sub BtnSetup_Click(sender As Object, e As EventArgs) Handles BtnSetup.Click
         Dim mySettings As New PPLInk.Settings, newSettings As PPLInk.Settings
         Dim szConn = mySettings.ProHelpConnectionUser
-        F_SetUp.ShowDialog()
+        Dim Result = F_SetUp.ShowDialog()
         TxtSearch.Focus()
 
         newSettings = New PPLInk.Settings
@@ -181,6 +212,11 @@ Public Class F_Main
                             "PowerPoint Link: Setup", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Close()
         End If
+
+        ' Has T_FILES been modified?
+        If Result = DialogResult.Yes Then
+            T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
+        End If
     End Sub
 
     Private Sub F_Main_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -188,7 +224,14 @@ Public Class F_Main
     End Sub
 
     Private Sub BtnAdvanced_Click(sender As Object, e As EventArgs) Handles BtnAdvanced.Click
+        'KWR 20180615: Fill table is so fast, do it anyway since new structure is harder to check for changes
+        'Dim Result = F_Advanced.ShowDialog()
+        ' Has T_FILES been modified?
+        'If Result = DialogResult.Yes Then
+        '   T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
+        'End If
         F_Advanced.ShowDialog()
+        T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
     End Sub
 
     Private Sub LBPlayList_KeyDown(sender As Object, e As KeyEventArgs) Handles LBPlayList.KeyDown
@@ -252,8 +295,11 @@ Public Class F_Main
 End Class
 
 'Version number
-'Z.Y.X.W - Z.Y is major/minor version; X is VS publish number
-'1.4.36 get version number from the deployment
+'Z.Y.X.W - Z.Y.X is major version.minor version.build; W is VS publish number
+'1.4.0.42 Update File List work completed; Database modified so that no datetime fields are ever NULL
+'1.4.0.37 expanded Advanced menu structure; added Edit Files and Update File List
+'1.4.0.36 get version number from the deployment
+'X not used below
 '1.4.33 make instructions text read only; extend Import File List feature; Alternative Name field extended to 250 characters
 '1.4.32 included list import and Help button to open PDF file
 '1.3.28 fix bug in handling keys in search box (cleared text on arrow up or down)

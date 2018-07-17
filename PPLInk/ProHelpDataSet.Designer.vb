@@ -634,7 +634,7 @@ Partial Public Class ProHelpDataSet
             Me.columnf_name.MaxLength = 80
             Me.columnf_path.AllowDBNull = false
             Me.columnf_path.MaxLength = 250
-            Me.columnf_altname.MaxLength = 250
+            Me.columnf_altname.MaxLength = 80
             Me.columnselected.MaxLength = 1
             Me.columncreate_dt.AllowDBNull = false
             Me.columnlast_action.MaxLength = 30
@@ -1005,7 +1005,7 @@ Partial Public Class ProHelpDataSet
             Me.columnf_name.MaxLength = 80
             Me.columnf_path.AllowDBNull = false
             Me.columnf_path.MaxLength = 250
-            Me.columnf_altname.MaxLength = 250
+            Me.columnf_altname.MaxLength = 80
             Me.columnselected.MaxLength = 1
             Me.columncreate_dt.AllowDBNull = false
             Me.columnlast_action.MaxLength = 30
@@ -2653,13 +2653,13 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.PPLInk.My.MySettings.Default.ProHelpConnectionString
+            Me._connection.ConnectionString = Global.PPLInk.Settings.Default.ProHelpConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(1) {}
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(2) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        file_no, f_name, f_path, f_altname, selected, create_dt, last_dt, l"& _ 
@@ -2667,11 +2667,16 @@ Namespace ProHelpDataSetTableAdapters
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
-            Me._commandCollection(1).CommandText = "SELECT create_dt, f_altname, f_name, f_path, file_no, inactive, last_action, last"& _ 
+            Me._commandCollection(1).CommandText = "SELECT        file_no, f_name, f_path, f_altname, selected, create_dt, last_dt, l"& _ 
+                "ast_action, inactive"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            t_files"
+            Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(2) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(2).Connection = Me.Connection
+            Me._commandCollection(2).CommandText = "SELECT create_dt, f_altname, f_name, f_path, file_no, inactive, last_action, last"& _ 
                 "_dt, selected FROM t_files WHERE (inactive = 'N') AND (f_name LIKE '%' + @text +"& _ 
                 " '%') OR (inactive = 'N') AND (f_altname LIKE '%' + @text + '%')"
-            Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(1).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@text", Global.System.Data.SqlDbType.VarChar, 80, Global.System.Data.ParameterDirection.Input, 0, 0, "f_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@text", Global.System.Data.SqlDbType.VarChar, 80, Global.System.Data.ParameterDirection.Input, 0, 0, "f_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2702,8 +2707,32 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByPhrase(ByVal dataTable As ProHelpDataSet.t_filesDataTable, ByVal text As String) As Integer
+        Public Overloads Overridable Function FillAll(ByVal dataTable As ProHelpDataSet.t_filesDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
+        Public Overloads Overridable Function GetDataAll() As ProHelpDataSet.t_filesDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            Dim dataTable As ProHelpDataSet.t_filesDataTable = New ProHelpDataSet.t_filesDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
+        Public Overloads Overridable Function FillByPhrase(ByVal dataTable As ProHelpDataSet.t_filesDataTable, ByVal text As String) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(2)
             If (text Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("text")
             Else
@@ -3168,7 +3197,7 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.PPLInk.My.MySettings.Default.ProHelpConnectionString
+            Me._connection.ConnectionString = Global.PPLInk.Settings.Default.ProHelpConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3463,7 +3492,7 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.PPLInk.My.MySettings.Default.ProHelpConnectionString
+            Me._connection.ConnectionString = Global.PPLInk.Settings.Default.ProHelpConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3860,7 +3889,7 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.PPLInk.My.MySettings.Default.ProHelpConnectionString
+            Me._connection.ConnectionString = Global.PPLInk.Settings.Default.ProHelpConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

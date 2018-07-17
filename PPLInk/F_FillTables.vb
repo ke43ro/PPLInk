@@ -14,12 +14,24 @@ Public Class F_FillTables
     End Sub
 
     Private Sub BtnRun_Click(sender As Object, e As EventArgs) Handles BtnRun.Click
+        Dim Result As DialogResult
+
         If Dir(szFolder, vbDirectory) = "" Then
             MessageBox.Show("This feature can only be run if a valid folder is specified",
                         "PowerPoint Link: Finding the songs", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Exit Sub
         End If
 
+        If filesView.Count > 0 Then
+            Result = MessageBox.Show("There are already records in the Files Table." & vbCrLf &
+                "This feature is only intended for use on first setting up PowerPoint Link." & vbCrLf &
+                "There is an update feature under the Advanced Options." & vbCrLf & vbCrLf &
+                "Do you really wish to continue?",
+                "PowerPoint Link: Finding the songs", MessageBoxButtons.YesNo, MessageBoxIcon.Stop)
+            If Result = DialogResult.No Then Exit Sub
+        End If
+
+        Cursor = Cursors.WaitCursor
         BtnClose.Enabled = False
 
         CheckFiles()
@@ -65,6 +77,7 @@ Public Class F_FillTables
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
+        Cursor = Cursors.Default
         BtnClose.Enabled = True
         iFilesStart = T_filesBindingSource.Count
     End Sub
@@ -93,11 +106,13 @@ Public Class F_FillTables
 
     Private Sub BtnEmpty_Click(sender As Object, e As EventArgs) Handles BtnEmpty.Click
         Dim msgResult As DialogResult _
-            = MessageBox.Show("This will delete all records from the T_FILES table.  Are you sure you want to do this?",
+            = MessageBox.Show("This will attempt to delete all records from the T_FILES table." & vbCrLf &
+                              "The process will fail and do nothing if any play lists have been saved." & vbCrLf & vbCrLf &
+                              "Are you sure you want to do this?",
                         "PowerPoint Link: Set Up", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
         If msgResult = DialogResult.No Then Exit Sub
 
-        'Dim filesView As DataView = ProHelpDataSet.Tables("t_files").DefaultView
+        Cursor = Cursors.WaitCursor
         Dim fViewRow As DataRowView
 
         txtResults.Text = txtResults.Text & vbCrLf & "Emptying Songs Table..."
@@ -109,6 +124,7 @@ Public Class F_FillTables
             Next
         End If
 
+        Cursor = Cursors.Default
         iFilesStart = 0
         iFilesEnd = 0
         nMatched = 0
@@ -136,7 +152,7 @@ Public Class F_FillTables
                         LookUp = searchView.Find(NextFile)
                         If LookUp < 0 Then
                             nNew = nNew + 1
-                            T_filesTableAdapter.Insert(NextFile, szPath, "", "", Now(), Nothing, "", "N")
+                            T_filesTableAdapter.Insert(NextFile, szPath, "", "", Now(), Now(), "", "N")
                         Else
                             nAlready = nAlready + 1
                         End If

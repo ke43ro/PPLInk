@@ -117,9 +117,39 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="ProHelpDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="T_filesBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>155, 17</value>
+  </metadata>
+  <metadata name="T_filesTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>319, 17</value>
+  </metadata>
+  <metadata name="TableAdapterManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>477, 17</value>
+  </metadata>
+  <metadata name="Tx_playlist_songTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
+  <metadata name="Tx_playlist_songBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>650, 17</value>
+  </metadata>
   <data name="TextBox1.Text" xml:space="preserve">
-    <value>Finding the correct Data Source name for your SQL Server can be tricky.  You need to define a string that has the form [server name]\[server instance].  If you have installed Microsoft SQL Express, the server instance name will be "SQLExpress" and if you have installed Microsoft SQLLocalDB, it will be "MSSQLLocalDB".  The server name is not so easy.  It can be "(localDB)", "." or the computer name.
+    <value>This feature allows you to update the database so that the list of files shown matches those on your disk.  There are quite a few options.
 
-If you press the button "Check" below, it will attempt to list the currently visible servers for you, but the code doesn't alwasy find all the vissible servers and it shows blank for the name of the default instance.  Check the vendor's support site to get the appropriate name to use in the connection string for the default instance.</value>
+Before checking the disk data, the program scans the database to remove duplicate records.  When duplicates are found, if the duplicate appears in a Play List, the reference is replaced by the original.
+
+The File table will be updated against the files found in the folder shown below.  If your collection has been moved, please use Browse to select the correct location</value>
   </data>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>229, 56</value>
+  </metadata>
+  <data name="TextBox3.Text" xml:space="preserve">
+    <value>If a file listed in the database as ACTIVE is not found on the disk and does not appear in any Play List, the record will be removed from the database.
+If the file is found in one or more Play Lists, you can select the action (hover over each button for more information):</value>
+  </data>
+  <metadata name="FolderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>328, 56</value>
+  </metadata>
 </root>

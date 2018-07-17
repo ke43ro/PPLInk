@@ -52,7 +52,7 @@ Partial Public Class DBCreateDataContext
   #End Region
 	
 	Public Sub New()
-		MyBase.New(Global.PPLInk.My.MySettings.Default.ProHelpConnectionString, mappingSource)
+		MyBase.New(Global.PPLInk.Settings.Default.ProHelpConnectionString, mappingSource)
 		OnCreated
 	End Sub
 	

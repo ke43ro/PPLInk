@@ -35,7 +35,7 @@ Partial Class F_ServerHelp
         Me.TextBox1.Location = New System.Drawing.Point(3, 34)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(474, 121)
+        Me.TextBox1.Size = New System.Drawing.Size(474, 149)
         Me.TextBox1.TabIndex = 0
         Me.TextBox1.Text = resources.GetString("TextBox1.Text")
         '
@@ -51,7 +51,7 @@ Partial Class F_ServerHelp
         '
         'BtnCheck
         '
-        Me.BtnCheck.Location = New System.Drawing.Point(203, 175)
+        Me.BtnCheck.Location = New System.Drawing.Point(203, 197)
         Me.BtnCheck.Name = "BtnCheck"
         Me.BtnCheck.Size = New System.Drawing.Size(75, 23)
         Me.BtnCheck.TabIndex = 2
@@ -61,15 +61,15 @@ Partial Class F_ServerHelp
         'LstServers
         '
         Me.LstServers.FormattingEnabled = True
-        Me.LstServers.Location = New System.Drawing.Point(3, 223)
+        Me.LstServers.Location = New System.Drawing.Point(3, 237)
         Me.LstServers.Name = "LstServers"
-        Me.LstServers.Size = New System.Drawing.Size(474, 95)
+        Me.LstServers.Size = New System.Drawing.Size(474, 82)
         Me.LstServers.TabIndex = 3
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(9, 204)
+        Me.Label2.Location = New System.Drawing.Point(9, 218)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(100, 13)
         Me.Label2.TabIndex = 4

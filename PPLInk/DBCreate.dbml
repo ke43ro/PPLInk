@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ProHelp" Class="DBCreateDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=KR2012\SQLEXPRESS;Initial Catalog=ProHelp;Integrated Security=True" SettingsObjectName="PPLInk.My.MySettings" SettingsPropertyName="ProHelpConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=KR2012\SQLEXPRESS;Initial Catalog=ProHelp;Integrated Security=True" SettingsObjectName="PPLInk.Settings" SettingsPropertyName="ProHelpConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.t_files" Member="t_files">
     <Type Name="t_file">
       <Column Name="file_no" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

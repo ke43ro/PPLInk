@@ -23,14 +23,7 @@ Partial Class F_Advanced
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.BtnExport = New System.Windows.Forms.Button()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.BtnImport = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.ChkAddInactive = New System.Windows.Forms.CheckBox()
-        Me.ChkRemInactive = New System.Windows.Forms.CheckBox()
-        Me.ChkAddSelect = New System.Windows.Forms.CheckBox()
-        Me.ChkRemoveSelect = New System.Windows.Forms.CheckBox()
+        Me.BtnListIO = New System.Windows.Forms.Button()
         Me.BtnEdit = New System.Windows.Forms.Button()
         Me.BtnUpdate = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
@@ -38,109 +31,22 @@ Partial Class F_Advanced
         Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
         Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
-        Me.ChkReplaceAlt = New System.Windows.Forms.CheckBox()
-        Me.ChkAddAlt = New System.Windows.Forms.CheckBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.GroupBox1.SuspendLayout()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'BtnExport
+        'BtnListIO
         '
-        Me.BtnExport.Location = New System.Drawing.Point(114, 19)
-        Me.BtnExport.Name = "BtnExport"
-        Me.BtnExport.Size = New System.Drawing.Size(161, 33)
-        Me.BtnExport.TabIndex = 0
-        Me.BtnExport.Text = "Export File List"
-        Me.BtnExport.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.TextBox2)
-        Me.GroupBox1.Controls.Add(Me.ChkAddAlt)
-        Me.GroupBox1.Controls.Add(Me.ChkReplaceAlt)
-        Me.GroupBox1.Controls.Add(Me.BtnImport)
-        Me.GroupBox1.Controls.Add(Me.TextBox1)
-        Me.GroupBox1.Controls.Add(Me.ChkAddInactive)
-        Me.GroupBox1.Controls.Add(Me.ChkRemInactive)
-        Me.GroupBox1.Controls.Add(Me.ChkAddSelect)
-        Me.GroupBox1.Controls.Add(Me.ChkRemoveSelect)
-        Me.GroupBox1.Location = New System.Drawing.Point(13, 64)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(359, 261)
-        Me.GroupBox1.TabIndex = 1
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Import File List"
-        '
-        'BtnImport
-        '
-        Me.BtnImport.Location = New System.Drawing.Point(101, 214)
-        Me.BtnImport.Name = "BtnImport"
-        Me.BtnImport.Size = New System.Drawing.Size(161, 33)
-        Me.BtnImport.TabIndex = 6
-        Me.BtnImport.Text = "Import"
-        Me.BtnImport.UseVisualStyleBackColor = True
-        '
-        'TextBox1
-        '
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.TextBox1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.TextBox1.Location = New System.Drawing.Point(12, 112)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(342, 35)
-        Me.TextBox1.TabIndex = 5
-        Me.TextBox1.TabStop = False
-        Me.TextBox1.Text = "* Import does not check whether or not the associated files exist on disk." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "  Use" &
-    " Table Update to verify file existence"
-        '
-        'ChkAddInactive
-        '
-        Me.ChkAddInactive.AutoSize = True
-        Me.ChkAddInactive.Location = New System.Drawing.Point(12, 92)
-        Me.ChkAddInactive.Name = "ChkAddInactive"
-        Me.ChkAddInactive.Size = New System.Drawing.Size(240, 17)
-        Me.ChkAddInactive.TabIndex = 3
-        Me.ChkAddInactive.Text = "Set my Inactive flags if the Import is Inactive *"
-        Me.ChkAddInactive.UseVisualStyleBackColor = True
-        '
-        'ChkRemInactive
-        '
-        Me.ChkRemInactive.AutoSize = True
-        Me.ChkRemInactive.Location = New System.Drawing.Point(12, 68)
-        Me.ChkRemInactive.Name = "ChkRemInactive"
-        Me.ChkRemInactive.Size = New System.Drawing.Size(282, 17)
-        Me.ChkRemInactive.TabIndex = 2
-        Me.ChkRemInactive.Text = "Remove my Inactive flags if the Import is not Inactive *"
-        Me.ChkRemInactive.UseVisualStyleBackColor = True
-        '
-        'ChkAddSelect
-        '
-        Me.ChkAddSelect.AutoSize = True
-        Me.ChkAddSelect.Location = New System.Drawing.Point(12, 44)
-        Me.ChkAddSelect.Name = "ChkAddSelect"
-        Me.ChkAddSelect.Size = New System.Drawing.Size(223, 17)
-        Me.ChkAddSelect.TabIndex = 1
-        Me.ChkAddSelect.Text = "Set my Selected flags if Import is Selected"
-        Me.ChkAddSelect.UseVisualStyleBackColor = True
-        '
-        'ChkRemoveSelect
-        '
-        Me.ChkRemoveSelect.AutoSize = True
-        Me.ChkRemoveSelect.Location = New System.Drawing.Point(12, 20)
-        Me.ChkRemoveSelect.Name = "ChkRemoveSelect"
-        Me.ChkRemoveSelect.Size = New System.Drawing.Size(283, 17)
-        Me.ChkRemoveSelect.TabIndex = 0
-        Me.ChkRemoveSelect.Text = "Remove my Selected flags if the Import is not Selected"
-        Me.ChkRemoveSelect.UseVisualStyleBackColor = True
+        Me.BtnListIO.Location = New System.Drawing.Point(114, 19)
+        Me.BtnListIO.Name = "BtnListIO"
+        Me.BtnListIO.Size = New System.Drawing.Size(161, 33)
+        Me.BtnListIO.TabIndex = 0
+        Me.BtnListIO.Text = "File List Import/Export"
+        Me.BtnListIO.UseVisualStyleBackColor = True
         '
         'BtnEdit
         '
-        Me.BtnEdit.Enabled = False
-        Me.BtnEdit.Location = New System.Drawing.Point(114, 331)
+        Me.BtnEdit.Location = New System.Drawing.Point(114, 70)
         Me.BtnEdit.Name = "BtnEdit"
         Me.BtnEdit.Size = New System.Drawing.Size(161, 33)
         Me.BtnEdit.TabIndex = 2
@@ -149,8 +55,7 @@ Partial Class F_Advanced
         '
         'BtnUpdate
         '
-        Me.BtnUpdate.Enabled = False
-        Me.BtnUpdate.Location = New System.Drawing.Point(114, 381)
+        Me.BtnUpdate.Location = New System.Drawing.Point(114, 120)
         Me.BtnUpdate.Name = "BtnUpdate"
         Me.BtnUpdate.Size = New System.Drawing.Size(161, 33)
         Me.BtnUpdate.TabIndex = 3
@@ -184,75 +89,28 @@ Partial Class F_Advanced
         Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing
         Me.TableAdapterManager.UpdateOrder = PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
         '
-        'ChkReplaceAlt
-        '
-        Me.ChkReplaceAlt.AutoSize = True
-        Me.ChkReplaceAlt.Location = New System.Drawing.Point(12, 144)
-        Me.ChkReplaceAlt.Name = "ChkReplaceAlt"
-        Me.ChkReplaceAlt.Size = New System.Drawing.Size(249, 17)
-        Me.ChkReplaceAlt.TabIndex = 7
-        Me.ChkReplaceAlt.Text = "Replace Alternative text with that in the import *"
-        Me.ChkReplaceAlt.UseVisualStyleBackColor = True
-        '
-        'ChkAddAlt
-        '
-        Me.ChkAddAlt.AutoSize = True
-        Me.ChkAddAlt.Location = New System.Drawing.Point(12, 168)
-        Me.ChkAddAlt.Name = "ChkAddAlt"
-        Me.ChkAddAlt.Size = New System.Drawing.Size(242, 17)
-        Me.ChkAddAlt.TabIndex = 8
-        Me.ChkAddAlt.Text = "Extend Alternative text with that in the import *"
-        Me.ChkAddAlt.UseVisualStyleBackColor = True
-        '
-        'TextBox2
-        '
-        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox2.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.TextBox2.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.TextBox2.Location = New System.Drawing.Point(8, 188)
-        Me.TextBox2.Multiline = True
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(342, 21)
-        Me.TextBox2.TabIndex = 9
-        Me.TextBox2.TabStop = False
-        Me.TextBox2.Text = "* If neither is selected, alternative text in the import will be ignored"
-        '
         'F_Advanced
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(388, 427)
+        Me.ClientSize = New System.Drawing.Size(388, 184)
         Me.Controls.Add(Me.BtnUpdate)
         Me.Controls.Add(Me.BtnEdit)
-        Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.BtnExport)
+        Me.Controls.Add(Me.BtnListIO)
         Me.Name = "F_Advanced"
-        Me.Text = "F_Advanced"
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.Text = "Advanced Settings"
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents BtnExport As Button
+    Friend WithEvents BtnListIO As Button
     Friend WithEvents ProHelpDataSet As ProHelpDataSet
     Friend WithEvents T_filesBindingSource As BindingSource
     Friend WithEvents T_filesTableAdapter As ProHelpDataSetTableAdapters.t_filesTableAdapter
     Friend WithEvents TableAdapterManager As ProHelpDataSetTableAdapters.TableAdapterManager
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents BtnImport As Button
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents ChkAddInactive As CheckBox
-    Friend WithEvents ChkRemInactive As CheckBox
-    Friend WithEvents ChkAddSelect As CheckBox
-    Friend WithEvents ChkRemoveSelect As CheckBox
     Friend WithEvents BtnEdit As Button
     Friend WithEvents BtnUpdate As Button
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents ChkAddAlt As CheckBox
-    Friend WithEvents ChkReplaceAlt As CheckBox
 End Class

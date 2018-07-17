@@ -75,7 +75,7 @@ Partial Class F_SetUp
         Me.TxtServer.Name = "TxtServer"
         Me.TxtServer.Size = New System.Drawing.Size(179, 20)
         Me.TxtServer.TabIndex = 4
-        Me.TxtServer.Text = "(localDB)\MSSQLLocalDB"
+        Me.TxtServer.Text = "(LocalDB)\v11.0"
         '
         'TxtAdvice2
         '
@@ -240,6 +240,7 @@ Partial Class F_SetUp
         '
         'FolderBrowserDialog1
         '
+        Me.FolderBrowserDialog1.Description = "Please find the MASTERS folder as described above the Browse button"
         Me.FolderBrowserDialog1.ShowNewFolderButton = False
         '
         'TxtFolder
