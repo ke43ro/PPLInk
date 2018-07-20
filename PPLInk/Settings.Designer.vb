@@ -14,7 +14,7 @@ Option Explicit On
 
 
 <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
- Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")>  _
+ Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")>  _
 Partial Friend NotInheritable Class Settings
     Inherits Global.System.Configuration.ApplicationSettingsBase
     
@@ -117,6 +117,30 @@ Partial Friend NotInheritable Class Settings
         End Get
         Set
             Me("ProHelpVersion") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("Y")>  _
+    Public Property ProHelpSelected() As String
+        Get
+            Return CType(Me("ProHelpSelected"),String)
+        End Get
+        Set
+            Me("ProHelpSelected") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("Y")>  _
+    Public Property ProHelpAutoShortList() As String
+        Get
+            Return CType(Me("ProHelpAutoShortList"),String)
+        End Get
+        Set
+            Me("ProHelpAutoShortList") = value
         End Set
     End Property
 End Class

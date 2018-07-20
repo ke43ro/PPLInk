@@ -153,6 +153,8 @@ Partial Class F_UpdateFileList
         Me.RBtnMakeSelect.TabStop = True
         Me.RBtnMakeSelect.Text = "Alter the file status to SELECTED so that it will now appear in the selection sho" &
     "rt list (RECOMMENDED)"
+        Me.ToolTip1.SetToolTip(Me.RBtnMakeSelect, "Files found on the disk that were not previously in the database have probebly be" &
+        "en recently added so they are probably wanted on the Short List.")
         Me.RBtnMakeSelect.UseVisualStyleBackColor = True
         '
         'RBtnNoSelect
@@ -160,11 +162,12 @@ Partial Class F_UpdateFileList
         Me.RBtnNoSelect.AutoSize = True
         Me.RBtnNoSelect.Location = New System.Drawing.Point(30, 53)
         Me.RBtnNoSelect.Name = "RBtnNoSelect"
-        Me.RBtnNoSelect.Size = New System.Drawing.Size(481, 17)
+        Me.RBtnNoSelect.Size = New System.Drawing.Size(97, 17)
         Me.RBtnNoSelect.TabIndex = 0
         Me.RBtnNoSelect.TabStop = True
-        Me.RBtnNoSelect.Text = "Take no action (NB: The selection short list is not implemented in this version o" &
-    "f PowerPoint Link)"
+        Me.RBtnNoSelect.Text = "Take no action"
+        Me.ToolTip1.SetToolTip(Me.RBtnNoSelect, "New files found on the disk will be listed as Active in the database, but the Pow" &
+        "erPoint Link operator will have to turn off the Short List option to see them.")
         Me.RBtnNoSelect.UseVisualStyleBackColor = True
         '
         'GroupBox3
@@ -215,6 +218,8 @@ Partial Class F_UpdateFileList
         Me.RBtnNoActive.TabIndex = 0
         Me.RBtnNoActive.TabStop = True
         Me.RBtnNoActive.Text = "Take no action"
+        Me.ToolTip1.SetToolTip(Me.RBtnNoActive, "Although the file is found on the disk, its Inactive status will prevent the oper" &
+        "ator from using it.")
         Me.RBtnNoActive.UseVisualStyleBackColor = True
         '
         'BtnUpdate

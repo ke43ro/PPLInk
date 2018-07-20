@@ -39,6 +39,7 @@ Partial Class F_List_IO
         Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
         Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox1.SuspendLayout()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -51,6 +52,9 @@ Partial Class F_List_IO
         Me.BtnExport.Size = New System.Drawing.Size(161, 33)
         Me.BtnExport.TabIndex = 0
         Me.BtnExport.Text = "Export File List"
+        Me.ToolTip1.SetToolTip(Me.BtnExport, "Create a file that lists all the records in your database including their Active/" &
+        "Inactive and Selected (Short List) status.  Use  Update File List first for best" &
+        " results.")
         Me.BtnExport.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -112,6 +116,8 @@ Partial Class F_List_IO
         Me.BtnImport.Size = New System.Drawing.Size(161, 33)
         Me.BtnImport.TabIndex = 6
         Me.BtnImport.Text = "Import"
+        Me.ToolTip1.SetToolTip(Me.BtnImport, "Read a file that has been exported from another installation.  Make changes to yo" &
+        "ur database to synchronise (according to your chosen options).")
         Me.BtnImport.UseVisualStyleBackColor = True
         '
         'TextBox1
@@ -127,7 +133,7 @@ Partial Class F_List_IO
         Me.TextBox1.TabIndex = 5
         Me.TextBox1.TabStop = False
         Me.TextBox1.Text = "* Import does not check whether or not the associated files exist on disk." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "  Use" &
-    " Table Update to verify file existence"
+    " Advanced > Update File List to verify file existence."
         '
         'ChkAddInactive
         '
@@ -229,4 +235,5 @@ Partial Class F_List_IO
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents ChkAddAlt As CheckBox
     Friend WithEvents ChkReplaceAlt As CheckBox
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

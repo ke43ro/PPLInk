@@ -21,7 +21,7 @@ Public Class PlayList
             TFadap.Connection = connection
         End If
 
-        TFadap.Fill(myDataSet.t_files)
+        TFadap.FillAll(myDataSet.t_files)
         Dim filesView As DataView = myDataSet.Tables("t_files").DefaultView
         filesView.Sort = "file_no"
 

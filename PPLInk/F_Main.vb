@@ -4,9 +4,11 @@ Imports System.Data.SqlClient
 Public Class F_Main
     Private szText As String
     Private PlayList As New PlayList
+    Private isShort As String
+    Private mySettings As New PPLInk.Settings
+    Private isAutoShort As String
 
     Private Sub F_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim mySettings As New PPLInk.Settings
         Dim szConn = mySettings.ProHelpConnectionUser
         Dim szDebug = mySettings.ProHelpDebug
         Dim connection As New SqlConnection(mySettings.ProHelpConnectionString)
@@ -15,7 +17,7 @@ Public Class F_Main
         Try
             szVersion = PPLInk.My.Application.Deployment.CurrentVersion.ToString
         Catch
-            szVersion = "1.4.0.42 Proto"
+            szVersion = "1.4.0.43 Proto"
         End Try
         LblVersion.Text = szVersion
         'Z.Y.X.W - Z.Y is major/minor version; X is build number, always 0; W is VS publish number
@@ -85,7 +87,15 @@ Public Class F_Main
         End If
 
         If szDebug = "Yes" Then MessageBox.Show("filling")
-        Me.T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
+        If mySettings.ProHelpSelected = "Y" Then
+            ChkShortList.Checked = True
+            isShort = "Y"
+        Else
+            ChkShortList.Checked = False
+            isShort = "N"
+        End If
+        Me.T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files, isShort)
+        isAutoShort = mySettings.ProHelpAutoShortList
         TxtSearch.Focus()
     End Sub
 
@@ -113,6 +123,7 @@ Public Class F_Main
 
         szFName = T_filesDataGridView.SelectedRows(0).Cells(1).Value
         szFile_no = T_filesDataGridView.SelectedRows(0).Cells(0).Value
+        If isAutoShort = "Y" Then AddToShortList(CInt(szFile_no))
         LBInstant.Items.Clear()
         LBInstant.Items.Add(szFile_no & "::" & szFName)
         MyBase.WindowState = FormWindowState.Minimized
@@ -130,7 +141,7 @@ Public Class F_Main
 
     Private Sub TxtSearch_TextChanged(sender As Object, e As EventArgs) Handles TxtSearch.TextChanged
         szText = TxtSearch.Text
-        T_filesTableAdapter.FillByPhrase(ProHelpDataSet.t_files, szText)
+        T_filesTableAdapter.FillByPhrase(ProHelpDataSet.t_files, szText, isShort)
     End Sub
 
     Private Sub TxtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles TxtSearch.KeyDown
@@ -195,13 +206,30 @@ Public Class F_Main
 
         iSongNo = T_filesDataGridView.SelectedRows(0).Cells(0).Value
         szFileName = T_filesDataGridView.SelectedRows(0).Cells(1).Value
+        If isAutoShort = "Y" Then AddToShortList(iSongNo)
 
         '-- Add the new row
         LBPlayList.Items.Add(iSongNo & "::" & szFileName)
     End Sub
 
+    Private Sub AddToShortList(songNo As Integer)
+        Dim iRow As Integer
+        Dim filesView As DataView = ProHelpDataSet.Tables("t_files").DefaultView
+        filesView.Sort = "file_no"
+
+        iRow = filesView.Find(songNo)
+        If iRow >= 0 Then
+            filesView.Item(iRow).BeginEdit()
+            filesView.Item(iRow)("selected") = "Y"
+            filesView.Item(iRow).EndEdit()
+            T_filesTableAdapter.Update(ProHelpDataSet.t_files)
+            'ProHelpDataSet.t_files.AcceptChanges()
+        End If
+    End Sub
+
     Private Sub BtnSetup_Click(sender As Object, e As EventArgs) Handles BtnSetup.Click
-        Dim mySettings As New PPLInk.Settings, newSettings As PPLInk.Settings
+        'Dim mySettings As New PPLInk.Settings,
+        Dim newSettings As PPLInk.Settings
         Dim szConn = mySettings.ProHelpConnectionUser
         Dim Result = F_SetUp.ShowDialog()
         TxtSearch.Focus()
@@ -215,7 +243,7 @@ Public Class F_Main
 
         ' Has T_FILES been modified?
         If Result = DialogResult.Yes Then
-            T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
+            T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files, isShort)
         End If
     End Sub
 
@@ -224,14 +252,9 @@ Public Class F_Main
     End Sub
 
     Private Sub BtnAdvanced_Click(sender As Object, e As EventArgs) Handles BtnAdvanced.Click
-        'KWR 20180615: Fill table is so fast, do it anyway since new structure is harder to check for changes
-        'Dim Result = F_Advanced.ShowDialog()
-        ' Has T_FILES been modified?
-        'If Result = DialogResult.Yes Then
-        '   T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
-        'End If
         F_Advanced.ShowDialog()
-        T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
+        T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files, isShort)
+        isAutoShort = mySettings.ProHelpAutoShortList
     End Sub
 
     Private Sub LBPlayList_KeyDown(sender As Object, e As KeyEventArgs) Handles LBPlayList.KeyDown
@@ -292,10 +315,22 @@ Public Class F_Main
             DlgLoadList.GetList(LBPlayList)
         End If
     End Sub
+
+    Private Sub ChkShortList_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShortList.CheckedChanged
+        If ChkShortList.Checked = True Then
+            isShort = "Y"
+        Else
+            isShort = "N"
+        End If
+        T_filesTableAdapter.FillByPhrase(Me.ProHelpDataSet.t_files, TxtSearch.Text, isShort)
+        mySettings.ProHelpSelected = isShort
+        mySettings.Save()
+    End Sub
 End Class
 
 'Version number
 'Z.Y.X.W - Z.Y.X is major version.minor version.build; W is VS publish number
+'1.4.0.43 Major release candidate: add feature to compare local list with a listing from the MASTER in cloud storage, implement short list
 '1.4.0.42 Update File List work completed; Database modified so that no datetime fields are ever NULL
 '1.4.0.37 expanded Advanced menu structure; added Edit Files and Update File List
 '1.4.0.36 get version number from the deployment

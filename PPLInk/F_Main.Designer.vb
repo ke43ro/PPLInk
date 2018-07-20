@@ -26,6 +26,13 @@ Partial Class F_Main
         Me.LBPlayList = New System.Windows.Forms.ListBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.T_filesDataGridView = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
         Me.TxtSearch = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -38,17 +45,11 @@ Partial Class F_Main
         Me.BtnLoadList = New System.Windows.Forms.Button()
         Me.LBInstant = New System.Windows.Forms.ListBox()
         Me.LblVersion = New System.Windows.Forms.Label()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
         Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
         Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.ChkShortList = New System.Windows.Forms.CheckBox()
         CType(Me.T_filesDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -89,7 +90,53 @@ Partial Class F_Main
         Me.T_filesDataGridView.Size = New System.Drawing.Size(755, 225)
         Me.T_filesDataGridView.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.T_filesDataGridView, "The PPT Name is the actual file name of the song on the hard disk.  The Other Nam" &
-        "e is an alternative title of the song.")
+        "e is an alternative title of the song or other search data.")
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "file_no"
+        Me.DataGridViewTextBoxColumn1.HeaderText = "#"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 5
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "f_name"
+        Me.DataGridViewTextBoxColumn2.HeaderText = "PPT Name"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.Width = 350
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "f_path"
+        Me.DataGridViewTextBoxColumn3.HeaderText = "L"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.Width = 5
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.DataPropertyName = "f_altname"
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Other Name"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.Width = 350
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.DataPropertyName = "inactive"
+        Me.DataGridViewTextBoxColumn9.HeaderText = "X"
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.Width = 5
+        '
+        'T_filesBindingSource
+        '
+        Me.T_filesBindingSource.DataMember = "t_files"
+        Me.T_filesBindingSource.DataSource = Me.ProHelpDataSet
+        '
+        'ProHelpDataSet
+        '
+        Me.ProHelpDataSet.DataSetName = "ProHelpDataSet"
+        Me.ProHelpDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'TxtSearch
         '
@@ -177,7 +224,8 @@ Partial Class F_Main
         Me.BtnLoadList.Size = New System.Drawing.Size(138, 37)
         Me.BtnLoadList.TabIndex = 16
         Me.BtnLoadList.Text = "Save or Load a Play List"
-        Me.ToolTip1.SetToolTip(Me.BtnLoadList, "Load a Play List that was previously saved")
+        Me.ToolTip1.SetToolTip(Me.BtnLoadList, "Save the current Play List to a named record or Load a Play List that was previou" &
+        "sly saved.")
         Me.BtnLoadList.UseVisualStyleBackColor = True
         '
         'LBInstant
@@ -199,52 +247,6 @@ Partial Class F_Main
         Me.LblVersion.TabIndex = 11
         Me.LblVersion.Text = "Version"
         Me.LblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.DataPropertyName = "file_no"
-        Me.DataGridViewTextBoxColumn1.HeaderText = "#"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 5
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.DataPropertyName = "f_name"
-        Me.DataGridViewTextBoxColumn2.HeaderText = "PPT Name"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.Width = 350
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.DataPropertyName = "f_path"
-        Me.DataGridViewTextBoxColumn3.HeaderText = "L"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.Width = 5
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.DataPropertyName = "f_altname"
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Other Name"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.Width = 350
-        '
-        'DataGridViewTextBoxColumn9
-        '
-        Me.DataGridViewTextBoxColumn9.DataPropertyName = "inactive"
-        Me.DataGridViewTextBoxColumn9.HeaderText = "X"
-        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
-        Me.DataGridViewTextBoxColumn9.Width = 5
-        '
-        'T_filesBindingSource
-        '
-        Me.T_filesBindingSource.DataMember = "t_files"
-        Me.T_filesBindingSource.DataSource = Me.ProHelpDataSet
-        '
-        'ProHelpDataSet
-        '
-        Me.ProHelpDataSet.DataSetName = "ProHelpDataSet"
-        Me.ProHelpDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'T_filesTableAdapter
         '
@@ -278,11 +280,24 @@ Partial Class F_Main
         Me.Label4.TabIndex = 20
         Me.Label4.Text = "Double click a row in the table to play that song immediately"
         '
+        'ChkShortList
+        '
+        Me.ChkShortList.AutoSize = True
+        Me.ChkShortList.Location = New System.Drawing.Point(129, 228)
+        Me.ChkShortList.Name = "ChkShortList"
+        Me.ChkShortList.Size = New System.Drawing.Size(199, 17)
+        Me.ChkShortList.TabIndex = 21
+        Me.ChkShortList.Text = "Show only songs from your Short List"
+        Me.ToolTip1.SetToolTip(Me.ChkShortList, "When this is ticked, only songs denoted as ""Selected"" will appear in the selectio" &
+        "n table below.")
+        Me.ChkShortList.UseVisualStyleBackColor = True
+        '
         'F_Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(787, 534)
+        Me.Controls.Add(Me.ChkShortList)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.BtnLoadList)
@@ -335,4 +350,5 @@ Partial Class F_Main
     Friend WithEvents BtnLoadList As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents ChkShortList As CheckBox
 End Class

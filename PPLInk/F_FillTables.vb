@@ -7,7 +7,6 @@ Public Class F_FillTables
     Private iFilesStart, iFilesEnd As Integer
     Private filesView As DataView
 
-
     Friend Sub LoadFolder(szFolderIn As String)
         szFolder = szFolderIn
         txtFolder.Text = szFolder
@@ -90,7 +89,7 @@ Public Class F_FillTables
             T_filesTableAdapter.Connection = connection
         End If
 
-        T_filesTableAdapter.Fill(ProHelpDataSet.t_files)
+        T_filesTableAdapter.FillAll(ProHelpDataSet.t_files)
         filesView = ProHelpDataSet.Tables("t_files").DefaultView
         iFilesStart = filesView.Count
         If iFilesStart > 0 Then txtResults.Text = "There are already " & iFilesStart & " records in the table"

@@ -44,6 +44,7 @@ Partial Class DlgLoadList
         Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
         Me.TxtStatus = New System.Windows.Forms.TextBox()
         Me.ChkFuture = New System.Windows.Forms.CheckBox()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_playlistsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,6 +78,8 @@ Partial Class DlgLoadList
         Me.Save_Button.Size = New System.Drawing.Size(61, 23)
         Me.Save_Button.TabIndex = 2
         Me.Save_Button.Text = "Save"
+        Me.ToolTip1.SetToolTip(Me.Save_Button, "Save the unnamed list from the Main screen into the named Play List currently sel" &
+        "ected above.  Any previous entries will be removed first.")
         '
         'Load_Button
         '
@@ -86,6 +89,8 @@ Partial Class DlgLoadList
         Me.Load_Button.Size = New System.Drawing.Size(61, 23)
         Me.Load_Button.TabIndex = 0
         Me.Load_Button.Text = "Load"
+        Me.ToolTip1.SetToolTip(Me.Load_Button, "Copy the titles listed in the currently selected named Play List into the unnamed" &
+        " list on the main screen.  These are added to those already included.")
         '
         'Cancel_Button
         '
@@ -162,12 +167,15 @@ Partial Class DlgLoadList
         Me.T_playlistsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.T_playlistsDataGridView.Size = New System.Drawing.Size(551, 226)
         Me.T_playlistsDataGridView.TabIndex = 2
+        Me.ToolTip1.SetToolTip(Me.T_playlistsDataGridView, "This table lists all the currently defined named Play Lists.  These might be empt" &
+        "y or partially built.")
         '
         'ListnoDataGridViewTextBoxColumn
         '
         Me.ListnoDataGridViewTextBoxColumn.DataPropertyName = "list_no"
         Me.ListnoDataGridViewTextBoxColumn.HeaderText = "#"
         Me.ListnoDataGridViewTextBoxColumn.Name = "ListnoDataGridViewTextBoxColumn"
+        Me.ListnoDataGridViewTextBoxColumn.ReadOnly = True
         Me.ListnoDataGridViewTextBoxColumn.Width = 40
         '
         'PlaydtDataGridViewTextBoxColumn
@@ -208,6 +216,8 @@ Partial Class DlgLoadList
         Me.TxtStatus.Name = "TxtStatus"
         Me.TxtStatus.Size = New System.Drawing.Size(552, 20)
         Me.TxtStatus.TabIndex = 8
+        Me.ToolTip1.SetToolTip(Me.TxtStatus, "This is a reminder of how many titles you have iin the unnamed list back on the m" &
+        "ain screen.")
         '
         'ChkFuture
         '
@@ -219,6 +229,8 @@ Partial Class DlgLoadList
         Me.ChkFuture.Size = New System.Drawing.Size(135, 17)
         Me.ChkFuture.TabIndex = 9
         Me.ChkFuture.Text = "See only Future Shows"
+        Me.ToolTip1.SetToolTip(Me.ChkFuture, "When this is ticked, only Play Lists with a date of today and later will be shown" &
+        " in the list above.  Clear it to see prior dated Play Lists.")
         Me.ChkFuture.UseVisualStyleBackColor = True
         '
         'DlgLoadList
@@ -273,4 +285,5 @@ Partial Class DlgLoadList
     Friend WithEvents T_filesTableAdapter As ProHelpDataSetTableAdapters.t_filesTableAdapter
     Friend WithEvents TxtStatus As TextBox
     Friend WithEvents ChkFuture As CheckBox
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

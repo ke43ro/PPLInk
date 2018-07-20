@@ -21,6 +21,28 @@ Public Class DlgLoadList
         End While
     End Sub
 
+    Private Sub DlgLoadList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim nSongs As Integer = LstQueue.Items.Count
+        Dim mySettings As New PPLInk.Settings
+        Dim szConn As String = mySettings.ProHelpConnectionUser
+
+        If szConn <> "" Then
+            Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
+            T_filesTableAdapter.Connection = connection
+            Tx_playlist_songTableAdapter.Connection = connection
+            T_playlistsTableAdapter.Connection = connection
+        End If
+
+        T_filesTableAdapter.FillAll(ProHelpDataSet.t_files)
+        Tx_playlist_songTableAdapter.Fill(ProHelpDataSet.tx_playlist_song)
+        T_playlistsTableAdapter.FillFuture(ProHelpDataSet.t_playlists, Today)
+
+        TxtStatus.Text = "There are " & nSongs & " songs in the current unnamed Play List"
+        bFuture = True
+        ChkFuture.Checked = True
+        isLoaded = True
+    End Sub
+
     Private Sub Load_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Load_Button.Click
         Dim searchView As DataView = ProHelpDataSet.Tables("tx_playlist_song").DefaultView
         Dim ListRows() As DataRowView
@@ -49,7 +71,7 @@ Public Class DlgLoadList
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         Else
-            MessageBox.Show("Loading " & ListRows.Length & " entries from this Play List", "PowerPoint Link: Loading a Play List",
+            MessageBox.Show(ListRows.Length & " entries from this saved Play List will be added to the current", "PowerPoint Link: Loading a Play List",
                             MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
 
@@ -69,28 +91,6 @@ Public Class DlgLoadList
     Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
         DialogResult = DialogResult.Cancel
         Close()
-    End Sub
-
-    Private Sub DlgLoadList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim nSongs As Integer = LstQueue.Items.Count
-        Dim mySettings As New PPLInk.Settings
-        Dim szConn As String = mySettings.ProHelpConnectionUser
-
-        If szConn <> "" Then
-            Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
-            T_filesTableAdapter.Connection = connection
-            Tx_playlist_songTableAdapter.Connection = connection
-            T_playlistsTableAdapter.Connection = connection
-        End If
-
-        Me.T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
-        Me.Tx_playlist_songTableAdapter.Fill(Me.ProHelpDataSet.tx_playlist_song)
-        Me.T_playlistsTableAdapter.FillFuture(Me.ProHelpDataSet.t_playlists, today)
-
-        TxtStatus.Text = "There are " & nSongs & " songs in the current unsaved Play List"
-        bFuture = True
-        ChkFuture.Checked = True
-        isLoaded = True
     End Sub
 
     Private Sub Save_Button_Click(sender As Object, e As EventArgs) Handles Save_Button.Click
@@ -165,9 +165,9 @@ Public Class DlgLoadList
 
         If isLoaded Then
             If bFuture Then
-                T_playlistsTableAdapter.FillFuture(Me.ProHelpDataSet.t_playlists, Today)
+                T_playlistsTableAdapter.FillFuture(ProHelpDataSet.t_playlists, Today)
             Else
-                T_playlistsTableAdapter.Fill(Me.ProHelpDataSet.t_playlists)
+                T_playlistsTableAdapter.Fill(ProHelpDataSet.t_playlists)
             End If
         End If
     End Sub

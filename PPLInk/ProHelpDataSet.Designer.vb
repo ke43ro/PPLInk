@@ -2663,28 +2663,39 @@ Namespace ProHelpDataSetTableAdapters
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        file_no, f_name, f_path, f_altname, selected, create_dt, last_dt, l"& _ 
-                "ast_action, inactive"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            t_files"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (inactive = 'N')"
+                "ast_action, inactive"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            t_files"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (inactive = 'N') AND"& _ 
+                " (@Short <> 'Y') OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (inactive = 'N') AND (@Short = 'Y'"& _ 
+                ") AND (selected = 'Y')"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Short", Global.System.Data.SqlDbType.VarChar, 1024, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
-            Me._commandCollection(1).CommandText = "SELECT        file_no, f_name, f_path, f_altname, selected, create_dt, last_dt, l"& _ 
-                "ast_action, inactive"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            t_files"
+            Me._commandCollection(1).CommandText = "SELECT create_dt, f_altname, f_name, f_path, file_no, inactive, last_action, last"& _ 
+                "_dt, selected FROM t_files"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(2) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(2).Connection = Me.Connection
-            Me._commandCollection(2).CommandText = "SELECT create_dt, f_altname, f_name, f_path, file_no, inactive, last_action, last"& _ 
-                "_dt, selected FROM t_files WHERE (inactive = 'N') AND (f_name LIKE '%' + @text +"& _ 
-                " '%') OR (inactive = 'N') AND (f_altname LIKE '%' + @text + '%')"
+            Me._commandCollection(2).CommandText = "SELECT        create_dt, f_altname, f_name, f_path, file_no, inactive, last_actio"& _ 
+                "n, last_dt, selected"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            t_files"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (inactive = 'N') AND"& _ 
+                " (f_name LIKE '%' + @text + '%') AND (@Short = 'Y') AND (selected = 'Y') OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"   "& _ 
+                "                      (inactive = 'N') AND (f_name LIKE '%' + @text + '%') AND ("& _ 
+                "@Short <> 'Y')"
             Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@text", Global.System.Data.SqlDbType.VarChar, 80, Global.System.Data.ParameterDirection.Input, 0, 0, "f_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Short", Global.System.Data.SqlDbType.VarChar, 1024, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As ProHelpDataSet.t_filesDataTable) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As ProHelpDataSet.t_filesDataTable, ByVal _Short As String) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (_Short Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("_Short")
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(_Short,String)
+            End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -2696,8 +2707,13 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData() As ProHelpDataSet.t_filesDataTable
+        Public Overloads Overridable Function GetData(ByVal _Short As String) As ProHelpDataSet.t_filesDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (_Short Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("_Short")
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(_Short,String)
+            End If
             Dim dataTable As ProHelpDataSet.t_filesDataTable = New ProHelpDataSet.t_filesDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -2731,12 +2747,17 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByPhrase(ByVal dataTable As ProHelpDataSet.t_filesDataTable, ByVal text As String) As Integer
+        Public Overloads Overridable Function FillByPhrase(ByVal dataTable As ProHelpDataSet.t_filesDataTable, ByVal text As String, ByVal _Short As String) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(2)
             If (text Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("text")
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(text,String)
+            End If
+            If (_Short Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("_Short")
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(_Short,String)
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear

@@ -9,7 +9,7 @@
 
         Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
         T_filesTableAdapter.Connection = connection
-        Me.T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files)
+        Me.T_filesTableAdapter.FillAll(Me.ProHelpDataSet.t_files)
     End Sub
 
     Private Sub BtnExport_Click(sender As Object, e As EventArgs) Handles BtnExport.Click

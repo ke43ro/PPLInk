@@ -134,7 +134,7 @@
   </metadata>
   <data name="TextBox1.Text" xml:space="preserve">
     <value>Hover over the column heading to see a pop-up description of the column content.  You can edit the Alternative Search Text, the Selected (S) setting and the Inactive (I) setting.
-    S = Selected.  Enter 'Y' to put this title on the Short List (this feature is not currently used in PowerPoint Link)
+    S = Selected.  Enter 'Y' to put this title on the Short List.
      I = Inactive.  Enter 'Y' to hide this title from view everywhere except in this Edit Window.  This can be used to avoid selecting a file that has been deleted from the disk, but is still included in some Play Lists that you might want to keep for history.</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

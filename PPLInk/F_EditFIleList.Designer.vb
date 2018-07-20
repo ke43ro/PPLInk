@@ -29,8 +29,6 @@ Partial Class F_EditFileList
         Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
         Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.T_filesDataGridView = New System.Windows.Forms.DataGridView()
-        Me.Tx_playlist_songTableAdapter1 = New PPLInk.ProHelpDataSetTableAdapters.tx_playlist_songTableAdapter()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -40,6 +38,8 @@ Partial Class F_EditFileList
         Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Tx_playlist_songTableAdapter1 = New PPLInk.ProHelpDataSetTableAdapters.tx_playlist_songTableAdapter()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -78,21 +78,6 @@ Partial Class F_EditFileList
         Me.T_filesDataGridView.Name = "T_filesDataGridView"
         Me.T_filesDataGridView.Size = New System.Drawing.Size(997, 363)
         Me.T_filesDataGridView.TabIndex = 1
-        '
-        'Tx_playlist_songTableAdapter1
-        '
-        Me.Tx_playlist_songTableAdapter1.ClearBeforeFill = True
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Location = New System.Drawing.Point(114, 4)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(771, 77)
-        Me.TextBox1.TabIndex = 2
-        Me.TextBox1.Text = resources.GetString("TextBox1.Text")
         '
         'DataGridViewTextBoxColumn1
         '
@@ -163,6 +148,21 @@ Partial Class F_EditFileList
         Me.DataGridViewTextBoxColumn7.DataPropertyName = "last_dt"
         Me.DataGridViewTextBoxColumn7.HeaderText = "last_dt"
         Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        '
+        'Tx_playlist_songTableAdapter1
+        '
+        Me.Tx_playlist_songTableAdapter1.ClearBeforeFill = True
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Location = New System.Drawing.Point(114, 4)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(771, 77)
+        Me.TextBox1.TabIndex = 2
+        Me.TextBox1.Text = resources.GetString("TextBox1.Text")
         '
         'F_EditFileList
         '
