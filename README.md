@@ -17,3 +17,5 @@ The application includes tools to create and fill the database from a collection
 By providing an SQL database containing a matching table with your own fill methods and ignoring the FILL setup in PPLink, you could use it for a different arrangement of file storage. Other tables in the database are for building and using a set of saved playlists.  These are only used in ProHelp.  It is planned to add ProHelp to GitHub in the near future.
 
 [Edit 30 March 2018] I no longer plan to bring ProHelp to release standard as future releases of PPLink will include all the features.  Originally PPLink was planned as a simplified version, but this concept will be retained by adding the more powerful features in a way that doesn't complicate the main PPLink interface.
+
+[Edit 20 July 2018] PPLink now contains all the features of ProHelp and more.
