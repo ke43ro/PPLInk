@@ -17,7 +17,7 @@ Public Class F_Main
         Try
             szVersion = PPLInk.My.Application.Deployment.CurrentVersion.ToString
         Catch
-            szVersion = "1.4.0.43 Proto"
+            szVersion = "1.5.0.48 Proto"
         End Try
         LblVersion.Text = szVersion
         'Z.Y.X.W - Z.Y is major/minor version; X is build number, always 0; W is VS publish number
@@ -299,12 +299,7 @@ Public Class F_Main
     End Sub
 
     Private Sub BtnHelp_Click(sender As Object, e As EventArgs) Handles BtnHelp.Click
-        Try
-            Process.Start(Application.StartupPath & "\PPLink Documentation.pdf")
-        Catch ex As Exception
-            MessageBox.Show("Can't open Help Pages" & vbCrLf & ex.Message, "Powerpoint Link: Help",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End Try
+        F_Help.ShowDialog()
     End Sub
 
     Private Sub BtnLoadList_Click(sender As Object, e As EventArgs) Handles BtnLoadList.Click
@@ -330,6 +325,7 @@ End Class
 
 'Version number
 'Z.Y.X.W - Z.Y.X is major version.minor version.build; W is VS publish number
+'1.5.0.47 Include new User and Administrator Manuals via Help button
 '1.4.0.43 Major release candidate: add feature to compare local list with a listing from the MASTER in cloud storage, implement short list
 '1.4.0.42 Update File List work completed; Database modified so that no datetime fields are ever NULL
 '1.4.0.37 expanded Advanced menu structure; added Edit Files and Update File List
