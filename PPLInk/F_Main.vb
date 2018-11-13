@@ -257,12 +257,52 @@ Public Class F_Main
         isAutoShort = mySettings.ProHelpAutoShortList
     End Sub
 
+    Private Sub LBPlayList_KeyPress(sender As Object, e As KeyPressEventArgs) Handles LBPlayList.KeyPress
+        Dim iSelected As Integer = LBPlayList.SelectedIndex
+        Dim iIndex As Integer = 0
+        Dim szQueue As New Queue(Of String)
+
+        Select Case e.KeyChar
+            ' Delete key doesn't generate a KeyPress
+            'Case Microsoft.VisualBasic.ChrW(Keys.Delete)
+
+            Case "+"
+                If iSelected < LBPlayList.Items.Count - 1 Then
+                    szQueue.Enqueue(LBPlayList.Items(iSelected))
+                    szQueue.Enqueue(LBPlayList.Items(iSelected + 1))
+                    LBPlayList.Items(iSelected + 1) = szQueue.Dequeue
+                    LBPlayList.Items(iSelected) = szQueue.Dequeue
+                    LBPlayList.SelectedIndex += 1
+                End If
+
+            Case "-"
+                If iSelected > 0 Then
+                    szQueue.Enqueue(LBPlayList.Items(iSelected))
+                    szQueue.Enqueue(LBPlayList.Items(iSelected - 1))
+                    LBPlayList.Items(iSelected - 1) = szQueue.Dequeue
+                    LBPlayList.Items(iSelected) = szQueue.Dequeue
+                    LBPlayList.SelectedIndex -= 1
+                End If
+
+            Case Else
+                Exit Sub
+        End Select
+
+        e.Handled = True
+    End Sub
+
     Private Sub LBPlayList_KeyDown(sender As Object, e As KeyEventArgs) Handles LBPlayList.KeyDown
         Dim iSelected As Integer = LBPlayList.SelectedIndex
         Dim iIndex As Integer = 0
         Dim szQueue As New Queue(Of String)
 
         Select Case e.KeyCode
+            ' Handle via KeyPress catches both num pad and normal plus key
+            'Case Keys.Add
+
+            ' Handle via KeyPress catches both num pad and normal minus key
+            'Case Keys.Subtract
+
             Case Keys.Delete
                 While iIndex < LBPlayList.Items.Count
                     If iIndex <> iSelected Then szQueue.Enqueue(LBPlayList.Items(iIndex))
@@ -273,22 +313,6 @@ Public Class F_Main
                 While szQueue.Count > 0
                     LBPlayList.Items.Add(szQueue.Dequeue)
                 End While
-
-            Case Keys.Add
-                If iSelected < LBPlayList.Items.Count - 1 Then
-                    szQueue.Enqueue(LBPlayList.Items(iSelected))
-                    szQueue.Enqueue(LBPlayList.Items(iSelected + 1))
-                    LBPlayList.Items(iSelected + 1) = szQueue.Dequeue
-                    LBPlayList.Items(iSelected) = szQueue.Dequeue
-                End If
-
-            Case Keys.Subtract
-                If iSelected > 0 Then
-                    szQueue.Enqueue(LBPlayList.Items(iSelected))
-                    szQueue.Enqueue(LBPlayList.Items(iSelected - 1))
-                    LBPlayList.Items(iSelected - 1) = szQueue.Dequeue
-                    LBPlayList.Items(iSelected) = szQueue.Dequeue
-                End If
 
             Case Else
                 Exit Sub
@@ -321,10 +345,76 @@ Public Class F_Main
         mySettings.ProHelpSelected = isShort
         mySettings.Save()
     End Sub
+
+    Private Sub TextBox1_KeyDown(sender As Object, e As KeyEventArgs) 'Handles TextBox1.KeyDown
+        Dim messageBoxVB As New System.Text.StringBuilder()
+        messageBoxVB.AppendFormat("{0} = {1}", "Alt", e.Alt)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "Control", e.Control)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "Handled", e.Handled)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "KeyCode", e.KeyCode)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "KeyValue", e.KeyValue)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "KeyData", e.KeyData)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "Modifiers", e.Modifiers)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "Shift", e.Shift)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "SuppressKeyPress", e.SuppressKeyPress)
+        messageBoxVB.AppendLine()
+        MessageBox.Show(messageBoxVB.ToString(), "KeyDown Event")
+
+    End Sub
+
+    Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) 'Handles TextBox1.KeyPress
+        Dim messageBoxVB As New System.Text.StringBuilder()
+        messageBoxVB.AppendFormat("{0} = {1}", "Char", e.KeyChar)
+        messageBoxVB.AppendLine()
+        'messageBoxVB.AppendFormat("{0} = {1}", "Control", e.Control)
+        'messageBoxVB.AppendLine()
+        'messageBoxVB.AppendFormat("{0} = {1}", "Handled", e.Handled)
+        'messageBoxVB.AppendLine()
+        'messageBoxVB.AppendFormat("{0} = {1}", "KeyCode", e.KeyCode)
+        'messageBoxVB.AppendLine()
+        'messageBoxVB.AppendFormat("{0} = {1}", "KeyValue", e.KeyValue)
+        'messageBoxVB.AppendLine()
+        'messageBoxVB.AppendFormat("{0} = {1}", "KeyData", e.KeyData)
+        'messageBoxVB.AppendLine()
+        'messageBoxVB.AppendFormat("{0} = {1}", "Modifiers", e.Modifiers)
+        'messageBoxVB.AppendLine()
+        'messageBoxVB.AppendFormat("{0} = {1}", "Shift", e.Shift)
+        'messageBoxVB.AppendLine()
+        'messageBoxVB.AppendFormat("{0} = {1}", "SuppressKeyPress", e.SuppressKeyPress)
+        'messageBoxVB.AppendLine()
+        MessageBox.Show(messageBoxVB.ToString(), "KeyDown Event")
+
+    End Sub
+
+    Private Sub LBPlayList_DoubleClick(sender As Object, e As EventArgs) Handles LBPlayList.DoubleClick
+        Dim szListItem As String
+
+        If IsNothing(LBPlayList.SelectedItem) Then Exit Sub
+
+        szListItem = LBPlayList.SelectedItems(0)
+        'If isAutoShort = "Y" Then AddToShortList(CInt(szFile_no))
+        LBInstant.Items.Clear()
+        LBInstant.Items.Add(szListItem)
+        MyBase.WindowState = FormWindowState.Minimized
+        PlayList.Run(LBInstant.Items)
+        MyBase.WindowState = FormWindowState.Normal
+        TxtSearch.Text = ""
+        TxtSearch.Focus()
+    End Sub
 End Class
 
 'Version number
 'Z.Y.X.W - Z.Y.X is major version.minor version.build; W is VS publish number
+'1.5.0.48 Move selection after moving items in the Play List; Handle normal plus, minus keys as well as num pad; use double click in Play List
+' to play that one file
 '1.5.0.47 Include new User and Administrator Manuals via Help button
 '1.4.0.43 Major release candidate: add feature to compare local list with a listing from the MASTER in cloud storage, implement short list
 '1.4.0.42 Update File List work completed; Database modified so that no datetime fields are ever NULL

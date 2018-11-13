@@ -128,6 +128,7 @@ Partial Class F_CompareWithMaster
         Me.LstResults.FormattingEnabled = True
         Me.LstResults.Location = New System.Drawing.Point(13, 205)
         Me.LstResults.Name = "LstResults"
+        Me.LstResults.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.LstResults.Size = New System.Drawing.Size(775, 212)
         Me.LstResults.TabIndex = 36
         '

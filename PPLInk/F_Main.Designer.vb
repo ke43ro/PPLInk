@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class F_Main
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class F_Main
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.LBPlayList = New System.Windows.Forms.ListBox()
@@ -43,13 +43,13 @@ Partial Class F_Main
         Me.BtnHelp = New System.Windows.Forms.Button()
         Me.BtnSetup = New System.Windows.Forms.Button()
         Me.BtnLoadList = New System.Windows.Forms.Button()
+        Me.ChkShortList = New System.Windows.Forms.CheckBox()
         Me.LBInstant = New System.Windows.Forms.ListBox()
         Me.LblVersion = New System.Windows.Forms.Label()
         Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
         Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.ChkShortList = New System.Windows.Forms.CheckBox()
         CType(Me.T_filesDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -228,6 +228,18 @@ Partial Class F_Main
         "sly saved.")
         Me.BtnLoadList.UseVisualStyleBackColor = True
         '
+        'ChkShortList
+        '
+        Me.ChkShortList.AutoSize = True
+        Me.ChkShortList.Location = New System.Drawing.Point(129, 228)
+        Me.ChkShortList.Name = "ChkShortList"
+        Me.ChkShortList.Size = New System.Drawing.Size(199, 17)
+        Me.ChkShortList.TabIndex = 21
+        Me.ChkShortList.Text = "Show only songs from your Short List"
+        Me.ToolTip1.SetToolTip(Me.ChkShortList, "When this is ticked, only songs denoted as ""Selected"" will appear in the selectio" &
+        "n table below.")
+        Me.ChkShortList.UseVisualStyleBackColor = True
+        '
         'LBInstant
         '
         Me.LBInstant.FormattingEnabled = True
@@ -279,18 +291,6 @@ Partial Class F_Main
         Me.Label4.Size = New System.Drawing.Size(288, 13)
         Me.Label4.TabIndex = 20
         Me.Label4.Text = "Double click a row in the table to play that song immediately"
-        '
-        'ChkShortList
-        '
-        Me.ChkShortList.AutoSize = True
-        Me.ChkShortList.Location = New System.Drawing.Point(129, 228)
-        Me.ChkShortList.Name = "ChkShortList"
-        Me.ChkShortList.Size = New System.Drawing.Size(199, 17)
-        Me.ChkShortList.TabIndex = 21
-        Me.ChkShortList.Text = "Show only songs from your Short List"
-        Me.ToolTip1.SetToolTip(Me.ChkShortList, "When this is ticked, only songs denoted as ""Selected"" will appear in the selectio" &
-        "n table below.")
-        Me.ChkShortList.UseVisualStyleBackColor = True
         '
         'F_Main
         '

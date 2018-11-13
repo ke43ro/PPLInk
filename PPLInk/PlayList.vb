@@ -72,7 +72,12 @@ Public Class PlayList
                     End Try
                 Loop
 
-                .Close()
+                ' in case the user closes Powerpoint before closing the show
+                Try
+                    .Close()
+                Catch ex As Exception
+
+                End Try
             End With
         Loop
 
