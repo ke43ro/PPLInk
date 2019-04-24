@@ -52,7 +52,7 @@ Partial Class F_Help
         Me.Controls.Add(Me.BtnAdmin)
         Me.Controls.Add(Me.BtnUser)
         Me.Name = "F_Help"
-        Me.Text = "F_Help"
+        Me.Text = "Help Documents"
         Me.ResumeLayout(False)
 
     End Sub

@@ -150,7 +150,7 @@ Public Class F_UpdateFileList
         Dim MatchRows As DataView
         Dim nChanges, nTotal, iFileNo, iDupFileNo As Integer
         Dim matchN, matchP As String
-        Dim szF_name, szF_path, szFAltName, szSelected, szLast_Action, szInactive As String
+        Dim szF_name, szF_path, szFAltName, szSelected, szLast_Action, szInactive, szSearch As String
         Dim dtLast_Dt, dtCreate_Dt As DateTime
         Dim bChanged As Boolean
 
@@ -192,9 +192,10 @@ Public Class F_UpdateFileList
                         szInactive = myRow.row.item("inactive")
                         dtLast_Dt = myRow.row.item("last_dt")
                         dtCreate_Dt = myRow.row.item("create_dt")
+                        szSearch = myRow.row.Item("s_search")
                         Try
                             T_filesTableAdapter.Delete(iDupFileNo, szF_name, szF_path, szFAltName, szSelected,
-                                dtCreate_Dt, dtLast_Dt, szLast_Action, szInactive)
+                                dtCreate_Dt, dtLast_Dt, szLast_Action, szInactive, szSearch)
                             bChanged = True
                             nChanges = nChanges + 1
                         Catch ex As Exception
@@ -342,7 +343,8 @@ Public Class F_UpdateFileList
                             ProHelpDataSet.tx_playlist_song.AcceptChanges()
                             Tx_playlist_songTableAdapter.Update(ProHelpDataSet.tx_playlist_song)
                             T_filesTableAdapter.Delete(iFileNo, szFName, szPath, DBFile.Row.Item("f_altname"), DBFile.Row.Item("selected"),
-                                DBFile.Row.Item("create_dt"), DBFile.Row.Item("last_dt"), DBFile.Row.Item("last_action"), DBFile.Row.Item("inactive"))
+                                DBFile.Row.Item("create_dt"), DBFile.Row.Item("last_dt"), DBFile.Row.Item("last_action"), DBFile.Row.Item("inactive"),
+                                    DBFile.Row.Item("s_search"))
                             ListBox1.Items.Add(szFullPath & ": Not on disk - all lists deleted")
                             nDeleteAll = nDeleteAll + 1
 
@@ -357,7 +359,8 @@ Public Class F_UpdateFileList
                             ProHelpDataSet.tx_playlist_song.AcceptChanges()
                             Tx_playlist_songTableAdapter.Update(ProHelpDataSet.tx_playlist_song)
                             T_filesTableAdapter.Delete(iFileNo, szFName, szPath, DBFile.Row.Item("f_altname"), DBFile.Row.Item("selected"),
-                                DBFile.Row.Item("create_dt"), DBFile.Row.Item("last_dt"), DBFile.Row.Item("last_action"), DBFile.Row.Item("inactive"))
+                                DBFile.Row.Item("create_dt"), DBFile.Row.Item("last_dt"), DBFile.Row.Item("last_action"), DBFile.Row.Item("inactive"),
+                                    DBFile.Row.Item("s_search"))
                             ListBox1.Items.Add(szFullPath & ": Not on disk - deleted from all lists")
                             nDeleteThis = nDeleteThis + 1
 
@@ -371,7 +374,7 @@ Public Class F_UpdateFileList
                 Else
                     T_filesTableAdapter.Delete(iFileNo, szFName, szPath, DBFile.Row.Item("f_altname"), DBFile.Row.Item("selected"),
                             DBFile.Row.Item("create_dt"), DBFile.Row.Item("last_dt"),
-                            DBFile.Row.Item("last_action"), DBFile.Row.Item("inactive"))
+                            DBFile.Row.Item("last_action"), DBFile.Row.Item("inactive"), DBFile.Row.Item("s_search"))
                     ListBox1.Items.Add(szFullPath & ": Not on disk or in any playlists - deleted record")
                     nDeleteRecord = nDeleteRecord + 1
                 End If
@@ -420,9 +423,9 @@ Public Class F_UpdateFileList
         For Each myRow In DiskFiles.FindRows(0)
             nFiles = nFiles + 1
             If bNewSelect Then
-                T_filesTableAdapter.Insert(myRow.Item("f_name"), myRow.Item("f_path"), "", "Y", Now(), Now(), "New file added", "N")
+                T_filesTableAdapter.Insert(myRow.Item("f_name"), myRow.Item("f_path"), "", "Y", Now(), Now(), "New file added", "N", "")
             Else
-                T_filesTableAdapter.Insert(myRow.Item("f_name"), myRow.Item("f_path"), "", "", Now(), Now(), "New file added", "N")
+                T_filesTableAdapter.Insert(myRow.Item("f_name"), myRow.Item("f_path"), "", "", Now(), Now(), "New file added", "N", "")
             End If
             ListBox1.Items.Add("New file found and added to the table: " & myRow.Item("f_path") & "\" & myRow.Item("f_name"))
         Next

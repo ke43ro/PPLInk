@@ -416,6 +416,8 @@ Partial Public Class ProHelpDataSet
         
         Private columninactive As Global.System.Data.DataColumn
         
+        Private columns_search As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -524,6 +526,14 @@ Partial Public Class ProHelpDataSet
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property s_searchColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columns_search
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -560,9 +570,9 @@ Partial Public Class ProHelpDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function Addt_filesRow(ByVal f_name As String, ByVal f_path As String, ByVal f_altname As String, ByVal selected As String, ByVal create_dt As Date, ByVal last_dt As Date, ByVal last_action As String, ByVal inactive As String) As t_filesRow
+        Public Overloads Function Addt_filesRow(ByVal f_name As String, ByVal f_path As String, ByVal f_altname As String, ByVal selected As String, ByVal create_dt As Date, ByVal last_dt As Date, ByVal last_action As String, ByVal inactive As String, ByVal s_search As String) As t_filesRow
             Dim rowt_filesRow As t_filesRow = CType(Me.NewRow,t_filesRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, f_name, f_path, f_altname, selected, create_dt, last_dt, last_action, inactive}
+            Dim columnValuesArray() As Object = New Object() {Nothing, f_name, f_path, f_altname, selected, create_dt, last_dt, last_action, inactive, s_search}
             rowt_filesRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowt_filesRow)
             Return rowt_filesRow
@@ -600,6 +610,7 @@ Partial Public Class ProHelpDataSet
             Me.columnlast_dt = MyBase.Columns("last_dt")
             Me.columnlast_action = MyBase.Columns("last_action")
             Me.columninactive = MyBase.Columns("inactive")
+            Me.columns_search = MyBase.Columns("s_search")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -623,6 +634,8 @@ Partial Public Class ProHelpDataSet
             MyBase.Columns.Add(Me.columnlast_action)
             Me.columninactive = New Global.System.Data.DataColumn("inactive", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columninactive)
+            Me.columns_search = New Global.System.Data.DataColumn("s_search", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columns_search)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnfile_no}, true))
             Me.columnfile_no.AutoIncrement = true
             Me.columnfile_no.AutoIncrementSeed = -1
@@ -640,6 +653,7 @@ Partial Public Class ProHelpDataSet
             Me.columnlast_action.MaxLength = 30
             Me.columninactive.AllowDBNull = false
             Me.columninactive.MaxLength = 1
+            Me.columns_search.MaxLength = 400
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1877,6 +1891,21 @@ Partial Public Class ProHelpDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property s_search() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablet_files.s_searchColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 's_search' in table 't_files' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablet_files.s_searchColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Function Isf_altnameNull() As Boolean
             Return Me.IsNull(Me.tablet_files.f_altnameColumn)
         End Function
@@ -1921,6 +1950,18 @@ Partial Public Class ProHelpDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub Setlast_actionNull()
             Me(Me.tablet_files.last_actionColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function Iss_searchNull() As Boolean
+            Return Me.IsNull(Me.tablet_files.s_searchColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub Sets_searchNull()
+            Me(Me.tablet_files.s_searchColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2569,6 +2610,7 @@ Namespace ProHelpDataSetTableAdapters
             tableMapping.ColumnMappings.Add("last_dt", "last_dt")
             tableMapping.ColumnMappings.Add("last_action", "last_action")
             tableMapping.ColumnMappings.Add("inactive", "inactive")
+            tableMapping.ColumnMappings.Add("s_search", "s_search")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
@@ -2579,7 +2621,8 @@ Namespace ProHelpDataSetTableAdapters
                 "te_dt] = @Original_create_dt) AND ((@IsNull_last_dt = 1 AND [last_dt] IS NULL) O"& _ 
                 "R ([last_dt] = @Original_last_dt)) AND ((@IsNull_last_action = 1 AND [last_actio"& _ 
                 "n] IS NULL) OR ([last_action] = @Original_last_action)) AND ([inactive] = @Origi"& _ 
-                "nal_inactive))"
+                "nal_inactive) AND ((@IsNull_s_search = 1 AND [s_search] IS NULL) OR ([s_search] "& _ 
+                "= @Original_s_search)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_file_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "file_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_f_name", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "f_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
@@ -2594,13 +2637,15 @@ Namespace ProHelpDataSetTableAdapters
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_last_action", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "last_action", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_last_action", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "last_action", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_inactive", Global.System.Data.SqlDbType.[Char], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "inactive", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_s_search", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "s_search", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_s_search", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "s_search", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
             Me._adapter.InsertCommand.CommandText = "INSERT INTO [t_files] ([f_name], [f_path], [f_altname], [selected], [create_dt], "& _ 
-                "[last_dt], [last_action], [inactive]) VALUES (@f_name, @f_path, @f_altname, @sel"& _ 
-                "ected, @create_dt, @last_dt, @last_action, @inactive);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT file_no, f_name, "& _ 
-                "f_path, f_altname, selected, create_dt, last_dt, last_action, inactive FROM t_fi"& _ 
-                "les WHERE (file_no = SCOPE_IDENTITY())"
+                "[last_dt], [last_action], [inactive], [s_search]) VALUES (@f_name, @f_path, @f_a"& _ 
+                "ltname, @selected, @create_dt, @last_dt, @last_action, @inactive, @s_search);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"S"& _ 
+                "ELECT file_no, f_name, f_path, f_altname, selected, create_dt, last_dt, last_act"& _ 
+                "ion, inactive, s_search FROM t_files WHERE (file_no = SCOPE_IDENTITY())"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@f_name", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "f_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@f_path", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "f_path", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -2610,20 +2655,22 @@ Namespace ProHelpDataSetTableAdapters
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@last_dt", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "last_dt", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@last_action", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "last_action", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@inactive", Global.System.Data.SqlDbType.[Char], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "inactive", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@s_search", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "s_search", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
             Me._adapter.UpdateCommand.CommandText = "UPDATE [t_files] SET [f_name] = @f_name, [f_path] = @f_path, [f_altname] = @f_alt"& _ 
                 "name, [selected] = @selected, [create_dt] = @create_dt, [last_dt] = @last_dt, [l"& _ 
-                "ast_action] = @last_action, [inactive] = @inactive WHERE (([file_no] = @Original"& _ 
-                "_file_no) AND ([f_name] = @Original_f_name) AND ([f_path] = @Original_f_path) AN"& _ 
-                "D ((@IsNull_f_altname = 1 AND [f_altname] IS NULL) OR ([f_altname] = @Original_f"& _ 
-                "_altname)) AND ((@IsNull_selected = 1 AND [selected] IS NULL) OR ([selected] = @"& _ 
-                "Original_selected)) AND ([create_dt] = @Original_create_dt) AND ((@IsNull_last_d"& _ 
-                "t = 1 AND [last_dt] IS NULL) OR ([last_dt] = @Original_last_dt)) AND ((@IsNull_l"& _ 
-                "ast_action = 1 AND [last_action] IS NULL) OR ([last_action] = @Original_last_act"& _ 
-                "ion)) AND ([inactive] = @Original_inactive));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT file_no, f_name, f_path, f"& _ 
-                "_altname, selected, create_dt, last_dt, last_action, inactive FROM t_files WHERE"& _ 
-                " (file_no = @file_no)"
+                "ast_action] = @last_action, [inactive] = @inactive, [s_search] = @s_search WHERE"& _ 
+                " (([file_no] = @Original_file_no) AND ([f_name] = @Original_f_name) AND ([f_path"& _ 
+                "] = @Original_f_path) AND ((@IsNull_f_altname = 1 AND [f_altname] IS NULL) OR (["& _ 
+                "f_altname] = @Original_f_altname)) AND ((@IsNull_selected = 1 AND [selected] IS "& _ 
+                "NULL) OR ([selected] = @Original_selected)) AND ([create_dt] = @Original_create_"& _ 
+                "dt) AND ((@IsNull_last_dt = 1 AND [last_dt] IS NULL) OR ([last_dt] = @Original_l"& _ 
+                "ast_dt)) AND ((@IsNull_last_action = 1 AND [last_action] IS NULL) OR ([last_acti"& _ 
+                "on] = @Original_last_action)) AND ([inactive] = @Original_inactive) AND ((@IsNul"& _ 
+                "l_s_search = 1 AND [s_search] IS NULL) OR ([s_search] = @Original_s_search)));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)& _ 
+                "SELECT file_no, f_name, f_path, f_altname, selected, create_dt, last_dt, last_ac"& _ 
+                "tion, inactive, s_search FROM t_files WHERE (file_no = @file_no)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@f_name", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "f_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@f_path", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "f_path", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -2633,6 +2680,7 @@ Namespace ProHelpDataSetTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@last_dt", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "last_dt", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@last_action", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "last_action", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@inactive", Global.System.Data.SqlDbType.[Char], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "inactive", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@s_search", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "s_search", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_file_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "file_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_f_name", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "f_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_f_path", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "f_path", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
@@ -2646,6 +2694,8 @@ Namespace ProHelpDataSetTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_last_action", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "last_action", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_last_action", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "last_action", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_inactive", Global.System.Data.SqlDbType.[Char], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "inactive", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_s_search", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "s_search", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_s_search", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "s_search", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@file_no", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "file_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
@@ -2663,26 +2713,26 @@ Namespace ProHelpDataSetTableAdapters
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        file_no, f_name, f_path, f_altname, selected, create_dt, last_dt, l"& _ 
-                "ast_action, inactive"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            t_files"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (inactive = 'N') AND"& _ 
-                " (@Short <> 'Y') OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (inactive = 'N') AND (@Short = 'Y'"& _ 
-                ") AND (selected = 'Y')"
+                "ast_action, inactive, s_search"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            t_files"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (inactive "& _ 
+                "= 'N') AND (@Short <> 'Y') OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (inactive = 'N') AND (@S"& _ 
+                "hort = 'Y') AND (selected = 'Y')"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Short", Global.System.Data.SqlDbType.VarChar, 1024, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
             Me._commandCollection(1).CommandText = "SELECT create_dt, f_altname, f_name, f_path, file_no, inactive, last_action, last"& _ 
-                "_dt, selected FROM t_files"
+                "_dt, s_search, selected FROM t_files"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(2) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(2).Connection = Me.Connection
             Me._commandCollection(2).CommandText = "SELECT        create_dt, f_altname, f_name, f_path, file_no, inactive, last_actio"& _ 
-                "n, last_dt, selected"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            t_files"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (inactive = 'N') AND"& _ 
-                " (f_name LIKE '%' + @text + '%') AND (@Short = 'Y') AND (selected = 'Y') OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"   "& _ 
-                "                      (inactive = 'N') AND (f_name LIKE '%' + @text + '%') AND ("& _ 
-                "@Short <> 'Y')"
+                "n, last_dt, s_search, selected"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            t_files"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (inactive "& _ 
+                "= 'N') AND (@Short = 'Y') AND (selected = 'Y') AND (s_search LIKE '%' + @text + "& _ 
+                "'%') OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (inactive = 'N') AND (@Short <> 'Y') AND (s_se"& _ 
+                "arch LIKE '%' + @text + '%')"
             Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@text", Global.System.Data.SqlDbType.VarChar, 80, Global.System.Data.ParameterDirection.Input, 0, 0, "f_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Short", Global.System.Data.SqlDbType.VarChar, 1024, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@text", Global.System.Data.SqlDbType.VarChar, 400, Global.System.Data.ParameterDirection.Input, 0, 0, "s_search", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2747,17 +2797,17 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByPhrase(ByVal dataTable As ProHelpDataSet.t_filesDataTable, ByVal text As String, ByVal _Short As String) As Integer
+        Public Overloads Overridable Function FillByPhrase(ByVal dataTable As ProHelpDataSet.t_filesDataTable, ByVal _Short As String, ByVal text As String) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(2)
-            If (text Is Nothing) Then
-                Throw New Global.System.ArgumentNullException("text")
-            Else
-                Me.Adapter.SelectCommand.Parameters(0).Value = CType(text,String)
-            End If
             If (_Short Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("_Short")
             Else
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(_Short,String)
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(_Short,String)
+            End If
+            If (text Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(text,String)
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
@@ -2798,7 +2848,7 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_file_no As Integer, ByVal Original_f_name As String, ByVal Original_f_path As String, ByVal Original_f_altname As String, ByVal Original_selected As String, ByVal Original_create_dt As Date, ByVal Original_last_dt As Global.System.Nullable(Of Date), ByVal Original_last_action As String, ByVal Original_inactive As String) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_file_no As Integer, ByVal Original_f_name As String, ByVal Original_f_path As String, ByVal Original_f_altname As String, ByVal Original_selected As String, ByVal Original_create_dt As Date, ByVal Original_last_dt As Global.System.Nullable(Of Date), ByVal Original_last_action As String, ByVal Original_inactive As String, ByVal Original_s_search As String) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_file_no,Integer)
             If (Original_f_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_f_name")
@@ -2844,6 +2894,13 @@ Namespace ProHelpDataSetTableAdapters
             Else
                 Me.Adapter.DeleteCommand.Parameters(12).Value = CType(Original_inactive,String)
             End If
+            If (Original_s_search Is Nothing) Then
+                Me.Adapter.DeleteCommand.Parameters(13).Value = CType(1,Object)
+                Me.Adapter.DeleteCommand.Parameters(14).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.DeleteCommand.Parameters(13).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(14).Value = CType(Original_s_search,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -2863,7 +2920,7 @@ Namespace ProHelpDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal f_name As String, ByVal f_path As String, ByVal f_altname As String, ByVal selected As String, ByVal create_dt As Date, ByVal last_dt As Global.System.Nullable(Of Date), ByVal last_action As String, ByVal inactive As String) As Integer
+        Public Overloads Overridable Function Insert(ByVal f_name As String, ByVal f_path As String, ByVal f_altname As String, ByVal selected As String, ByVal create_dt As Date, ByVal last_dt As Global.System.Nullable(Of Date), ByVal last_action As String, ByVal inactive As String, ByVal s_search As String) As Integer
             If (f_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("f_name")
             Else
@@ -2900,6 +2957,11 @@ Namespace ProHelpDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(7).Value = CType(inactive,String)
             End If
+            If (s_search Is Nothing) Then
+                Me.Adapter.InsertCommand.Parameters(8).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.InsertCommand.Parameters(8).Value = CType(s_search,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -2928,6 +2990,7 @@ Namespace ProHelpDataSetTableAdapters
                     ByVal last_dt As Global.System.Nullable(Of Date),  _
                     ByVal last_action As String,  _
                     ByVal inactive As String,  _
+                    ByVal s_search As String,  _
                     ByVal Original_file_no As Integer,  _
                     ByVal Original_f_name As String,  _
                     ByVal Original_f_path As String,  _
@@ -2937,6 +3000,7 @@ Namespace ProHelpDataSetTableAdapters
                     ByVal Original_last_dt As Global.System.Nullable(Of Date),  _
                     ByVal Original_last_action As String,  _
                     ByVal Original_inactive As String,  _
+                    ByVal Original_s_search As String,  _
                     ByVal file_no As Integer) As Integer
             If (f_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("f_name")
@@ -2974,52 +3038,64 @@ Namespace ProHelpDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(7).Value = CType(inactive,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_file_no,Integer)
+            If (s_search Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(8).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(s_search,String)
+            End If
+            Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_file_no,Integer)
             If (Original_f_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_f_name")
             Else
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_f_name,String)
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_f_name,String)
             End If
             If (Original_f_path Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_f_path")
             Else
-                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_f_path,String)
+                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Original_f_path,String)
             End If
             If (Original_f_altname Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(13).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_f_altname,String)
+                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(Original_f_altname,String)
             End If
             If (Original_selected Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(15).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(Original_selected,String)
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(Original_selected,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(15).Value = CType(Original_create_dt,Date)
+            Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_create_dt,Date)
             If (Original_last_dt.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(Original_last_dt.Value,Date)
+                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_last_dt.Value,Date)
             Else
-                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(17).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(18).Value = Global.System.DBNull.Value
             End If
             If (Original_last_action Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(19).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(19).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(20).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(19).Value = CType(Original_last_action,String)
+                Me.Adapter.UpdateCommand.Parameters(19).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_last_action,String)
             End If
             If (Original_inactive Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_inactive")
             Else
-                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_inactive,String)
+                Me.Adapter.UpdateCommand.Parameters(21).Value = CType(Original_inactive,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(21).Value = CType(file_no,Integer)
+            If (Original_s_search Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(22).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(23).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(22).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(23).Value = CType(Original_s_search,String)
+            End If
+            Me.Adapter.UpdateCommand.Parameters(24).Value = CType(file_no,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -3048,6 +3124,7 @@ Namespace ProHelpDataSetTableAdapters
                     ByVal last_dt As Global.System.Nullable(Of Date),  _
                     ByVal last_action As String,  _
                     ByVal inactive As String,  _
+                    ByVal s_search As String,  _
                     ByVal Original_file_no As Integer,  _
                     ByVal Original_f_name As String,  _
                     ByVal Original_f_path As String,  _
@@ -3056,8 +3133,9 @@ Namespace ProHelpDataSetTableAdapters
                     ByVal Original_create_dt As Date,  _
                     ByVal Original_last_dt As Global.System.Nullable(Of Date),  _
                     ByVal Original_last_action As String,  _
-                    ByVal Original_inactive As String) As Integer
-            Return Me.Update(f_name, f_path, f_altname, selected, create_dt, last_dt, last_action, inactive, Original_file_no, Original_f_name, Original_f_path, Original_f_altname, Original_selected, Original_create_dt, Original_last_dt, Original_last_action, Original_inactive, Original_file_no)
+                    ByVal Original_inactive As String,  _
+                    ByVal Original_s_search As String) As Integer
+            Return Me.Update(f_name, f_path, f_altname, selected, create_dt, last_dt, last_action, inactive, s_search, Original_file_no, Original_f_name, Original_f_path, Original_f_altname, Original_selected, Original_create_dt, Original_last_dt, Original_last_action, Original_inactive, Original_s_search, Original_file_no)
         End Function
     End Class
     

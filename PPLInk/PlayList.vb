@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Office.Interop.PowerPoint
+Imports Microsoft.Office.Interop.PowerPoint.PpViewType
 'Imports System.IO
 'Imports System.Diagnostics
 'Imports System.Runtime.InteropServices
@@ -57,6 +58,8 @@ Public Class PlayList
             End If
 
             PPPres.Presentations.Open(szFileName)
+            Dim iWin = PPPres.Windows.Count
+            PPPres.Windows(iWin).ViewType = ppViewNormal
             With PPPres.Presentations(szFileName)
                 SSWin = .SlideShowSettings.Run()
                 'System.Threading.Thread.Sleep(500)

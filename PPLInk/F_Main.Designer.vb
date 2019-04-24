@@ -50,6 +50,7 @@ Partial Class F_Main
         Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.BtnPlayVideo = New System.Windows.Forms.Button()
         CType(Me.T_filesDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -292,11 +293,21 @@ Partial Class F_Main
         Me.Label4.TabIndex = 20
         Me.Label4.Text = "Double click a row in the table to play that song immediately"
         '
+        'BtnPlayVideo
+        '
+        Me.BtnPlayVideo.Location = New System.Drawing.Point(629, 222)
+        Me.BtnPlayVideo.Name = "BtnPlayVideo"
+        Me.BtnPlayVideo.Size = New System.Drawing.Size(138, 37)
+        Me.BtnPlayVideo.TabIndex = 22
+        Me.BtnPlayVideo.Text = "Play Videos"
+        Me.BtnPlayVideo.UseVisualStyleBackColor = True
+        '
         'F_Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(787, 534)
+        Me.Controls.Add(Me.BtnPlayVideo)
         Me.Controls.Add(Me.ChkShortList)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
@@ -351,4 +362,5 @@ Partial Class F_Main
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents ChkShortList As CheckBox
+    Friend WithEvents BtnPlayVideo As Button
 End Class

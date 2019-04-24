@@ -11,6 +11,7 @@
       <Column Name="last_dt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="last_action" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="inactive" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="s_search" Type="System.String" DbType="VarChar(400)" CanBeNull="true" />
       <Association Name="t_file_tx_playlist_song" Member="tx_playlist_songs" ThisKey="file_no" OtherKey="file_no" Type="tx_playlist_song" />
     </Type>
   </Table>

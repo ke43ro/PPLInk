@@ -151,7 +151,7 @@ Public Class F_FillTables
                         LookUp = searchView.Find(NextFile)
                         If LookUp < 0 Then
                             nNew = nNew + 1
-                            T_filesTableAdapter.Insert(NextFile, szPath, "", "", Now(), Now(), "", "N")
+                            T_filesTableAdapter.Insert(NextFile, szPath, "", "", Now(), Now(), "", "N", "") ' comebackhere
                         Else
                             nAlready = nAlready + 1
                         End If

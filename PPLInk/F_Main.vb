@@ -1,8 +1,9 @@
 ﻿Imports System.Diagnostics
 Imports System.Data.SqlClient
+Imports System.Text.RegularExpressions
 
 Public Class F_Main
-    Private szText As String
+    Private szText, szDebug As String
     Private PlayList As New PlayList
     Private isShort As String
     Private mySettings As New PPLInk.Settings
@@ -10,14 +11,15 @@ Public Class F_Main
 
     Private Sub F_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim szConn = mySettings.ProHelpConnectionUser
-        Dim szDebug = mySettings.ProHelpDebug
         Dim connection As New SqlConnection(mySettings.ProHelpConnectionString)
-        Dim szVersion As String
+        Dim szVersion, szUpdated, szTemp As String
+
+        szDebug = mySettings.ProHelpDebug
 
         Try
             szVersion = PPLInk.My.Application.Deployment.CurrentVersion.ToString
         Catch
-            szVersion = "1.5.0.48 Proto"
+            szVersion = "1.6.0.62 Proto"
         End Try
         LblVersion.Text = szVersion
         'Z.Y.X.W - Z.Y is major/minor version; X is build number, always 0; W is VS publish number
@@ -42,48 +44,26 @@ Public Class F_Main
 
         ' Do necessary upgrades
         Dim priorVersion = mySettings.ProHelpVersion
-        Dim bUpdated As Boolean = False
-        Select Case priorVersion
-            Case ""
-                ' Doesn't have extended length of t_files.f_altname
-                Dim cmd1 As SqlCommand = New SqlCommand("use ProHelp", connection)
-                Dim cmd2 As SqlCommand = New SqlCommand("Alter table t_files Alter column f_altname varchar(250)", connection)
-                connection.Open()
-                cmd1.ExecuteNonQuery()
-                cmd2.ExecuteNonQuery()
-                mySettings.ProHelpVersion = "1.4.0.36"
-                mySettings.Save()
-                MessageBox.Show("Upgraded length of t_files.f_altname",
+
+        If priorVersion <> szVersion Then
+            szUpdated = DoUpdates(CanonizeVersion(priorVersion), connection)
+            szTemp = szUpdated.Substring(0, 6)
+            Select Case szTemp
+                Case "No Act"
+                    mySettings.ProHelpVersion = szVersion
+                    mySettings.Save()
+
+                Case "Succes"
+                    mySettings.ProHelpVersion = szVersion
+                    mySettings.Save()
+                    MessageBox.Show(szUpdated & vbCrLf & "An upgrade was done.  PowerPoint Link must be restarted",
                                 "PowerPointLink: Automatic Upgrader", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                bUpdated = True
+                    Close()
 
-            Case "1.4.36"
-                mySettings.ProHelpVersion = "1.4.0.36"
-                mySettings.Save()
-
-            Case szVersion
-                ' NOP
-
-            Case >= "1.4.0.39"
-                mySettings.ProHelpVersion = szVersion
-                mySettings.Save()
-
-            Case >= "1.4.0.36"
-                Dim cmd1 As SqlCommand = New SqlCommand("use ProHelp", connection)
-                Dim cmd2 As SqlCommand = New SqlCommand("update t_files set last_dt = create_dt where last_dt is null", connection)
-                connection.Open()
-                cmd1.ExecuteNonQuery()
-                cmd2.ExecuteNonQuery()
-                mySettings.ProHelpVersion = szVersion
-                mySettings.Save()
-                MessageBox.Show("Upgraded t_files.last_dt - never null, 1.4.0.36")
-                bUpdated = True
-
-        End Select
-        If bUpdated Then
-            MessageBox.Show("An upgrade was done.  PowerPoint Link must be restarted",
+                Case "Failed"
+                    MessageBox.Show(szUpdated & vbCrLf & "An upgrade failed.  Please contact PowerPoint vendor",
                                 "PowerPointLink: Automatic Upgrader", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Close()
+            End Select
         End If
 
         If szDebug = "Yes" Then MessageBox.Show("filling")
@@ -140,8 +120,8 @@ Public Class F_Main
     End Sub
 
     Private Sub TxtSearch_TextChanged(sender As Object, e As EventArgs) Handles TxtSearch.TextChanged
-        szText = TxtSearch.Text
-        T_filesTableAdapter.FillByPhrase(ProHelpDataSet.t_files, szText, isShort)
+        Dim szText As String = StripPunc(TxtSearch.Text)
+        T_filesTableAdapter.FillByPhrase(ProHelpDataSet.t_files, isShort, szText)
     End Sub
 
     Private Sub TxtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles TxtSearch.KeyDown
@@ -409,6 +389,129 @@ Public Class F_Main
         TxtSearch.Text = ""
         TxtSearch.Focus()
     End Sub
+
+    Private Sub BtnPlayVideo_Click(sender As Object, e As EventArgs) Handles BtnPlayVideo.Click
+        MyBase.WindowState = FormWindowState.Minimized
+        F_PlayVideo.ShowDialog()
+        MyBase.WindowState = FormWindowState.Normal
+    End Sub
+
+    Private Function StripPunc(szString As String) As String
+        Dim szTemp As String = ""
+        Dim szChar As String
+        Dim i As Integer = 0
+        Dim regEx As New Regex("[\w\s]", RegexOptions.IgnoreCase)
+
+
+        While i < szString.Length
+            szChar = szString.Substring(i, 1)
+            If regEx.IsMatch(szChar) Then
+                szTemp = szTemp + szChar
+            End If
+            i = i + 1
+        End While
+
+        StripPunc = szTemp
+    End Function
+
+    Private Function DoUpdates(priorVersion As String, connection As SqlConnection) As String
+        Try
+            Select Case priorVersion
+                Case ""
+                    ' Doesn't have extended length of t_files.f_altname
+                    Dim cmd1 As SqlCommand = New SqlCommand("use ProHelp", connection)
+                    Dim cmd2 As SqlCommand = New SqlCommand("Alter table t_files Alter column f_altname varchar(250)", connection)
+                    connection.Open()
+                    cmd1.ExecuteNonQuery()
+                    cmd2.ExecuteNonQuery()
+                    DoUpdates = "Success: Upgraded length of t_files.f_altname, 1.4.0.36"
+
+                Case < "001.004.036.000"
+                    DoUpdates = "Success: Upgraded version style, 1.4.0.36"
+
+                Case < "001.004.000.036"
+                    Dim cmd1 As SqlCommand = New SqlCommand("use ProHelp", connection)
+                    Dim cmd2 As SqlCommand = New SqlCommand("update t_files set last_dt = create_dt where last_dt is null", connection)
+                    connection.Open()
+                    DoUpdates = "Success: Upgraded t_files.last_dt - never null, 1.4.0.36"
+
+                Case = "001.005.000.053"
+                    ' NOP - affects test bed only
+                    DoUpdates = "No Action: No upgrade necessary"
+
+                Case < "001.006.000.055"
+                    Dim cmd1 As SqlCommand = New SqlCommand("use ProHelp", connection)
+                    Dim cmd2 As SqlCommand = New SqlCommand("alter table t_files add s_search varchar(400)", connection)
+                    Dim cmd3 As SqlCommand = New SqlCommand("create Function dbo.StripPunc(@s_input varchar(max)) returns varchar(400)" &
+                        vbCrLf & " begin Declare @s_temp varchar(400)" &
+                        vbCrLf & "  Set @s_temp = replace(@s_input, '''', '')" &
+                        vbCrLf & "  Set @s_temp = replace(@s_temp, '""', '')" &
+                        vbCrLf & "  Set @s_temp = replace(@s_temp, ',', '')" &
+                        vbCrLf & "  Set @s_temp = replace(@s_temp, '’', '')" &
+                        vbCrLf & "  Return @s_temp" &
+                        vbCrLf & " end", connection)
+                    Dim cmd4 As SqlCommand = New SqlCommand("update t_files set s_search = dbo.strippunc(f_name) + '; ' + dbo.strippunc(f_altname)", connection)
+                    Dim cmd5 As SqlCommand = New SqlCommand("CREATE TRIGGER dbo.t_files_insert_set_search On t_files AFTER INSERT AS update t_files set s_search = dbo.StripPunc(f_name) + '; ' + dbo.StripPunc(f_altname) where file_no in (select file_no from inserted)", connection)
+                    Dim cmd6 As SqlCommand = New SqlCommand("CREATE TRIGGER dbo.t_files_update_set_search On t_files AFTER Update AS update t_files set s_search = dbo.StripPunc(f_name) + '; ' + dbo.StripPunc(f_altname) where file_no in (select a.file_no from deleted a join inserted b on a.file_no = b.file_no)", connection)
+                    connection.Open()
+                    If szDebug = "Yes" Then
+                        If DialogResult.Yes = MessageBox.Show("Next upgrade command is" & cmd1.CommandText & vbCrLf & "Run it?", "PowerPoint Link: Upgrading",
+                                           MessageBoxButtons.YesNo, MessageBoxIcon.Information) Then cmd1.ExecuteNonQuery()
+                        If DialogResult.Yes = MessageBox.Show("Next upgrade command is" & cmd2.CommandText & vbCrLf & "Run it?", "PowerPoint Link: Upgrading",
+                                           MessageBoxButtons.YesNo, MessageBoxIcon.Information) Then cmd2.ExecuteNonQuery()
+                        If DialogResult.Yes = MessageBox.Show("Next upgrade command is" & cmd3.CommandText & vbCrLf & "Run it?", "PowerPoint Link: Upgrading",
+                                           MessageBoxButtons.YesNo, MessageBoxIcon.Information) Then cmd3.ExecuteNonQuery()
+                        If DialogResult.Yes = MessageBox.Show("Next upgrade command is" & cmd4.CommandText & vbCrLf & "Run it?", "PowerPoint Link: Upgrading",
+                                           MessageBoxButtons.YesNo, MessageBoxIcon.Information) Then cmd4.ExecuteNonQuery()
+                        If DialogResult.Yes = MessageBox.Show("Next upgrade command is" & cmd5.CommandText & vbCrLf & "Run it?", "PowerPoint Link: Upgrading",
+                                           MessageBoxButtons.YesNo, MessageBoxIcon.Information) Then cmd5.ExecuteNonQuery()
+                        If DialogResult.Yes = MessageBox.Show("Next upgrade command is" & cmd6.CommandText & vbCrLf & "Run it?", "PowerPoint Link: Upgrading",
+                                           MessageBoxButtons.YesNo, MessageBoxIcon.Information) Then cmd6.ExecuteNonQuery()
+                    Else
+                        cmd1.ExecuteNonQuery()
+                        cmd2.ExecuteNonQuery()
+                        cmd3.ExecuteNonQuery()
+                        cmd4.ExecuteNonQuery()
+                        cmd5.ExecuteNonQuery()
+                        cmd6.ExecuteNonQuery()
+                    End If
+                    DoUpdates = "Success: Upgraded t_files, ignore punctuation in search, 1.6.0.55"
+
+                Case Else
+                    DoUpdates = "No Action: No upgrade necessary"
+
+            End Select
+        Catch ex As Exception
+            DoUpdates = "Failed:" & ex.Message
+        End Try
+    End Function
+
+    Private Function CanonizeVersion(szVersion As String) As String
+        Dim szParts(3) As String
+        Dim szTemp As String = ""
+        Dim myKeyParser As New KeyParser
+        Dim iLoop As Integer = 0
+
+        CanonizeVersion = szVersion
+
+        Dim iIndex As Integer = szVersion.IndexOf(" Proto")
+
+        If iIndex > 0 Then
+            szVersion = szVersion.Substring(0, iIndex)
+        End If
+
+        myKeyParser.GetKeyValues(szVersion, ".", szParts)
+        Do
+            If IsNothing(szParts(iLoop)) Then Exit Do
+            szTemp = szTemp & szParts(iLoop).PadLeft(3, "0")
+            iLoop = iLoop + 1
+            If iLoop = szParts.Length Then Exit Do
+            szTemp = szTemp + "."
+        Loop
+
+        CanonizeVersion = szTemp
+
+    End Function
 End Class
 
 'Version number

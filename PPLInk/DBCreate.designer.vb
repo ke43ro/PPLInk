@@ -122,12 +122,14 @@ Partial Public Class t_file
 	Private _last_dt As System.Nullable(Of Date)
 	
 	Private _last_action As String
-	
-	Private _inactive As Char
-	
-	Private _tx_playlist_songs As EntitySet(Of tx_playlist_song)
-	
-    #Region "Extensibility Method Definitions"
+
+    Private _inactive As Char
+
+    Private _s_search As String
+
+    Private _tx_playlist_songs As EntitySet(Of tx_playlist_song)
+
+#Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
     End Sub
     Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
@@ -170,176 +172,196 @@ Partial Public Class t_file
     End Sub
     Partial Private Sub OninactiveChanged()
     End Sub
-    #End Region
-	
-	Public Sub New()
-		MyBase.New
-		Me._tx_playlist_songs = New EntitySet(Of tx_playlist_song)(AddressOf Me.attach_tx_playlist_songs, AddressOf Me.detach_tx_playlist_songs)
-		OnCreated
-	End Sub
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_file_no", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
-	Public Property file_no() As Integer
-		Get
-			Return Me._file_no
-		End Get
-		Set
-			If ((Me._file_no = value)  _
-						= false) Then
-				Me.Onfile_noChanging(value)
-				Me.SendPropertyChanging
-				Me._file_no = value
-				Me.SendPropertyChanged("file_no")
-				Me.Onfile_noChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_f_name", DbType:="VarChar(80) NOT NULL", CanBeNull:=false)>  _
-	Public Property f_name() As String
-		Get
-			Return Me._f_name
-		End Get
-		Set
-			If (String.Equals(Me._f_name, value) = false) Then
-				Me.Onf_nameChanging(value)
-				Me.SendPropertyChanging
-				Me._f_name = value
-				Me.SendPropertyChanged("f_name")
-				Me.Onf_nameChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_f_path", DbType:="VarChar(250) NOT NULL", CanBeNull:=false)>  _
-	Public Property f_path() As String
-		Get
-			Return Me._f_path
-		End Get
-		Set
-			If (String.Equals(Me._f_path, value) = false) Then
-				Me.Onf_pathChanging(value)
-				Me.SendPropertyChanging
-				Me._f_path = value
-				Me.SendPropertyChanged("f_path")
-				Me.Onf_pathChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_f_altname", DbType:="VarChar(250)")>  _
-	Public Property f_altname() As String
-		Get
-			Return Me._f_altname
-		End Get
-		Set
-			If (String.Equals(Me._f_altname, value) = false) Then
-				Me.Onf_altnameChanging(value)
-				Me.SendPropertyChanging
-				Me._f_altname = value
-				Me.SendPropertyChanged("f_altname")
-				Me.Onf_altnameChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_selected", DbType:="Char(1)")>  _
-	Public Property selected() As System.Nullable(Of Char)
-		Get
-			Return Me._selected
-		End Get
-		Set
-			If (Me._selected.Equals(value) = false) Then
-				Me.OnselectedChanging(value)
-				Me.SendPropertyChanging
-				Me._selected = value
-				Me.SendPropertyChanged("selected")
-				Me.OnselectedChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_create_dt", DbType:="DateTime NOT NULL")>  _
-	Public Property create_dt() As Date
-		Get
-			Return Me._create_dt
-		End Get
-		Set
-			If ((Me._create_dt = value)  _
-						= false) Then
-				Me.Oncreate_dtChanging(value)
-				Me.SendPropertyChanging
-				Me._create_dt = value
-				Me.SendPropertyChanged("create_dt")
-				Me.Oncreate_dtChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_last_dt", DbType:="DateTime")>  _
-	Public Property last_dt() As System.Nullable(Of Date)
-		Get
-			Return Me._last_dt
-		End Get
-		Set
-			If (Me._last_dt.Equals(value) = false) Then
-				Me.Onlast_dtChanging(value)
-				Me.SendPropertyChanging
-				Me._last_dt = value
-				Me.SendPropertyChanged("last_dt")
-				Me.Onlast_dtChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_last_action", DbType:="VarChar(30)")>  _
-	Public Property last_action() As String
-		Get
-			Return Me._last_action
-		End Get
-		Set
-			If (String.Equals(Me._last_action, value) = false) Then
-				Me.Onlast_actionChanging(value)
-				Me.SendPropertyChanging
-				Me._last_action = value
-				Me.SendPropertyChanged("last_action")
-				Me.Onlast_actionChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_inactive", DbType:="Char(1) NOT NULL")>  _
-	Public Property inactive() As Char
-		Get
-			Return Me._inactive
-		End Get
-		Set
-			If ((Me._inactive = value)  _
-						= false) Then
-				Me.OninactiveChanging(value)
-				Me.SendPropertyChanging
-				Me._inactive = value
-				Me.SendPropertyChanged("inactive")
-				Me.OninactiveChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="t_file_tx_playlist_song", Storage:="_tx_playlist_songs", ThisKey:="file_no", OtherKey:="file_no")>  _
-	Public Property tx_playlist_songs() As EntitySet(Of tx_playlist_song)
-		Get
-			Return Me._tx_playlist_songs
-		End Get
-		Set
-			Me._tx_playlist_songs.Assign(value)
-		End Set
-	End Property
-	
-	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
-	
-	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
-	
-	Protected Overridable Sub SendPropertyChanging()
+    Partial Private Sub Ons_searchChanging(value As String)
+    End Sub
+    Partial Private Sub Ons_searchChanged()
+    End Sub
+#End Region
+
+    Public Sub New()
+        MyBase.New
+        Me._tx_playlist_songs = New EntitySet(Of tx_playlist_song)(AddressOf Me.attach_tx_playlist_songs, AddressOf Me.detach_tx_playlist_songs)
+        OnCreated()
+    End Sub
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_file_no", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=True, IsDbGenerated:=True)>
+    Public Property file_no() As Integer
+        Get
+            Return Me._file_no
+        End Get
+        Set
+            If ((Me._file_no = Value) _
+                        = False) Then
+                Me.Onfile_noChanging(Value)
+                Me.SendPropertyChanging()
+                Me._file_no = Value
+                Me.SendPropertyChanged("file_no")
+                Me.Onfile_noChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_f_name", DbType:="VarChar(80) NOT NULL", CanBeNull:=False)>
+    Public Property f_name() As String
+        Get
+            Return Me._f_name
+        End Get
+        Set
+            If (String.Equals(Me._f_name, Value) = False) Then
+                Me.Onf_nameChanging(Value)
+                Me.SendPropertyChanging()
+                Me._f_name = Value
+                Me.SendPropertyChanged("f_name")
+                Me.Onf_nameChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_f_path", DbType:="VarChar(250) NOT NULL", CanBeNull:=False)>
+    Public Property f_path() As String
+        Get
+            Return Me._f_path
+        End Get
+        Set
+            If (String.Equals(Me._f_path, Value) = False) Then
+                Me.Onf_pathChanging(Value)
+                Me.SendPropertyChanging()
+                Me._f_path = Value
+                Me.SendPropertyChanged("f_path")
+                Me.Onf_pathChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_f_altname", DbType:="VarChar(250)")>
+    Public Property f_altname() As String
+        Get
+            Return Me._f_altname
+        End Get
+        Set
+            If (String.Equals(Me._f_altname, Value) = False) Then
+                Me.Onf_altnameChanging(Value)
+                Me.SendPropertyChanging()
+                Me._f_altname = Value
+                Me.SendPropertyChanged("f_altname")
+                Me.Onf_altnameChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_selected", DbType:="Char(1)")>
+    Public Property selected() As System.Nullable(Of Char)
+        Get
+            Return Me._selected
+        End Get
+        Set
+            If (Me._selected.Equals(Value) = False) Then
+                Me.OnselectedChanging(Value)
+                Me.SendPropertyChanging()
+                Me._selected = Value
+                Me.SendPropertyChanged("selected")
+                Me.OnselectedChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_create_dt", DbType:="DateTime NOT NULL")>
+    Public Property create_dt() As Date
+        Get
+            Return Me._create_dt
+        End Get
+        Set
+            If ((Me._create_dt = Value) _
+                        = False) Then
+                Me.Oncreate_dtChanging(Value)
+                Me.SendPropertyChanging()
+                Me._create_dt = Value
+                Me.SendPropertyChanged("create_dt")
+                Me.Oncreate_dtChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_last_dt", DbType:="DateTime")>
+    Public Property last_dt() As System.Nullable(Of Date)
+        Get
+            Return Me._last_dt
+        End Get
+        Set
+            If (Me._last_dt.Equals(Value) = False) Then
+                Me.Onlast_dtChanging(Value)
+                Me.SendPropertyChanging()
+                Me._last_dt = Value
+                Me.SendPropertyChanged("last_dt")
+                Me.Onlast_dtChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_last_action", DbType:="VarChar(30)")>
+    Public Property last_action() As String
+        Get
+            Return Me._last_action
+        End Get
+        Set
+            If (String.Equals(Me._last_action, Value) = False) Then
+                Me.Onlast_actionChanging(Value)
+                Me.SendPropertyChanging()
+                Me._last_action = Value
+                Me.SendPropertyChanged("last_action")
+                Me.Onlast_actionChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_inactive", DbType:="Char(1) NOT NULL")>
+    Public Property inactive() As Char
+        Get
+            Return Me._inactive
+        End Get
+        Set
+            If ((Me._inactive = Value) _
+                        = False) Then
+                Me.OninactiveChanging(Value)
+                Me.SendPropertyChanging()
+                Me._inactive = Value
+                Me.SendPropertyChanged("inactive")
+                Me.OninactiveChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_s_search", DbType:="VarChar(400)")>
+    Public Property s_search() As String
+        Get
+            Return Me._s_search
+        End Get
+        Set
+            If (String.Equals(Me._s_search, Value) = False) Then
+                Me.Ons_searchChanging(Value)
+                Me.SendPropertyChanging()
+                Me._s_search = Value
+                Me.SendPropertyChanged("s_search")
+                Me.Ons_searchChanged()
+            End If
+        End Set
+    End Property
+
+    <Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="t_file_tx_playlist_song", Storage:="_tx_playlist_songs", ThisKey:="file_no", OtherKey:="file_no")>
+    Public Property tx_playlist_songs() As EntitySet(Of tx_playlist_song)
+        Get
+            Return Me._tx_playlist_songs
+        End Get
+        Set
+            Me._tx_playlist_songs.Assign(Value)
+        End Set
+    End Property
+
+    Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+
+    Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+
+    Protected Overridable Sub SendPropertyChanging()
 		If ((Me.PropertyChangingEvent Is Nothing)  _
 					= false) Then
 			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
