@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class F_CompareWithMaster
-    Private mySettings As New PPLInk.Settings
+    Private ReadOnly mySettings As New Settings
     Private connection As SqlConnection
 
     Private Sub F_CompareWithMaster_Load(sender As Object, e As EventArgs) Handles MyBase.Load

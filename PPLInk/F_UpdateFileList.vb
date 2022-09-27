@@ -4,7 +4,7 @@ Public Class F_UpdateFileList
     Private connection As SqlConnection
     Private iNoFile As Integer
     Private bFoundActive, bNewSelect As Boolean
-    Private mySettings As New PPLInk.Settings
+    Private mySettings As New Settings
     Const iInactive As Integer = 1
     Const iDeleteAll As Integer = 2
     Const iDeleteThis As Integer = 3
@@ -197,7 +197,7 @@ Public Class F_UpdateFileList
                             T_filesTableAdapter.Delete(iDupFileNo, szF_name, szF_path, szFAltName, szSelected,
                                 dtCreate_Dt, dtLast_Dt, szLast_Action, szInactive, szSearch)
                             bChanged = True
-                            nChanges = nChanges + 1
+                            nChanges += 1
                         Catch ex As Exception
                             MessageBox.Show("Error deleting duplicate file record " & iDupFileNo & " (duplicate of " & iFileNo & ")" & vbCrLf &
                                 "LD [" & dtLast_Dt & "]; " & "CD [" & dtCreate_Dt & "]" & vbCrLf &
@@ -263,7 +263,7 @@ Public Class F_UpdateFileList
                 Case Else
                     If Len(NextDir) = 1 Then
                         AllDirs(i) = szFolder & "\" & NextDir
-                        i = i + 1
+                        i += 1
                     End If
             End Select
             NextDir = Dir()
@@ -322,7 +322,7 @@ Public Class F_UpdateFileList
                         Case iInactive
                             DBFile.Row.Item("inactive") = "Y"
                             ListBox1.Items.Add(szFullPath & ": Not on disk - marked Inactive")
-                            nInactive = nInactive + 1
+                            nInactive += 1
 
                         Case iDeleteAll
                             Dim ListView As DataView = ProHelpDataSet.Tables("tx_playlist_song").DefaultView
@@ -346,7 +346,7 @@ Public Class F_UpdateFileList
                                 DBFile.Row.Item("create_dt"), DBFile.Row.Item("last_dt"), DBFile.Row.Item("last_action"), DBFile.Row.Item("inactive"),
                                     DBFile.Row.Item("s_search"))
                             ListBox1.Items.Add(szFullPath & ": Not on disk - all lists deleted")
-                            nDeleteAll = nDeleteAll + 1
+                            nDeleteAll += 1
 
                         Case iDeleteThis
                             For Each myRow In vPlaylists
@@ -362,7 +362,7 @@ Public Class F_UpdateFileList
                                 DBFile.Row.Item("create_dt"), DBFile.Row.Item("last_dt"), DBFile.Row.Item("last_action"), DBFile.Row.Item("inactive"),
                                     DBFile.Row.Item("s_search"))
                             ListBox1.Items.Add(szFullPath & ": Not on disk - deleted from all lists")
-                            nDeleteThis = nDeleteThis + 1
+                            nDeleteThis += 1
 
                         Case Else
                             MessageBox.Show("Programming error: Impossible state in unmatched file test",
@@ -376,7 +376,7 @@ Public Class F_UpdateFileList
                             DBFile.Row.Item("create_dt"), DBFile.Row.Item("last_dt"),
                             DBFile.Row.Item("last_action"), DBFile.Row.Item("inactive"), DBFile.Row.Item("s_search"))
                     ListBox1.Items.Add(szFullPath & ": Not on disk or in any playlists - deleted record")
-                    nDeleteRecord = nDeleteRecord + 1
+                    nDeleteRecord += 1
                 End If
 
             Else
@@ -394,15 +394,15 @@ Public Class F_UpdateFileList
                     'file was marked inactive but is actually on disk
                     If bFoundActive Then
                         DBFile.Row.Item("inactive") = "N"
-                        nMakeActive = nMakeActive + 1
+                        nMakeActive += 1
                         ListBox1.Items.Add(szFullPath & ": On disk - marked Active")
                     Else
                         ListBox1.Items.Add(szFullPath & ": On disk - but left as Inactive")
-                        nIgnoreInactive = nIgnoreInactive + 1
+                        nIgnoreInactive += 1
                     End If
                 Else
                     ListBox1.Items.Add(szFullPath & ": On disk, marked as active, no change necessary")
-                    nNoChange = nNoChange + 1
+                    nNoChange += 1
                 End If
             End If
             ProHelpDataSet.t_files.AcceptChanges()
@@ -421,7 +421,7 @@ Public Class F_UpdateFileList
 
         CheckNewFiles = "0::No new files found"
         For Each myRow In DiskFiles.FindRows(0)
-            nFiles = nFiles + 1
+            nFiles += 1
             If bNewSelect Then
                 T_filesTableAdapter.Insert(myRow.Item("f_name"), myRow.Item("f_path"), "", "Y", Now(), Now(), "New file added", "N", "")
             Else

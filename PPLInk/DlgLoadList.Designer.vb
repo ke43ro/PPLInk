@@ -27,10 +27,10 @@ Partial Class DlgLoadList
         Me.Save_Button = New System.Windows.Forms.Button()
         Me.Load_Button = New System.Windows.Forms.Button()
         Me.Cancel_Button = New System.Windows.Forms.Button()
-        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
+        Me.ProHelpDataSet = New ProHelpDataSet()
         Me.T_playlistsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.T_playlistsTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_playlistsTableAdapter()
-        Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
+        Me.T_playlistsTableAdapter = New ProHelpDataSetTableAdapters.t_playlistsTableAdapter()
+        Me.TableAdapterManager = New ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.LstQueue = New System.Windows.Forms.ListBox()
@@ -39,9 +39,9 @@ Partial Class DlgLoadList
         Me.PlaydtDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LnameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Tx_playlist_songBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Tx_playlist_songTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.tx_playlist_songTableAdapter()
+        Me.Tx_playlist_songTableAdapter = New ProHelpDataSetTableAdapters.tx_playlist_songTableAdapter()
         Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
+        Me.T_filesTableAdapter = New ProHelpDataSetTableAdapters.t_filesTableAdapter()
         Me.TxtStatus = New System.Windows.Forms.TextBox()
         Me.ChkFuture = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -123,7 +123,7 @@ Partial Class DlgLoadList
         Me.TableAdapterManager.t_filesTableAdapter = Nothing
         Me.TableAdapterManager.t_playlistsTableAdapter = Me.T_playlistsTableAdapter
         Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing
-        Me.TableAdapterManager.UpdateOrder = PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        Me.TableAdapterManager.UpdateOrder = ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
         '
         'Label1
         '

@@ -1,8 +1,6 @@
-﻿Imports System.Windows.Forms
-
-Public Class F_FillTables
+﻿Public Class F_FillTables
     Private nMatched As Integer, nMissing As Integer
-    Private nNew As Integer, nAlready As Integer
+    'Private nNew As Integer, nAlready As Integer
     Private szFolder As String = ""
     Private iFilesStart, iFilesEnd As Integer
     Private filesView As DataView
@@ -45,7 +43,7 @@ Public Class F_FillTables
                 Case Else
                     If Len(NextDir) = 1 Then
                         AllDirs(i) = szFolder & "\" & NextDir
-                        i = i + 1
+                        i += 1
                     End If
             End Select
             NextDir = Dir()
@@ -81,13 +79,15 @@ Public Class F_FillTables
         iFilesStart = T_filesBindingSource.Count
     End Sub
 
-    Private Sub DlgRecreate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim mySettings As New PPLInk.Settings
-        Dim szConn As String = mySettings.ProHelpConnectionUser
-        If szConn <> "" Then
+    Private Sub FillTables_On_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Dim mySettings As New Settings
+        If T_filesTableAdapter.Connection.ToString = "" Then
+            Dim szConn As String = My.Settings.ProHelpConnectionUser
+            'If szConn <> "" Then
             Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
             T_filesTableAdapter.Connection = connection
         End If
+        T_filesTableAdapter.Connection.Open()
 
         T_filesTableAdapter.FillAll(ProHelpDataSet.t_files)
         filesView = ProHelpDataSet.Tables("t_files").DefaultView
@@ -150,10 +150,10 @@ Public Class F_FillTables
                     Case ".ppt", "pptx", ".PPT", "PPTX"
                         LookUp = searchView.Find(NextFile)
                         If LookUp < 0 Then
-                            nNew = nNew + 1
+                            nNew += 1
                             T_filesTableAdapter.Insert(NextFile, szPath, "", "", Now(), Now(), "", "N", "") ' comebackhere
                         Else
-                            nAlready = nAlready + 1
+                            nAlready += 1
                         End If
                 End Select
                 NextFile = Dir()
@@ -178,7 +178,7 @@ Public Class F_FillTables
             For Each fViewRow In filesView
                 FullName = fViewRow("F_PATH") & "\" & fViewRow("F_NAME")
                 If Dir(FullName) <> "" Then
-                    nMatched = nMatched + 1
+                    nMatched += 1
                     'fViewRow.Edit
                     If IsDBNull(fViewRow("LAST_ACTION")) Then
                         fViewRow("LAST_ACTION") = "MATCHED"
@@ -190,7 +190,7 @@ Public Class F_FillTables
                     fViewRow("INACTIVE") = "N"
                     fViewRow.EndEdit()
                 Else
-                    nMissing = nMissing + 1
+                    nMissing += 1
                     If IsDBNull(fViewRow("LAST_ACTION")) Then
                         fViewRow("LAST_ACTION") = "NOT FOUND"
                         fViewRow("LAST_DT") = Now()

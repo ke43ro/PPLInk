@@ -75,7 +75,7 @@ Partial Class F_SetUp
         Me.TxtServer.Name = "TxtServer"
         Me.TxtServer.Size = New System.Drawing.Size(179, 20)
         Me.TxtServer.TabIndex = 4
-        Me.TxtServer.Text = "(LocalDB)\v11.0"
+        Me.TxtServer.Text = ".\SQLExpress"
         '
         'TxtAdvice2
         '

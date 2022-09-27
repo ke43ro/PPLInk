@@ -15,7 +15,7 @@ Public Class PlayList
         Dim SSWin As SlideShowWindow
         Dim szFileName, szFPath As String, i, iFileNo, iIndex As Integer
         Dim myParts() As String = {"", ""}
-        Dim mySettings As New PPLInk.Settings
+        Dim mySettings As New Settings
         Dim szConn As String = mySettings.ProHelpConnectionUser
         If szConn <> "" Then
             Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
@@ -30,7 +30,7 @@ Public Class PlayList
         PPPres.Visible = True
         i = -1
         Do
-            i = i + 1
+            i += 1
             If i >= arPlayList.Count Then Exit Do
 
             szFileName = arPlayList.Item(i)

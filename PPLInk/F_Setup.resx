@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TxtAdvice1.Text" xml:space="preserve">
-    <value>PowerPoint Link needs access to an SQL Server to maintain your song list.  If there is no SQL server installed on this computer, please install one now.  PowerPoint Link is designed to run with MSSQL Local DB so that is recommended.  If you are using a different server that is already installed, type in its connection string below.
+    <value>PowerPoint Link needs access to an SQL Server to maintain your song list and is designed to run with Microsoft SQL Express.  This will have been automatically installed as PowerPoint Link was installed.  If you are using a different server that is already installed, type in its connection string below.
 
-The usual connection string for LocalDB is "(LocalDB)\v11.0".  Others are .\SQLExpress or .\MSSQLLocalDB.  Click here for more information.</value>
+The usual connection string for SQL Express is .\SQLExpress.  Others are "(LocalDB)\v11.0" or .\MSSQLLocalDB.  Click here for more information.</value>
   </data>
   <data name="TxtAdvice3.Text" xml:space="preserve">
     <value>PowerPoint Link needs the database to be filled with correct path information for the files that make up your song collection.  It is expected that the collection will be held within a folder named MASTERS and that songs will be stored in single alpha letter folders below this.</value>

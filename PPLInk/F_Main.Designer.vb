@@ -253,10 +253,10 @@ Partial Class F_Main
         '
         'LblVersion
         '
-        Me.LblVersion.AutoSize = True
-        Me.LblVersion.Location = New System.Drawing.Point(722, 5)
+        Me.LblVersion.BackColor = System.Drawing.SystemColors.Control
+        Me.LblVersion.Location = New System.Drawing.Point(682, 5)
         Me.LblVersion.Name = "LblVersion"
-        Me.LblVersion.Size = New System.Drawing.Size(42, 13)
+        Me.LblVersion.Size = New System.Drawing.Size(82, 13)
         Me.LblVersion.TabIndex = 11
         Me.LblVersion.Text = "Version"
         Me.LblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight

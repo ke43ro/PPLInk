@@ -1,6 +1,6 @@
 ﻿Public Class F_Advanced
-    Private isT_FilesUpdated As Boolean = False
-    Private mySettings As New PPLInk.Settings
+    'Private isT_FilesUpdated As Boolean = False
+    Private ReadOnly mySettings As New Settings
     '    Private isShort As String
 
     Private Sub F_Advanced_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -1,18 +1,17 @@
 ﻿Imports System.Data.Linq
 Imports System.Data.Sql
-Imports System.Windows.Input
 
 
 Public Class F_SetUp
     Private Sub F_SetUp_OnLoad(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim mySettings As New PPLInk.Settings
-        If mySettings.ProHelpServerUser <> "" Then
-            TxtServer.Text = mySettings.ProHelpServerUser
+        'Dim mySettings As New Settings
+        If My.Settings.ProHelpServerUser <> "" Then
+            TxtServer.Text = My.Settings.ProHelpServerUser
         Else
-            ' string for MS LocalDB
-            TxtServer.Text = "(LocalDB)\v11.0"
+            ' string for SQL Express
+            TxtServer.Text = ".\SQLExpress"
         End If
-        Dim szFolder As String = mySettings.ProHelpMasterFolder
+        Dim szFolder As String = My.Settings.ProHelpMasterFolder
         If szFolder <> "" Then
             TxtFolder.Text = szFolder.Replace("%DOCUMENTS%", My.Computer.FileSystem.SpecialDirectories.MyDocuments)
         End If
@@ -47,9 +46,8 @@ Public Class F_SetUp
         End Try
 
         ' if successful
-        Dim mySettings As New PPLInk.Settings
-        mySettings.ProHelpServerUser = TxtServer.Text
-        mySettings.Save()
+        My.Settings.ProHelpServerUser = TxtServer.Text
+        My.Settings.Save()
         GroupBox1.BackColor = SystemColors.Control
         GroupBox2.BackColor = Color.FromArgb(255, 255, 230)
         ChkStep1.Text = "Step 1. Succeeded"
@@ -84,7 +82,7 @@ Public Class F_SetUp
     Private Sub BtnTest2_Click(sender As Object, e As EventArgs) Handles BtnTest2.Click
         ' test the database
         Cursor = Cursors.WaitCursor
-        Dim mySettings As New PPLInk.Settings
+        Dim mySettings As New Settings
         Dim szConn As String = "Data Source=" & mySettings.ProHelpServerUser & ";" & mySettings.ProHelpConnectionSuffix
         Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
         Try
@@ -167,7 +165,7 @@ Public Class F_SetUp
         End If
 
         ' if successful
-        Dim mySettings As New PPLInk.Settings
+        Dim mySettings As New Settings
         mySettings.ProHelpMasterFolder = TxtFolder.Text
         mySettings.Save()
         GroupBox3.BackColor = SystemColors.Control
@@ -189,7 +187,7 @@ Public Class F_SetUp
         iSep = szSeparator.Length
 
         Do
-            iLoop = iLoop + 1
+            iLoop += 1
             iPos = szInput.IndexOf(szSeparator)
             If iPos < 0 Then
                 szParms(iLoop) = szInput
@@ -212,7 +210,7 @@ Public Class F_SetUp
 
     Private Sub F_SetUp_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Dim result As DialogResult
-        Dim mySettings As New PPLInk.Settings
+        Dim mySettings As New Settings
         Dim szDebug As String = mySettings.ProHelpDebug
 
         Select Case Me.DialogResult

@@ -15,7 +15,7 @@ Option Explicit On
 Namespace My
     
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0"),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0"),  _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
@@ -57,12 +57,95 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=ProHelp;Integrated Security=Tr"& _ 
-            "ue")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=.\SQLExpress;Initial Catalog=ProHelp;Integrated Security=True")>  _
         Public ReadOnly Property ProHelpConnectionString() As String
             Get
                 Return CType(Me("ProHelpConnectionString"),String)
             End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ProHelpVersion() As String
+            Get
+                Return CType(Me("ProHelpVersion"),String)
+            End Get
+            Set
+                Me("ProHelpVersion") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("No")>  _
+        Public Property ProHelpDebug() As String
+            Get
+                Return CType(Me("ProHelpDebug"),String)
+            End Get
+            Set
+                Me("ProHelpDebug") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ProHelpConnectionUser() As String
+            Get
+                Return CType(Me("ProHelpConnectionUser"),String)
+            End Get
+            Set
+                Me("ProHelpConnectionUser") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Y")>  _
+        Public Property ProHelpSelected() As String
+            Get
+                Return CType(Me("ProHelpSelected"),String)
+            End Get
+            Set
+                Me("ProHelpSelected") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Y")>  _
+        Public Property ProHelpAutoShortList() As String
+            Get
+                Return CType(Me("ProHelpAutoShortList"),String)
+            End Get
+            Set
+                Me("ProHelpAutoShortList") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
+         Global.System.Configuration.DefaultSettingValueAttribute("%DOCUMENTS%\Kairos\Music for Parklea\MASTERS")>
+        Public Property ProHelpMasterFolder() As String
+            Get
+                Return CType(Me("ProHelpMasterFolder"),String)
+            End Get
+            Set
+                Me("ProHelpMasterFolder") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ProHelpServerUser() As String
+            Get
+                Return CType(Me("ProHelpServerUser"),String)
+            End Get
+            Set
+                Me("ProHelpServerUser") = value
+            End Set
         End Property
     End Class
 End Namespace

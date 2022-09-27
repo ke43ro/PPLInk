@@ -14,7 +14,7 @@ Option Explicit On
 
 
 <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
- Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")>  _
+ Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")>  _
 Partial Friend NotInheritable Class Settings
     Inherits Global.System.Configuration.ApplicationSettingsBase
     
@@ -24,29 +24,6 @@ Partial Friend NotInheritable Class Settings
         Get
             Return defaultInstance
         End Get
-    End Property
-    
-    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=ProHelp;Integrated Security=Tr"& _ 
-        "ue")>  _
-    Public ReadOnly Property ProHelpConnectionString() As String
-        Get
-            Return CType(Me("ProHelpConnectionString"),String)
-        End Get
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute(".\MSSQLLocalDB::.\SQLExpress")>  _
-    Public Property ProHelpServerTest() As String
-        Get
-            Return CType(Me("ProHelpServerTest"),String)
-        End Get
-        Set
-            Me("ProHelpServerTest") = value
-        End Set
     End Property
     
     <Global.System.Configuration.UserScopedSettingAttribute(),  _
@@ -143,5 +120,15 @@ Partial Friend NotInheritable Class Settings
         Set
             Me("ProHelpAutoShortList") = value
         End Set
+    End Property
+    
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("Data Source=.\SQL Express;Initial Catalog=ProHelp;Integrated Security=True")>  _
+    Public ReadOnly Property ProHelpConnectionString() As String
+        Get
+            Return CType(Me("ProHelpConnectionString"),String)
+        End Get
     End Property
 End Class

@@ -24,10 +24,10 @@ Partial Class F_EditFileList
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F_EditFileList))
-        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
+        Me.ProHelpDataSet = New ProHelpDataSet()
         Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
-        Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
+        Me.T_filesTableAdapter = New ProHelpDataSetTableAdapters.t_filesTableAdapter()
+        Me.TableAdapterManager = New ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.T_filesDataGridView = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -38,7 +38,7 @@ Partial Class F_EditFileList
         Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Tx_playlist_songTableAdapter1 = New PPLInk.ProHelpDataSetTableAdapters.tx_playlist_songTableAdapter()
+        Me.Tx_playlist_songTableAdapter1 = New ProHelpDataSetTableAdapters.tx_playlist_songTableAdapter()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,7 +66,7 @@ Partial Class F_EditFileList
         Me.TableAdapterManager.t_filesTableAdapter = Me.T_filesTableAdapter
         Me.TableAdapterManager.t_playlistsTableAdapter = Nothing
         Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing
-        Me.TableAdapterManager.UpdateOrder = PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        Me.TableAdapterManager.UpdateOrder = ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
         '
         'T_filesDataGridView
         '

@@ -301,58 +301,58 @@ SELECT rec_no, list_no, seq_no, file_no FROM tx_playlist_song WHERE (rec_no = @r
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="ProHelpDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ProHelpDataSet" msprop:Generator_UserDSName="ProHelpDataSet">
+  <xs:element name="ProHelpDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="ProHelpDataSet" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ProHelpDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="t_files" msprop:Generator_TableClassName="t_filesDataTable" msprop:Generator_TableVarName="tablet_files" msprop:Generator_TablePropName="t_files" msprop:Generator_RowDeletingName="t_filesRowDeleting" msprop:Generator_RowChangingName="t_filesRowChanging" msprop:Generator_RowEvHandlerName="t_filesRowChangeEventHandler" msprop:Generator_RowDeletedName="t_filesRowDeleted" msprop:Generator_UserTableName="t_files" msprop:Generator_RowChangedName="t_filesRowChanged" msprop:Generator_RowEvArgName="t_filesRowChangeEvent" msprop:Generator_RowClassName="t_filesRow">
+        <xs:element name="t_files" msprop:Generator_RowEvHandlerName="t_filesRowChangeEventHandler" msprop:Generator_RowDeletedName="t_filesRowDeleted" msprop:Generator_RowDeletingName="t_filesRowDeleting" msprop:Generator_RowEvArgName="t_filesRowChangeEvent" msprop:Generator_TablePropName="t_files" msprop:Generator_RowChangedName="t_filesRowChanged" msprop:Generator_UserTableName="t_files" msprop:Generator_RowChangingName="t_filesRowChanging" msprop:Generator_RowClassName="t_filesRow" msprop:Generator_TableClassName="t_filesDataTable" msprop:Generator_TableVarName="tablet_files">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="file_no" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnfile_no" msprop:Generator_ColumnPropNameInRow="file_no" msprop:Generator_ColumnPropNameInTable="file_noColumn" msprop:Generator_UserColumnName="file_no" type="xs:int" />
-              <xs:element name="f_name" msprop:Generator_ColumnVarNameInTable="columnf_name" msprop:Generator_ColumnPropNameInRow="f_name" msprop:Generator_ColumnPropNameInTable="f_nameColumn" msprop:Generator_UserColumnName="f_name">
+              <xs:element name="file_no" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="file_no" msprop:Generator_ColumnPropNameInTable="file_noColumn" msprop:Generator_ColumnPropNameInRow="file_no" msprop:Generator_ColumnVarNameInTable="columnfile_no" type="xs:int" />
+              <xs:element name="f_name" msprop:Generator_UserColumnName="f_name" msprop:Generator_ColumnPropNameInTable="f_nameColumn" msprop:Generator_ColumnPropNameInRow="f_name" msprop:Generator_ColumnVarNameInTable="columnf_name">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="80" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="f_path" msprop:Generator_ColumnVarNameInTable="columnf_path" msprop:Generator_ColumnPropNameInRow="f_path" msprop:Generator_ColumnPropNameInTable="f_pathColumn" msprop:Generator_UserColumnName="f_path">
+              <xs:element name="f_path" msprop:Generator_UserColumnName="f_path" msprop:Generator_ColumnPropNameInTable="f_pathColumn" msprop:Generator_ColumnPropNameInRow="f_path" msprop:Generator_ColumnVarNameInTable="columnf_path">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="250" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="f_altname" msprop:Generator_ColumnVarNameInTable="columnf_altname" msprop:Generator_ColumnPropNameInRow="f_altname" msprop:Generator_ColumnPropNameInTable="f_altnameColumn" msprop:Generator_UserColumnName="f_altname" minOccurs="0">
+              <xs:element name="f_altname" msprop:Generator_UserColumnName="f_altname" msprop:Generator_ColumnPropNameInTable="f_altnameColumn" msprop:Generator_ColumnPropNameInRow="f_altname" msprop:Generator_ColumnVarNameInTable="columnf_altname" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="80" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="selected" msprop:Generator_ColumnVarNameInTable="columnselected" msprop:Generator_ColumnPropNameInRow="selected" msprop:Generator_ColumnPropNameInTable="selectedColumn" msprop:Generator_UserColumnName="selected" minOccurs="0">
+              <xs:element name="selected" msprop:Generator_UserColumnName="selected" msprop:Generator_ColumnPropNameInTable="selectedColumn" msprop:Generator_ColumnPropNameInRow="selected" msprop:Generator_ColumnVarNameInTable="columnselected" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="1" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="create_dt" msprop:Generator_ColumnVarNameInTable="columncreate_dt" msprop:Generator_ColumnPropNameInRow="create_dt" msprop:Generator_ColumnPropNameInTable="create_dtColumn" msprop:Generator_UserColumnName="create_dt" type="xs:dateTime" />
-              <xs:element name="last_dt" msprop:Generator_ColumnVarNameInTable="columnlast_dt" msprop:Generator_ColumnPropNameInRow="last_dt" msprop:Generator_ColumnPropNameInTable="last_dtColumn" msprop:Generator_UserColumnName="last_dt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="last_action" msprop:Generator_ColumnVarNameInTable="columnlast_action" msprop:Generator_ColumnPropNameInRow="last_action" msprop:Generator_ColumnPropNameInTable="last_actionColumn" msprop:Generator_UserColumnName="last_action" minOccurs="0">
+              <xs:element name="create_dt" msprop:Generator_UserColumnName="create_dt" msprop:Generator_ColumnPropNameInTable="create_dtColumn" msprop:Generator_ColumnPropNameInRow="create_dt" msprop:Generator_ColumnVarNameInTable="columncreate_dt" type="xs:dateTime" />
+              <xs:element name="last_dt" msprop:Generator_UserColumnName="last_dt" msprop:Generator_ColumnPropNameInTable="last_dtColumn" msprop:Generator_ColumnPropNameInRow="last_dt" msprop:Generator_ColumnVarNameInTable="columnlast_dt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="last_action" msprop:Generator_UserColumnName="last_action" msprop:Generator_ColumnPropNameInTable="last_actionColumn" msprop:Generator_ColumnPropNameInRow="last_action" msprop:Generator_ColumnVarNameInTable="columnlast_action" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="30" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="inactive" msprop:Generator_ColumnVarNameInTable="columninactive" msprop:Generator_ColumnPropNameInRow="inactive" msprop:Generator_ColumnPropNameInTable="inactiveColumn" msprop:Generator_UserColumnName="inactive">
+              <xs:element name="inactive" msprop:Generator_UserColumnName="inactive" msprop:Generator_ColumnPropNameInTable="inactiveColumn" msprop:Generator_ColumnPropNameInRow="inactive" msprop:Generator_ColumnVarNameInTable="columninactive">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="1" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="s_search" msprop:Generator_ColumnVarNameInTable="columns_search" msprop:Generator_ColumnPropNameInRow="s_search" msprop:Generator_ColumnPropNameInTable="s_searchColumn" msprop:Generator_UserColumnName="s_search" minOccurs="0">
+              <xs:element name="s_search" msprop:Generator_UserColumnName="s_search" msprop:Generator_ColumnPropNameInTable="s_searchColumn" msprop:Generator_ColumnPropNameInRow="s_search" msprop:Generator_ColumnVarNameInTable="columns_search" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="400" />
@@ -362,48 +362,48 @@ SELECT rec_no, list_no, seq_no, file_no FROM tx_playlist_song WHERE (rec_no = @r
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="t_files_save" msprop:Generator_TableClassName="t_files_saveDataTable" msprop:Generator_TableVarName="tablet_files_save" msprop:Generator_TablePropName="t_files_save" msprop:Generator_RowDeletingName="t_files_saveRowDeleting" msprop:Generator_RowChangingName="t_files_saveRowChanging" msprop:Generator_RowEvHandlerName="t_files_saveRowChangeEventHandler" msprop:Generator_RowDeletedName="t_files_saveRowDeleted" msprop:Generator_UserTableName="t_files_save" msprop:Generator_RowChangedName="t_files_saveRowChanged" msprop:Generator_RowEvArgName="t_files_saveRowChangeEvent" msprop:Generator_RowClassName="t_files_saveRow">
+        <xs:element name="t_files_save" msprop:Generator_RowEvHandlerName="t_files_saveRowChangeEventHandler" msprop:Generator_RowDeletedName="t_files_saveRowDeleted" msprop:Generator_RowDeletingName="t_files_saveRowDeleting" msprop:Generator_RowEvArgName="t_files_saveRowChangeEvent" msprop:Generator_TablePropName="t_files_save" msprop:Generator_RowChangedName="t_files_saveRowChanged" msprop:Generator_UserTableName="t_files_save" msprop:Generator_RowChangingName="t_files_saveRowChanging" msprop:Generator_RowClassName="t_files_saveRow" msprop:Generator_TableClassName="t_files_saveDataTable" msprop:Generator_TableVarName="tablet_files_save">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="file_no" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnfile_no" msprop:Generator_ColumnPropNameInRow="file_no" msprop:Generator_ColumnPropNameInTable="file_noColumn" msprop:Generator_UserColumnName="file_no" type="xs:int" />
-              <xs:element name="f_name" msprop:Generator_ColumnVarNameInTable="columnf_name" msprop:Generator_ColumnPropNameInRow="f_name" msprop:Generator_ColumnPropNameInTable="f_nameColumn" msprop:Generator_UserColumnName="f_name">
+              <xs:element name="file_no" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="file_no" msprop:Generator_ColumnPropNameInTable="file_noColumn" msprop:Generator_ColumnPropNameInRow="file_no" msprop:Generator_ColumnVarNameInTable="columnfile_no" type="xs:int" />
+              <xs:element name="f_name" msprop:Generator_UserColumnName="f_name" msprop:Generator_ColumnPropNameInTable="f_nameColumn" msprop:Generator_ColumnPropNameInRow="f_name" msprop:Generator_ColumnVarNameInTable="columnf_name">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="80" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="f_path" msprop:Generator_ColumnVarNameInTable="columnf_path" msprop:Generator_ColumnPropNameInRow="f_path" msprop:Generator_ColumnPropNameInTable="f_pathColumn" msprop:Generator_UserColumnName="f_path">
+              <xs:element name="f_path" msprop:Generator_UserColumnName="f_path" msprop:Generator_ColumnPropNameInTable="f_pathColumn" msprop:Generator_ColumnPropNameInRow="f_path" msprop:Generator_ColumnVarNameInTable="columnf_path">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="250" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="f_altname" msprop:Generator_ColumnVarNameInTable="columnf_altname" msprop:Generator_ColumnPropNameInRow="f_altname" msprop:Generator_ColumnPropNameInTable="f_altnameColumn" msprop:Generator_UserColumnName="f_altname" minOccurs="0">
+              <xs:element name="f_altname" msprop:Generator_UserColumnName="f_altname" msprop:Generator_ColumnPropNameInTable="f_altnameColumn" msprop:Generator_ColumnPropNameInRow="f_altname" msprop:Generator_ColumnVarNameInTable="columnf_altname" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="80" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="selected" msprop:Generator_ColumnVarNameInTable="columnselected" msprop:Generator_ColumnPropNameInRow="selected" msprop:Generator_ColumnPropNameInTable="selectedColumn" msprop:Generator_UserColumnName="selected" minOccurs="0">
+              <xs:element name="selected" msprop:Generator_UserColumnName="selected" msprop:Generator_ColumnPropNameInTable="selectedColumn" msprop:Generator_ColumnPropNameInRow="selected" msprop:Generator_ColumnVarNameInTable="columnselected" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="1" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="create_dt" msprop:Generator_ColumnVarNameInTable="columncreate_dt" msprop:Generator_ColumnPropNameInRow="create_dt" msprop:Generator_ColumnPropNameInTable="create_dtColumn" msprop:Generator_UserColumnName="create_dt" type="xs:dateTime" />
-              <xs:element name="last_dt" msprop:Generator_ColumnVarNameInTable="columnlast_dt" msprop:Generator_ColumnPropNameInRow="last_dt" msprop:Generator_ColumnPropNameInTable="last_dtColumn" msprop:Generator_UserColumnName="last_dt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="last_action" msprop:Generator_ColumnVarNameInTable="columnlast_action" msprop:Generator_ColumnPropNameInRow="last_action" msprop:Generator_ColumnPropNameInTable="last_actionColumn" msprop:Generator_UserColumnName="last_action" minOccurs="0">
+              <xs:element name="create_dt" msprop:Generator_UserColumnName="create_dt" msprop:Generator_ColumnPropNameInTable="create_dtColumn" msprop:Generator_ColumnPropNameInRow="create_dt" msprop:Generator_ColumnVarNameInTable="columncreate_dt" type="xs:dateTime" />
+              <xs:element name="last_dt" msprop:Generator_UserColumnName="last_dt" msprop:Generator_ColumnPropNameInTable="last_dtColumn" msprop:Generator_ColumnPropNameInRow="last_dt" msprop:Generator_ColumnVarNameInTable="columnlast_dt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="last_action" msprop:Generator_UserColumnName="last_action" msprop:Generator_ColumnPropNameInTable="last_actionColumn" msprop:Generator_ColumnPropNameInRow="last_action" msprop:Generator_ColumnVarNameInTable="columnlast_action" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="30" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="inactive" msprop:Generator_ColumnVarNameInTable="columninactive" msprop:Generator_ColumnPropNameInRow="inactive" msprop:Generator_ColumnPropNameInTable="inactiveColumn" msprop:Generator_UserColumnName="inactive">
+              <xs:element name="inactive" msprop:Generator_UserColumnName="inactive" msprop:Generator_ColumnPropNameInTable="inactiveColumn" msprop:Generator_ColumnPropNameInRow="inactive" msprop:Generator_ColumnVarNameInTable="columninactive">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="1" />
@@ -413,12 +413,12 @@ SELECT rec_no, list_no, seq_no, file_no FROM tx_playlist_song WHERE (rec_no = @r
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="t_playlists" msprop:Generator_TableClassName="t_playlistsDataTable" msprop:Generator_TableVarName="tablet_playlists" msprop:Generator_TablePropName="t_playlists" msprop:Generator_RowDeletingName="t_playlistsRowDeleting" msprop:Generator_RowChangingName="t_playlistsRowChanging" msprop:Generator_RowEvHandlerName="t_playlistsRowChangeEventHandler" msprop:Generator_RowDeletedName="t_playlistsRowDeleted" msprop:Generator_UserTableName="t_playlists" msprop:Generator_RowChangedName="t_playlistsRowChanged" msprop:Generator_RowEvArgName="t_playlistsRowChangeEvent" msprop:Generator_RowClassName="t_playlistsRow">
+        <xs:element name="t_playlists" msprop:Generator_RowEvHandlerName="t_playlistsRowChangeEventHandler" msprop:Generator_RowDeletedName="t_playlistsRowDeleted" msprop:Generator_RowDeletingName="t_playlistsRowDeleting" msprop:Generator_RowEvArgName="t_playlistsRowChangeEvent" msprop:Generator_TablePropName="t_playlists" msprop:Generator_RowChangedName="t_playlistsRowChanged" msprop:Generator_UserTableName="t_playlists" msprop:Generator_RowChangingName="t_playlistsRowChanging" msprop:Generator_RowClassName="t_playlistsRow" msprop:Generator_TableClassName="t_playlistsDataTable" msprop:Generator_TableVarName="tablet_playlists">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="list_no" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnlist_no" msprop:Generator_ColumnPropNameInRow="list_no" msprop:Generator_ColumnPropNameInTable="list_noColumn" msprop:Generator_UserColumnName="list_no" type="xs:int" />
-              <xs:element name="play_dt" msprop:Generator_ColumnVarNameInTable="columnplay_dt" msprop:Generator_ColumnPropNameInRow="play_dt" msprop:Generator_ColumnPropNameInTable="play_dtColumn" msprop:Generator_UserColumnName="play_dt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="l_name" msprop:Generator_ColumnVarNameInTable="columnl_name" msprop:Generator_ColumnPropNameInRow="l_name" msprop:Generator_ColumnPropNameInTable="l_nameColumn" msprop:Generator_UserColumnName="l_name" minOccurs="0">
+              <xs:element name="list_no" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="list_no" msprop:Generator_ColumnPropNameInTable="list_noColumn" msprop:Generator_ColumnPropNameInRow="list_no" msprop:Generator_ColumnVarNameInTable="columnlist_no" type="xs:int" />
+              <xs:element name="play_dt" msprop:Generator_UserColumnName="play_dt" msprop:Generator_ColumnPropNameInTable="play_dtColumn" msprop:Generator_ColumnPropNameInRow="play_dt" msprop:Generator_ColumnVarNameInTable="columnplay_dt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="l_name" msprop:Generator_UserColumnName="l_name" msprop:Generator_ColumnPropNameInTable="l_nameColumn" msprop:Generator_ColumnPropNameInRow="l_name" msprop:Generator_ColumnVarNameInTable="columnl_name" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="30" />
@@ -428,13 +428,13 @@ SELECT rec_no, list_no, seq_no, file_no FROM tx_playlist_song WHERE (rec_no = @r
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="tx_playlist_song" msprop:Generator_TableClassName="tx_playlist_songDataTable" msprop:Generator_TableVarName="tabletx_playlist_song" msprop:Generator_TablePropName="tx_playlist_song" msprop:Generator_RowDeletingName="tx_playlist_songRowDeleting" msprop:Generator_RowChangingName="tx_playlist_songRowChanging" msprop:Generator_RowEvHandlerName="tx_playlist_songRowChangeEventHandler" msprop:Generator_RowDeletedName="tx_playlist_songRowDeleted" msprop:Generator_UserTableName="tx_playlist_song" msprop:Generator_RowChangedName="tx_playlist_songRowChanged" msprop:Generator_RowEvArgName="tx_playlist_songRowChangeEvent" msprop:Generator_RowClassName="tx_playlist_songRow">
+        <xs:element name="tx_playlist_song" msprop:Generator_RowEvHandlerName="tx_playlist_songRowChangeEventHandler" msprop:Generator_RowDeletedName="tx_playlist_songRowDeleted" msprop:Generator_RowDeletingName="tx_playlist_songRowDeleting" msprop:Generator_RowEvArgName="tx_playlist_songRowChangeEvent" msprop:Generator_TablePropName="tx_playlist_song" msprop:Generator_RowChangedName="tx_playlist_songRowChanged" msprop:Generator_UserTableName="tx_playlist_song" msprop:Generator_RowChangingName="tx_playlist_songRowChanging" msprop:Generator_RowClassName="tx_playlist_songRow" msprop:Generator_TableClassName="tx_playlist_songDataTable" msprop:Generator_TableVarName="tabletx_playlist_song">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="rec_no" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnrec_no" msprop:Generator_ColumnPropNameInRow="rec_no" msprop:Generator_ColumnPropNameInTable="rec_noColumn" msprop:Generator_UserColumnName="rec_no" type="xs:int" />
-              <xs:element name="list_no" msprop:Generator_ColumnVarNameInTable="columnlist_no" msprop:Generator_ColumnPropNameInRow="list_no" msprop:Generator_ColumnPropNameInTable="list_noColumn" msprop:Generator_UserColumnName="list_no" type="xs:int" />
-              <xs:element name="seq_no" msprop:Generator_ColumnVarNameInTable="columnseq_no" msprop:Generator_ColumnPropNameInRow="seq_no" msprop:Generator_ColumnPropNameInTable="seq_noColumn" msprop:Generator_UserColumnName="seq_no" type="xs:int" />
-              <xs:element name="file_no" msprop:Generator_ColumnVarNameInTable="columnfile_no" msprop:Generator_ColumnPropNameInRow="file_no" msprop:Generator_ColumnPropNameInTable="file_noColumn" msprop:Generator_UserColumnName="file_no" type="xs:int" />
+              <xs:element name="rec_no" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="rec_no" msprop:Generator_ColumnPropNameInTable="rec_noColumn" msprop:Generator_ColumnPropNameInRow="rec_no" msprop:Generator_ColumnVarNameInTable="columnrec_no" type="xs:int" />
+              <xs:element name="list_no" msprop:Generator_UserColumnName="list_no" msprop:Generator_ColumnPropNameInTable="list_noColumn" msprop:Generator_ColumnPropNameInRow="list_no" msprop:Generator_ColumnVarNameInTable="columnlist_no" type="xs:int" />
+              <xs:element name="seq_no" msprop:Generator_UserColumnName="seq_no" msprop:Generator_ColumnPropNameInTable="seq_noColumn" msprop:Generator_ColumnPropNameInRow="seq_no" msprop:Generator_ColumnVarNameInTable="columnseq_no" type="xs:int" />
+              <xs:element name="file_no" msprop:Generator_UserColumnName="file_no" msprop:Generator_ColumnPropNameInTable="file_noColumn" msprop:Generator_ColumnPropNameInRow="file_no" msprop:Generator_ColumnVarNameInTable="columnfile_no" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -455,8 +455,8 @@ SELECT rec_no, list_no, seq_no, file_no FROM tx_playlist_song WHERE (rec_no = @r
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_tx_playlist_song_file_no" msdata:parent="t_files" msdata:child="tx_playlist_song" msdata:parentkey="file_no" msdata:childkey="file_no" msprop:Generator_UserChildTable="tx_playlist_song" msprop:Generator_ChildPropName="Gettx_playlist_songRows" msprop:Generator_UserRelationName="FK_tx_playlist_song_file_no" msprop:Generator_ParentPropName="t_filesRow" msprop:Generator_RelationVarName="relationFK_tx_playlist_song_file_no" msprop:Generator_UserParentTable="t_files" />
-      <msdata:Relationship name="FK_tx_playlist_song_list_no" msdata:parent="t_playlists" msdata:child="tx_playlist_song" msdata:parentkey="list_no" msdata:childkey="list_no" msprop:Generator_UserChildTable="tx_playlist_song" msprop:Generator_ChildPropName="Gettx_playlist_songRows" msprop:Generator_UserRelationName="FK_tx_playlist_song_list_no" msprop:Generator_ParentPropName="t_playlistsRow" msprop:Generator_RelationVarName="relationFK_tx_playlist_song_list_no" msprop:Generator_UserParentTable="t_playlists" />
+      <msdata:Relationship name="FK_tx_playlist_song_file_no" msdata:parent="t_files" msdata:child="tx_playlist_song" msdata:parentkey="file_no" msdata:childkey="file_no" msprop:Generator_UserParentTable="t_files" msprop:Generator_UserChildTable="tx_playlist_song" msprop:Generator_RelationVarName="relationFK_tx_playlist_song_file_no" msprop:Generator_ChildPropName="Gettx_playlist_songRows" msprop:Generator_ParentPropName="t_filesRow" msprop:Generator_UserRelationName="FK_tx_playlist_song_file_no" />
+      <msdata:Relationship name="FK_tx_playlist_song_list_no" msdata:parent="t_playlists" msdata:child="tx_playlist_song" msdata:parentkey="list_no" msdata:childkey="list_no" msprop:Generator_UserParentTable="t_playlists" msprop:Generator_UserChildTable="tx_playlist_song" msprop:Generator_RelationVarName="relationFK_tx_playlist_song_list_no" msprop:Generator_ChildPropName="Gettx_playlist_songRows" msprop:Generator_ParentPropName="t_playlistsRow" msprop:Generator_UserRelationName="FK_tx_playlist_song_list_no" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

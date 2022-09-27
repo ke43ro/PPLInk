@@ -1,10 +1,10 @@
 ﻿Public Class F_List_IO
-    Private iFilesStart, iFilesEnd As Integer
+    'Private iFilesStart, iFilesEnd As Integer
     Private filesView As DataView
     Private isT_FilesUpdated As Boolean = False
 
     Private Sub F_List_IO_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim mySettings As New PPLInk.Settings
+        Dim mySettings As New Settings
         Dim szConn = mySettings.ProHelpConnectionUser
 
         Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
@@ -102,7 +102,7 @@
             myKeyParser.GetKeyValues(szLine, vbTab, szParts)
             If szParts(0) = "F_name" Then Continue Do
 
-            nTotal = nTotal + 1
+            nTotal += 1
             MatchRows = filesView.FindRows(szParts(0))
 
             szFileComment = ""
@@ -112,7 +112,7 @@
 
             If MatchRows.Length = 0 Then
                 'this file is not included in local database
-                nNotLocal = nNotLocal + 1
+                nNotLocal += 1
                 szFileComment = "Not found in local database"
                 szOldAlt = ""
                 szNewAlt = ""
@@ -138,22 +138,22 @@
                         If bRepAlt Then
                             szAltComment = "Alternative text replaced"
                             MatchRow(3) = szNewAlt
-                            nAlt = nAlt + 1
+                            nAlt += 1
                         ElseIf bAddAlt Then
                             If MatchRow(3) = "" Then
                                 MatchRow(3) = szNewAlt
                                 szSelComment = "New alternative inserted"
-                                nAlt = nAlt + 1
+                                nAlt += 1
                             ElseIf szNewAlt.IndexOf(MatchRow(3)) > 0 Then
                                 MatchRow(3) = szNewAlt
                                 szSelComment = "Existing text included in import - replaced"
-                                nAlt = nAlt + 1
+                                nAlt += 1
                             ElseIf MatchRow(3).IndexOf(szNewAlt) > 0 Then
                                 szSelComment = "Imported text already included - no change"
                             Else
                                 MatchRow(3) = MatchRow(3) & "; " & szNewAlt
                                 szSelComment = "Alternative text extended"
-                                nAlt = nAlt + 1
+                                nAlt += 1
                             End If
                         End If
                     End If
@@ -168,11 +168,11 @@
                         If MatchRow(4) = "Y" And bXSelIn = True Then
                             szSelComment = "Selection removed"
                             MatchRow(4) = ""
-                            nSelRem = nSelRem + 1
+                            nSelRem += 1
                         ElseIf szParts(3) = "Y" And bSelIn = True Then
                             szSelComment = "Selection added"
                             MatchRow(4) = "Y"
-                            nSelSet = nSelSet + 1
+                            nSelSet += 1
                         End If
                     End If
 
@@ -186,11 +186,11 @@
                         If MatchRow(8) = "Y" And bXInactIn = True Then
                             szInactComment = "Inactive removed"
                             MatchRow(8) = ""
-                            nINactRem = nINactRem + 1
+                            nINactRem += 1
                         ElseIf szParts(4) = "Y" And bInactIn = True Then
                             szInactComment = "Inactive added"
                             MatchRow(8) = "Y"
-                            nINactSet = nINactSet + 1
+                            nINactSet += 1
                         End If
                     End If
 
@@ -211,7 +211,7 @@
         For Each MatchRow In filesView
             If ResultsView.Find(MatchRow(0)) < 0 Then
                 'file missing from remote
-                nNotRemote = nNotRemote + 1
+                nNotRemote += 1
                 ResultAdd(T_Results, MatchRow(0), MatchRow(1), MatchRow(2), "Not found in import file",
                           "", "", "", "", "", "", "", "", "")
             End If

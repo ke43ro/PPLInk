@@ -2,7 +2,7 @@
     Private bFormOpen As Boolean = False
 
     Private Sub F_EditFileList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim mySettings As New PPLInk.Settings
+        Dim mySettings As New Settings
         Dim szConn = mySettings.ProHelpConnectionUser
         'LblVersion.Text = Me.ProductVersion
 

@@ -1,6 +1,4 @@
-﻿Imports System.Windows.Forms
-
-Public Class DlgLoadList
+﻿Public Class DlgLoadList
     Private bFuture As Boolean
     Private isLoaded As Boolean = False
 
@@ -17,13 +15,13 @@ Public Class DlgLoadList
 
         While iLoop < ListBox.Items.Count
             LstQueue.Items.Add(ListBox.Items(iLoop))
-            iLoop = iLoop + 1
+            iLoop += 1
         End While
     End Sub
 
     Private Sub DlgLoadList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim nSongs As Integer = LstQueue.Items.Count
-        Dim mySettings As New PPLInk.Settings
+        Dim mySettings As New Settings
         Dim szConn As String = mySettings.ProHelpConnectionUser
 
         If szConn <> "" Then
@@ -140,7 +138,7 @@ Public Class DlgLoadList
         While iLoop < LstQueue.Items.Count
             myKeyParser.GetKeyValues(LstQueue.Items(iLoop), "::", szParms)
             Tx_playlist_songTableAdapter.Insert(iListNo, iLoop, szParms(0))
-            iLoop = iLoop + 1
+            iLoop += 1
         End While
         ProHelpDataSet.tx_playlist_song.AcceptChanges()
 

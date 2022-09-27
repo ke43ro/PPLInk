@@ -35,10 +35,10 @@ Partial Class F_List_IO
         Me.ChkAddSelect = New System.Windows.Forms.CheckBox()
         Me.ChkRemoveSelect = New System.Windows.Forms.CheckBox()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
+        Me.ProHelpDataSet = New ProHelpDataSet()
         Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
-        Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
+        Me.T_filesTableAdapter = New ProHelpDataSetTableAdapters.t_filesTableAdapter()
+        Me.TableAdapterManager = New ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox1.SuspendLayout()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -200,7 +200,7 @@ Partial Class F_List_IO
         Me.TableAdapterManager.t_filesTableAdapter = Me.T_filesTableAdapter
         Me.TableAdapterManager.t_playlistsTableAdapter = Nothing
         Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing
-        Me.TableAdapterManager.UpdateOrder = PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        Me.TableAdapterManager.UpdateOrder = ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
         '
         'F_List_IO
         '

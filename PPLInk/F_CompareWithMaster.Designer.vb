@@ -28,10 +28,10 @@ Partial Class F_CompareWithMaster
         Me.BtnBrowse = New System.Windows.Forms.Button()
         Me.TxtFolder = New System.Windows.Forms.TextBox()
         Me.BtnCompare = New System.Windows.Forms.Button()
-        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
+        Me.ProHelpDataSet = New ProHelpDataSet()
         Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
-        Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
+        Me.T_filesTableAdapter = New ProHelpDataSetTableAdapters.t_filesTableAdapter()
+        Me.TableAdapterManager = New ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.BtnCompareFile = New System.Windows.Forms.Button()
@@ -99,7 +99,7 @@ Partial Class F_CompareWithMaster
         Me.TableAdapterManager.t_filesTableAdapter = Me.T_filesTableAdapter
         Me.TableAdapterManager.t_playlistsTableAdapter = Nothing
         Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing
-        Me.TableAdapterManager.UpdateOrder = PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        Me.TableAdapterManager.UpdateOrder = ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
         '
         'OpenFileDialog1
         '
