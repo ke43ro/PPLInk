@@ -102,7 +102,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Y")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("N")>  _
         Public Property ProHelpSelected() As String
             Get
                 Return CType(Me("ProHelpSelected"),String)
@@ -123,10 +123,10 @@ Namespace My
                 Me("ProHelpAutoShortList") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("%DOCUMENTS%\Kairos\Music for Parklea\MASTERS")>
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("%DOCUMENTS%\Kairos\Music for Parklea\MASTERS")>  _
         Public Property ProHelpMasterFolder() As String
             Get
                 Return CType(Me("ProHelpMasterFolder"),String)
@@ -146,6 +146,15 @@ Namespace My
             Set
                 Me("ProHelpServerUser") = value
             End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Initial Catalog=ProHelp;Integrated Security=True")>  _
+        Public ReadOnly Property ProHelpConnectionSuffix() As String
+            Get
+                Return CType(Me("ProHelpConnectionSuffix"),String)
+            End Get
         End Property
     End Class
 End Namespace

@@ -4,8 +4,7 @@
     Private isT_FilesUpdated As Boolean = False
 
     Private Sub F_List_IO_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim mySettings As New Settings
-        Dim szConn = mySettings.ProHelpConnectionUser
+        Dim szConn = My.Settings.ProHelpConnectionUser
 
         Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
         T_filesTableAdapter.Connection = connection

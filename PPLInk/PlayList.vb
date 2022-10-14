@@ -5,9 +5,9 @@ Imports Microsoft.Office.Interop.PowerPoint.PpViewType
 'Imports System.Runtime.InteropServices
 
 Public Class PlayList
-    Private myDataSet As New ProHelpDataSet
-    Private myKeyParser As New KeyParser
-    Dim TFadap As New ProHelpDataSetTableAdapters.t_filesTableAdapter
+    Private ReadOnly myDataSet As New ProHelpDataSet
+    Private ReadOnly myKeyParser As New KeyParser
+    ReadOnly TFadap As New ProHelpDataSetTableAdapters.t_filesTableAdapter
     Private Declare Function SetForegroundWindow Lib "user32" (ByVal hWnd As IntPtr) As Integer
 
     Public Sub Run(ByRef arPlayList As ListBox.ObjectCollection)
@@ -15,11 +15,15 @@ Public Class PlayList
         Dim SSWin As SlideShowWindow
         Dim szFileName, szFPath As String, i, iFileNo, iIndex As Integer
         Dim myParts() As String = {"", ""}
-        Dim mySettings As New Settings
-        Dim szConn As String = mySettings.ProHelpConnectionUser
+        Dim szConn As String = My.Settings.ProHelpConnectionUser
         If szConn <> "" Then
             Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
             TFadap.Connection = connection
+        Else
+            MessageBox.Show("Error opening the file list table.",
+                "PowerPoint Link: Presentation Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+
         End If
 
         TFadap.FillAll(myDataSet.t_files)
@@ -27,7 +31,18 @@ Public Class PlayList
         filesView.Sort = "file_no"
 
         PPPres = New Microsoft.Office.Interop.PowerPoint.Application
-        PPPres.Visible = True
+        Try
+            PPPres.Visible = True
+
+        Catch ex As Exception
+            MessageBox.Show("Error making the PowerPoint window visible. Do you have a licenced copy of MS Office?" &
+                    vbCrLf & "Please contact the programmer with this message:" & vbCrLf & ex.Message & vbCrLf &
+                    ex.StackTrace,
+                "PowerPoint Link: Presentation Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+
+        End Try
+
         i = -1
         Do
             i += 1
@@ -84,7 +99,17 @@ Public Class PlayList
             End With
         Loop
 
-        PPPres.WindowState = PpWindowState.ppWindowMinimized
-        PPPres.Quit()
+        Try
+            PPPres.WindowState = PpWindowState.ppWindowMinimized
+            PPPres.Quit()
+
+        Catch ex As Exception
+            MessageBox.Show("Error minimising the PowerPoint window. Do you have a licenced copy of MS Office?" &
+                    vbCrLf & "Please contact the programmer with this message:" & vbCrLf & ex.Message & vbCrLf &
+                    ex.StackTrace,
+                "PowerPoint Link: Presentation Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+        End Try
+
     End Sub
 End Class

@@ -4,13 +4,12 @@ Public Class F_UpdateFileList
     Private connection As SqlConnection
     Private iNoFile As Integer
     Private bFoundActive, bNewSelect As Boolean
-    Private mySettings As New Settings
     Const iInactive As Integer = 1
     Const iDeleteAll As Integer = 2
     Const iDeleteThis As Integer = 3
 
     Private Sub F_UpdateFileList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim szConn = mySettings.ProHelpConnectionUser
+        Dim szConn = My.Settings.ProHelpConnectionUser
 
         connection = New SqlConnection(szConn)
         T_filesTableAdapter.Connection = connection
@@ -18,7 +17,7 @@ Public Class F_UpdateFileList
         Me.T_filesTableAdapter.FillAll(Me.ProHelpDataSet.t_files)
         Me.Tx_playlist_songTableAdapter.Fill(Me.ProHelpDataSet.tx_playlist_song)
 
-        TxtFolder.Text = mySettings.ProHelpMasterFolder
+        TxtFolder.Text = My.Settings.ProHelpMasterFolder
         RBtnMakeActive.Checked = True
         RBtnMakeInactive.Checked = True
         RBtnMakeSelect.Checked = True
@@ -34,8 +33,8 @@ Public Class F_UpdateFileList
             MessageBox.Show("I can't find folder " & TxtFolder.Text & ".  Please try again", "PowerPoint Link: Update Files List",
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
-            mySettings.ProHelpMasterFolder = TxtFolder.Text
-            mySettings.Save()
+            My.Settings.ProHelpMasterFolder = TxtFolder.Text
+            My.Settings.Save()
         End If
 
     End Sub

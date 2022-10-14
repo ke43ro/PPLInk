@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DBCreate">
   <DataContextMoniker Name="/DBCreateDataContext" />
   <nestedChildShapes>
-    <classShape Id="fe3cd1c9-75e0-4f39-ba2c-0bb651c282bb" absoluteBounds="0.5, 0.5, 2, 2.5401025390625">
+    <classShape Id="fe3cd1c9-75e0-4f39-ba2c-0bb651c282bb" absoluteBounds="0.5, 0.5, 2, 2.7324039713541666">
       <DataClassMoniker Name="/DBCreateDataContext/t_file" />
       <nestedChildShapes>
-        <elementListCompartment Id="e6d3c99d-0130-4153-92d1-08d483fa0e38" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="e6d3c99d-0130-4153-92d1-08d483fa0e38" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="75cb6757-e442-41fd-a50a-28528ac72f24" absoluteBounds="5.5, 0.5, 2, 1.3862939453125">
@@ -20,25 +20,19 @@
         <elementListCompartment Id="b72ef6c8-0532-45a0-a0c5-d6aa2c6fe62a" absoluteBounds="3.015, 0.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 1.28929768880208); (3 : 1.28929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 1.28929768880208); (3 : 1.28929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DBCreateDataContext/t_file/t_file_tx_playlist_song" />
       <nodes>
         <classShapeMoniker Id="fe3cd1c9-75e0-4f39-ba2c-0bb651c282bb" />
         <classShapeMoniker Id="c26ab768-1fea-4dfa-bb02-2c07be3b4916" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 1.19314697265625); (5 : 1.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 1.19314697265625); (5 : 1.19314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DBCreateDataContext/t_playlist/t_playlist_tx_playlist_song" />
       <nodes>
         <classShapeMoniker Id="75cb6757-e442-41fd-a50a-28528ac72f24" />
         <classShapeMoniker Id="c26ab768-1fea-4dfa-bb02-2c07be3b4916" />
       </nodes>
     </associationConnector>
-    <classShape Id="7fe2ccba-ed0f-4bec-a8d3-c0e7c85e8952" absoluteBounds="4, 3.125, 2, 1.7708968098958331">
-      <DataClassMoniker Name="/DBCreateDataContext/v_playlist" />
-      <nestedChildShapes>
-        <elementListCompartment Id="dca64691-db11-4fec-ae6a-5678c48f4770" absoluteBounds="4.015, 3.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

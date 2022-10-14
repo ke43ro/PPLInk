@@ -28,12 +28,12 @@ Partial Class F_FillTables
         Me.txtFolder = New System.Windows.Forms.TextBox()
         Me.txtResults = New System.Windows.Forms.TextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.BtnRun = New System.Windows.Forms.Button()
+        Me.BtnLoadTable = New System.Windows.Forms.Button()
         Me.BtnEmpty = New System.Windows.Forms.Button()
-        Me.ProHelpDataSet = New ProHelpDataSet()
+        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
         Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.T_filesTableAdapter = New ProHelpDataSetTableAdapters.t_filesTableAdapter()
-        Me.TableAdapterManager = New ProHelpDataSetTableAdapters.TableAdapterManager()
+        Me.T_filesTableAdapter = New PPLInk.ProHelpDataSetTableAdapters.t_filesTableAdapter()
+        Me.TableAdapterManager = New PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager()
         Me.T_filesDataGridView = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -79,16 +79,16 @@ Partial Class F_FillTables
         Me.txtResults.Text = "<Results>"
         Me.ToolTip1.SetToolTip(Me.txtResults, "Shows what is happening in the program")
         '
-        'BtnRun
+        'BtnLoadTable
         '
-        Me.BtnRun.Location = New System.Drawing.Point(153, 249)
-        Me.BtnRun.Name = "BtnRun"
-        Me.BtnRun.Size = New System.Drawing.Size(126, 40)
-        Me.BtnRun.TabIndex = 4
-        Me.BtnRun.Text = "Load table"
-        Me.ToolTip1.SetToolTip(Me.BtnRun, "Scan the specified MASTERS folder and record the names of all PPT & PPTX files fo" &
+        Me.BtnLoadTable.Location = New System.Drawing.Point(153, 249)
+        Me.BtnLoadTable.Name = "BtnLoadTable"
+        Me.BtnLoadTable.Size = New System.Drawing.Size(126, 40)
+        Me.BtnLoadTable.TabIndex = 4
+        Me.BtnLoadTable.Text = "Load table"
+        Me.ToolTip1.SetToolTip(Me.BtnLoadTable, "Scan the specified MASTERS folder and record the names of all PPT & PPTX files fo" &
         "und in the Files table.")
-        Me.BtnRun.UseVisualStyleBackColor = True
+        Me.BtnLoadTable.UseVisualStyleBackColor = True
         '
         'BtnEmpty
         '
@@ -117,11 +117,10 @@ Partial Class F_FillTables
         'TableAdapterManager
         '
         Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
-        Me.TableAdapterManager.t_files_saveTableAdapter = Nothing
         Me.TableAdapterManager.t_filesTableAdapter = Me.T_filesTableAdapter
         Me.TableAdapterManager.t_playlistsTableAdapter = Nothing
         Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing
-        Me.TableAdapterManager.UpdateOrder = ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        Me.TableAdapterManager.UpdateOrder = PPLInk.ProHelpDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
         '
         'T_filesDataGridView
         '
@@ -197,7 +196,7 @@ Partial Class F_FillTables
         Me.ClientSize = New System.Drawing.Size(440, 459)
         Me.Controls.Add(Me.BtnEmpty)
         Me.Controls.Add(Me.T_filesDataGridView)
-        Me.Controls.Add(Me.BtnRun)
+        Me.Controls.Add(Me.BtnLoadTable)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.txtResults)
         Me.Controls.Add(Me.txtFolder)
@@ -220,7 +219,7 @@ Partial Class F_FillTables
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents txtFolder As TextBox
     Friend WithEvents txtResults As TextBox
-    Friend WithEvents BtnRun As Button
+    Friend WithEvents BtnLoadTable As Button
     Friend WithEvents ProHelpDataSet As ProHelpDataSet
     Friend WithEvents T_filesBindingSource As BindingSource
     Friend WithEvents T_filesTableAdapter As ProHelpDataSetTableAdapters.t_filesTableAdapter

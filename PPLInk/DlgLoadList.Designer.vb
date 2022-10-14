@@ -119,7 +119,6 @@ Partial Class DlgLoadList
         'TableAdapterManager
         '
         Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
-        Me.TableAdapterManager.t_files_saveTableAdapter = Nothing
         Me.TableAdapterManager.t_filesTableAdapter = Nothing
         Me.TableAdapterManager.t_playlistsTableAdapter = Me.T_playlistsTableAdapter
         Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing

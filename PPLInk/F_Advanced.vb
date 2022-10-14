@@ -1,7 +1,6 @@
 ﻿Public Class F_Advanced
     'Private isT_FilesUpdated As Boolean = False
-    Private ReadOnly mySettings As New Settings
-    '    Private isShort As String
+    'Private isShort As String
 
     Private Sub F_Advanced_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Dim szConn = mySettings.ProHelpConnectionUser
@@ -11,7 +10,7 @@
         'T_filesTableAdapter.Connection = connection
         'Me.T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files, isShort)
 
-        ChkAutoSelectList.Checked = IIf(mySettings.ProHelpAutoShortList = "Y", True, False)
+        ChkAutoSelectList.Checked = IIf(My.Settings.ProHelpAutoShortList = "Y", True, False)
     End Sub
 
     Private Sub F_Advanced_Closed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
@@ -40,11 +39,11 @@
 
     Private Sub ChkAutoSelectList_CheckedChanged(sender As Object, e As EventArgs) Handles ChkAutoSelectList.CheckedChanged
         If ChkAutoSelectList.Checked = True Then
-            mySettings.ProHelpAutoShortList = "Y"
+            My.Settings.ProHelpAutoShortList = "Y"
         Else
-            mySettings.ProHelpAutoShortList = "N"
+            My.Settings.ProHelpAutoShortList = "N"
         End If
 
-        mySettings.Save()
+        My.Settings.Save()
     End Sub
 End Class

@@ -4,7 +4,6 @@ Imports System.Data.Sql
 
 Public Class F_SetUp
     Private Sub F_SetUp_OnLoad(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Dim mySettings As New Settings
         If My.Settings.ProHelpServerUser <> "" Then
             TxtServer.Text = My.Settings.ProHelpServerUser
         Else
@@ -82,8 +81,7 @@ Public Class F_SetUp
     Private Sub BtnTest2_Click(sender As Object, e As EventArgs) Handles BtnTest2.Click
         ' test the database
         Cursor = Cursors.WaitCursor
-        Dim mySettings As New Settings
-        Dim szConn As String = "Data Source=" & mySettings.ProHelpServerUser & ";" & mySettings.ProHelpConnectionSuffix
+        Dim szConn As String = "Data Source=" & My.Settings.ProHelpServerUser & ";" & My.Settings.ProHelpConnectionSuffix
         Dim connection As New System.Data.SqlClient.SqlConnection(szConn)
         Try
             connection.Open()
@@ -97,31 +95,43 @@ Public Class F_SetUp
 
             ' install it
             Cursor = Cursors.WaitCursor
+            BtnTest2.Enabled = False
+
             Try
-                szConn = "Data Source=" & mySettings.ProHelpServerUser & ";Integrated Security=True"
+                ' Open SQL without trying to open ProHelp database
+                Dim szConn2 = "Data Source=" & My.Settings.ProHelpServerUser & ";Integrated Security=True"
                 Dim DBDataContext As DataContext
-                DBDataContext = New DBCreateDataContext(szConn)
+                DBDataContext = New DBCreateDataContext(szConn2)
                 DBDataContext.CreateDatabase()
                 DBDataContext.Dispose()
+                ' Install the function and triggers
+                connection.Open()
+                Dim result = F_Main.DoUpdate1_6_0_55(connection)
+                BtnTest2.Enabled = True
+                If result = False Then Exit Sub
 
             Catch ex2 As Exception
                 ' can't install it
                 Cursor = Cursors.Default
+                MessageBox.Show("SQL Connection [" & szConn & "]")
                 MessageBox.Show("There was a failure while trying to install the ProHelp database.  Please contact the application vendor" &
                                 "And provide the following message:" & vbCrLf & ex2.Message,
                                 "PowerPoint Link: Install failure", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
                 ChkStep2.Text = "Step 2. Waiting"
                 ChkStep2.Checked = False
+                BtnTest2.Enabled = True
                 BtnTest3.Enabled = False
                 BtnBrowse.Enabled = False
                 Exit Sub
+
             End Try
         End Try
 
 
         ' if successful
-        mySettings.ProHelpConnectionUser = szConn
-        mySettings.Save()
+        My.Settings.ProHelpConnectionUser = szConn
+        My.Settings.Save()
         GroupBox2.BackColor = SystemColors.Control
         GroupBox3.BackColor = Color.FromArgb(255, 255, 230)
         ChkStep2.Text = "Step 2. Succeeded"
@@ -155,9 +165,17 @@ Public Class F_SetUp
             Exit Sub
         End If
 
-        ' open Recreate and set the folder name
+        ' open FillForm and set the folder name
         FillForm.LoadFolder(TxtFolder.Text)
-        result = FillForm.ShowDialog()
+        Try
+            result = FillForm.ShowDialog()
+
+        Catch ex As Exception
+            MessageBox.Show("There was a failure while trying to display the song table.  Please contact the application vendor" &
+                                "And provide the following message:" & vbCrLf & ex.Message,
+                                "PowerPoint Link: Install failure", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
         If result <> DialogResult.OK Then
             Cursor = Cursors.Default
             MessageBox.Show("PowerPoint Link cannot work without the tables filled")
@@ -165,9 +183,8 @@ Public Class F_SetUp
         End If
 
         ' if successful
-        Dim mySettings As New Settings
-        mySettings.ProHelpMasterFolder = TxtFolder.Text
-        mySettings.Save()
+        My.Settings.ProHelpMasterFolder = TxtFolder.Text
+        My.Settings.Save()
         GroupBox3.BackColor = SystemColors.Control
         ChkStep3.Text = "Step 3. Succeeded"
         ChkStep3.Checked = True
@@ -205,13 +222,11 @@ Public Class F_SetUp
             MessageBox.Show(dr(0) & "\" & dr(1))
         Next
 
-        'Dim service As sqlservice
     End Sub
 
     Private Sub F_SetUp_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Dim result As DialogResult
-        Dim mySettings As New Settings
-        Dim szDebug As String = mySettings.ProHelpDebug
+        Dim szDebug As String = My.Settings.ProHelpDebug
 
         Select Case Me.DialogResult
             Case DialogResult.Yes

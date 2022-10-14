@@ -2,8 +2,7 @@
     Private bFormOpen As Boolean = False
 
     Private Sub F_EditFileList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim mySettings As New Settings
-        Dim szConn = mySettings.ProHelpConnectionUser
+        Dim szConn = My.Settings.ProHelpConnectionUser
         'LblVersion.Text = Me.ProductVersion
 
         Dim connection As New System.Data.SqlClient.SqlConnection(szConn)

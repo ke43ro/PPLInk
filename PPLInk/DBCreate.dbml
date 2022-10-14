@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ProHelp" Class="DBCreateDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=KR2012\SQLEXPRESS;Initial Catalog=ProHelp;Integrated Security=True" SettingsObjectName="PPLInk.Settings" SettingsPropertyName="ProHelpConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLExpress;Initial Catalog=ProHelp;Integrated Security=True" SettingsObjectName="PPLInk.My.MySettings" SettingsPropertyName="ProHelpConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.t_files" Member="t_files">
     <Type Name="t_file">
       <Column Name="file_no" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -33,13 +33,11 @@
       <Association Name="t_playlist_tx_playlist_song" Member="t_playlist" ThisKey="list_no" OtherKey="list_no" Type="t_playlist" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.v_playlist" Member="v_playlists">
-    <Type Name="v_playlist">
-      <Column Name="list_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="seq_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="f_name" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
-      <Column Name="rec_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="file_no" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
+  <Function Name="dbo.StripPunc" Method="StripPunc" IsComposable="true">
+    <Parameter Name="s_input" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.String" />
+  </Function>
+  <Function Name="dbo.CreateTriggers" Method="CreateTriggers">
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

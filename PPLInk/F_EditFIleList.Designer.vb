@@ -62,7 +62,6 @@ Partial Class F_EditFileList
         'TableAdapterManager
         '
         Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
-        Me.TableAdapterManager.t_files_saveTableAdapter = Nothing
         Me.TableAdapterManager.t_filesTableAdapter = Me.T_filesTableAdapter
         Me.TableAdapterManager.t_playlistsTableAdapter = Nothing
         Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing

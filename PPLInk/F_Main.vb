@@ -1,4 +1,5 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Collections.ObjectModel
+Imports System.Data.SqlClient
 Imports System.Text.RegularExpressions
 
 Public Class F_Main
@@ -9,7 +10,7 @@ Public Class F_Main
 
     Private Sub F_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim szVersion, szUpdated, szTemp As String
-        Dim szConn = My.Settings.ProHelpConnectionUser
+        Dim szConn As String, result As DialogResult
         Dim connection As SqlConnection
 
         szDebug = My.Settings.ProHelpDebug
@@ -17,7 +18,7 @@ Public Class F_Main
         Try
             szVersion = My.Application.Deployment.CurrentVersion.ToString
         Catch
-            szVersion = "1.6.0.67 Proto"
+            szVersion = "1.6.0.76 Proto"
         End Try
         LblVersion.Text = szVersion
         'Z.Y.X.W - Z.Y is major/minor version; X is build number, always 0; W is VS publish number
@@ -25,29 +26,48 @@ Public Class F_Main
         'See the end of the file for history
 
         If szDebug = "Yes" Then MessageBox.Show("Connecting to database")
+        szConn = My.Settings.ProHelpConnectionUser
         If szConn = "" Then
-            MessageBox.Show("The settings for PowerPoint Link have not been created.  Please use the Set Up button to initialise this program",
-                            "PowerPoint Link: Settings Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
-        Else
-            Try
-                If szDebug = "Yes" Then MessageBox.Show("Trying from settings: " & szConn)
-                connection = New SqlConnection(szConn)
-            Catch ex As Exception
-                MessageBox.Show("Connection Failure:" & vbCrLf & ex.Message & vbCrLf & ex.StackTrace,
-                                "PowerPoint Link: Connecting", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                If szDebug = "Yes" Then MessageBox.Show("Trying from install string: " & My.Settings.ProHelpConnectionString)
-                Try
-                    connection = New SqlConnection(My.Settings.ProHelpConnectionString)
-                Catch ex
-                    MessageBox.Show("Connection Failure - Use Set Up:" & vbCrLf & ex.Message & vbCrLf & ex.StackTrace,
-                            "PowerPoint Link: Connecting", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Exit Sub
-                End Try
-            End Try
+            result = MessageBox.Show("It looks like this is a new installation of PowerPoint Link." & vbCrLf &
+                            "This program needs a SQL database to operate.  If one is installed on this computer" &
+                            "Please select 'OK' to continue to Settings." & vbCrLf &
+                            "Otherwise, select 'Cancel' to install that first." & vbCrLf &
+                            "PowerPoint Link is designed to work with Microsoft SQL Server 2019 LocalDB which can be" &
+                            " installed from https://www.microsoft.com/en-us/Download/confirmation.aspx?id=101064",
+                        "PowerPoint Link: Settings Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning)
+
+            If result = DialogResult.Cancel Then
+                Close()
+                Exit Sub
+            End If
+
         End If
-        connection.Open()
-        T_filesTableAdapter.Connection = connection
+        Try
+            ' Use saved settings
+            connection = New SqlConnection(szConn)
+            connection.Open()
+
+        Catch ex1 As Exception
+            Try
+                ' Use default installation string
+                szConn = My.Settings.ProHelpConnectionString
+                connection = New SqlConnection(szConn)
+                connection.Open()
+                MessageBox.Show("The settings for PowerPoint Link have not been completed." & vbCrLf &
+                                "Please use the Set Up button to initialise this program",
+                            "PowerPoint Link: Settings Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+            Catch ex2 As Exception
+                MessageBox.Show("The settings for PowerPoint Link have not been completed.  I can't find the server or " &
+                                "database or both in " & vbCrLf & szConn & vbCrLf &
+                                "Please use the Set Up button to initialise this program",
+                            "PowerPoint Link: Settings Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+            End Try
+
+            Exit Sub
+
+        End Try
 
         ' Do necessary upgrades
         Dim priorVersion = My.Settings.ProHelpVersion
@@ -68,6 +88,7 @@ Public Class F_Main
                     MessageBox.Show(szUpdated & vbCrLf & "An upgrade was done.  PowerPoint Link must be restarted",
                                 "PowerPointLink: Automatic Upgrader", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Close()
+                    Exit Sub
 
                 Case "Failed"
                     MessageBox.Show(szUpdated & vbCrLf & "An upgrade failed.  Please contact PowerPoint vendor",
@@ -83,10 +104,12 @@ Public Class F_Main
             ChkShortList.Checked = False
             isShort = "N"
         End If
+        isAutoShort = My.Settings.ProHelpAutoShortList
 
+        T_filesTableAdapter.Connection = connection
         If (ProHelpDataSet.t_files.IsInitialized) Then
-            Me.T_filesTableAdapter.Fill(Me.ProHelpDataSet.t_files, isShort)
-            isAutoShort = My.Settings.ProHelpAutoShortList
+            T_filesTableAdapter.Fill(ProHelpDataSet.t_files, isShort)
+            'T_filesDataGridView.Update()
             TxtSearch.Focus()
             'Else
         End If
@@ -143,9 +166,9 @@ Public Class F_Main
                 PlayList_AddRecord()
                 TxtSearch.Text = ""
             Case Keys.Up
-                T_filesChangeSelection(-1)
+                TfilesChangeSelection(-1)
             Case Keys.Down
-                T_filesChangeSelection(1)
+                TfilesChangeSelection(1)
             Case Else
                 Exit Sub
         End Select
@@ -154,7 +177,7 @@ Public Class F_Main
         TxtSearch.Focus()
     End Sub
 
-    Sub T_filesChangeSelection(ByVal iChange As Integer)
+    Sub TfilesChangeSelection(ByVal iChange As Integer)
         Dim iRow As Integer = 0
         'Dim iSelected As DataGridViewRow = T_filesDataGridView.SelectedRows(0)
 
@@ -221,17 +244,17 @@ Public Class F_Main
     End Sub
 
     Private Sub BtnSetup_Click(sender As Object, e As EventArgs) Handles BtnSetup.Click
-        'Dim My.mySettings As New Settings,
-        Dim newSettings As Settings
+        Dim newSzConn As String
         Dim szConn = My.Settings.ProHelpConnectionUser
         Dim Result = F_SetUp.ShowDialog()
         TxtSearch.Focus()
 
-        newSettings = New Settings
-        If szConn <> newSettings.ProHelpConnectionUser Then
+        newSzConn = My.Settings.ProHelpConnectionUser
+        If szConn <> newSzConn Then
             MessageBox.Show("The database connection has been changed.  PPLink needs to close.  Please reopen it to continue",
                             "PowerPoint Link: Setup", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Close()
+            Exit Sub
         End If
 
         ' Has T_FILES been modified?
@@ -433,7 +456,10 @@ Public Class F_Main
     Private Function DoUpdates(priorVersion As String, connection As SqlConnection) As String
         Try
             If szDebug = "Yes" Then MessageBox.Show("priorVersion is " & priorVersion)
-            If priorVersion <> "" And priorVersion.Length < 15 Then
+            If priorVersion = "" Then
+                ' Initial installation. Latest version of database will have been installed through Set Up
+                DoUpdates = "No Action: Initial Installation"
+            ElseIf priorVersion.Length < 15 Then
                 DoUpdates = "Success: Upgraded version style|1.4.0.35"
             Else
                 Select Case priorVersion
@@ -457,31 +483,11 @@ Public Class F_Main
                         ' DoUpdates = "No Action: No upgrade necessary|1.5.0.53"
 
                     Case < "001.006.000.055"
-                        RunSQL("use ProHelp", connection)
-                        RunSQL("if not exists (select * from sys.all_columns where object_id = object_id('prohelp.dbo.t_files') " &
-                            " and name = 's_search' and max_length = 400)" &
-                            vbCrLf & "alter table t_files add s_search varchar(400)", connection)
-                        RunSQL("if exists (select * from sys.objects where name = 'StripPunc') drop function StripPunc", connection)
-                        RunSQL("create Function dbo.StripPunc(@s_input varchar(max)) returns varchar(400)" &
-                            vbCrLf & " begin Declare @s_temp varchar(400)" &
-                            vbCrLf & "  Set @s_temp = replace(@s_input, '''', '')" &
-                            vbCrLf & "  Set @s_temp = replace(@s_temp, '""', '')" &
-                            vbCrLf & "  Set @s_temp = replace(@s_temp, ',', '')" &
-                            vbCrLf & "  Set @s_temp = replace(@s_temp, '’', '')" &
-                            vbCrLf & "  Return @s_temp" &
-                            vbCrLf & " end", connection)
-                        RunSQL("update t_files set s_search = dbo.strippunc(f_name) + '; ' + dbo.strippunc(f_altname)", connection)
-                        RunSQL("if exists (select * from sys.objects where name = 't_files_insert_set_search') " &
-                            vbCrLf & "DROP TRIGGER dbo.t_files_insert_set_search", connection)
-                        RunSQL("CREATE TRIGGER dbo.t_files_insert_set_search On t_files AFTER INSERT " &
-                            vbCrLf & "AS update t_files set s_search = dbo.StripPunc(f_name) + '; ' + dbo.StripPunc(f_altname) " &
-                            vbCrLf & " where file_no in (select file_no from inserted)", connection)
-                        RunSQL("if exists (select * from sys.objects where name = 't_files_update_set_search') " &
-                            vbCrLf & "DROP TRIGGER dbo.t_files_update_set_search", connection)
-                        RunSQL("CREATE TRIGGER dbo.t_files_update_set_search On t_files AFTER Update " &
-                            vbCrLf & "AS update t_files set s_search = dbo.StripPunc(f_name) + '; ' + dbo.StripPunc(f_altname) " &
-                            vbCrLf & " where file_no in (select a.file_no from deleted a join inserted b on a.file_no = b.file_no)", connection)
-                        DoUpdates = "Success: Upgraded t_files, ignore punctuation in search|1.6.0.55"
+                        If DoUpdate1_6_0_55(connection) = True Then
+                            DoUpdates = "Success: Upgraded t_files, ignore punctuation in search|1.6.0.55"
+                        Else
+                            DoUpdates = "Failed: Upgrade 1.6.0.55|1.6.0.55"
+                        End If
 
                     Case Else
                         DoUpdates = "No Action: No upgrade necessary"
@@ -491,6 +497,44 @@ Public Class F_Main
         Catch ex As Exception
             DoUpdates = "Failed:" & ex.Message
         End Try
+    End Function
+
+    Friend Function DoUpdate1_6_0_55(connection As SqlConnection) As Boolean
+        DoUpdate1_6_0_55 = True
+        Try
+            RunSQL("use ProHelp", connection)
+            RunSQL("if not exists (select * from sys.all_columns where object_id = object_id('prohelp.dbo.t_files') " &
+                            " and name = 's_search' and max_length = 400)" &
+                            vbCrLf & "alter table t_files add s_search varchar(400)", connection)
+            RunSQL("if exists (select * from sys.objects where name = 'StripPunc') drop function StripPunc", connection)
+            RunSQL("create Function dbo.StripPunc(@s_input varchar(max)) returns varchar(400)" &
+                            vbCrLf & " begin Declare @s_temp varchar(400)" &
+                            vbCrLf & "  Set @s_temp = replace(@s_input, '''', '')" &
+                            vbCrLf & "  Set @s_temp = replace(@s_temp, '""', '')" &
+                            vbCrLf & "  Set @s_temp = replace(@s_temp, ',', '')" &
+                            vbCrLf & "  Set @s_temp = replace(@s_temp, '’', '')" &
+                            vbCrLf & "  Return @s_temp" &
+                            vbCrLf & " end", connection)
+            RunSQL("update t_files set s_search = dbo.strippunc(f_name) + '; ' + dbo.strippunc(f_altname)", connection)
+            RunSQL("if exists (select * from sys.objects where name = 't_files_insert_set_search') " &
+                            vbCrLf & "DROP TRIGGER dbo.t_files_insert_set_search", connection)
+            RunSQL("CREATE TRIGGER dbo.t_files_insert_set_search On t_files AFTER INSERT " &
+                            vbCrLf & "AS update t_files set s_search = dbo.StripPunc(f_name) + '; ' + dbo.StripPunc(f_altname) " &
+                            vbCrLf & " where file_no in (select file_no from inserted)", connection)
+            RunSQL("if exists (select * from sys.objects where name = 't_files_update_set_search') " &
+                            vbCrLf & "DROP TRIGGER dbo.t_files_update_set_search", connection)
+            RunSQL("CREATE TRIGGER dbo.t_files_update_set_search On t_files AFTER Update " &
+                            vbCrLf & "AS update t_files set s_search = dbo.StripPunc(f_name) + '; ' + dbo.StripPunc(f_altname) " &
+                            vbCrLf & " where file_no in (select a.file_no from deleted a join inserted b on a.file_no = b.file_no)", connection)
+
+        Catch ex As Exception
+            MessageBox.Show("SQL Command failed during update." & vbCrLf &
+                                "Please contact the programmer with this message:" & vbCrLf & ex.Message,
+                            "PowerPoint Link: Udpdate Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            DoUpdate1_6_0_55 = False
+
+        End Try
+
     End Function
 
     Private Sub RunSQL(SQLCmdText As String, connection As SqlConnection)
@@ -537,6 +581,8 @@ End Class
 
 'Version number
 'Z.Y.X.W - Z.Y.X is major version.minor version.build; W is VS publish number
+'1.7.0.75
+'1.7.0.71 Enhanced Upgrade procedures to allow for initial installation at current level
 '1.6.0.65 Recover source after rebuild; optimisations
 '1.6.0.61 RELEASE: Add video play feature
 '1.6.0.55 Extend search field, ignore common punctuation

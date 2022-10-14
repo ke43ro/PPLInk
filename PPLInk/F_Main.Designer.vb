@@ -26,13 +26,7 @@ Partial Class F_Main
         Me.LBPlayList = New System.Windows.Forms.ListBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.T_filesDataGridView = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.T_filesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
         Me.TxtSearch = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -51,6 +45,13 @@ Partial Class F_Main
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.BtnPlayVideo = New System.Windows.Forms.Button()
+        Me.ProHelpDataSet = New PPLInk.ProHelpDataSet()
+        Me.FilenoDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FnameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FpathDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FaltnameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.InactiveDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SsearchDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.T_filesDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.T_filesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ProHelpDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -81,63 +82,21 @@ Partial Class F_Main
         Me.T_filesDataGridView.AllowUserToDeleteRows = False
         Me.T_filesDataGridView.AutoGenerateColumns = False
         Me.T_filesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.T_filesDataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn9})
+        Me.T_filesDataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.FilenoDataGridViewTextBoxColumn, Me.FnameDataGridViewTextBoxColumn, Me.FpathDataGridViewTextBoxColumn, Me.FaltnameDataGridViewTextBoxColumn, Me.InactiveDataGridViewTextBoxColumn, Me.SsearchDataGridViewTextBoxColumn})
         Me.T_filesDataGridView.DataSource = Me.T_filesBindingSource
         Me.T_filesDataGridView.Location = New System.Drawing.Point(12, 269)
         Me.T_filesDataGridView.MultiSelect = False
         Me.T_filesDataGridView.Name = "T_filesDataGridView"
-        Me.T_filesDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.T_filesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.T_filesDataGridView.Size = New System.Drawing.Size(755, 225)
         Me.T_filesDataGridView.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.T_filesDataGridView, "The PPT Name is the actual file name of the song on the hard disk.  The Other Nam" &
         "e is an alternative title of the song or other search data.")
         '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.DataPropertyName = "file_no"
-        Me.DataGridViewTextBoxColumn1.HeaderText = "#"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 5
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.DataPropertyName = "f_name"
-        Me.DataGridViewTextBoxColumn2.HeaderText = "PPT Name"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.Width = 350
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.DataPropertyName = "f_path"
-        Me.DataGridViewTextBoxColumn3.HeaderText = "L"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.Width = 5
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.DataPropertyName = "f_altname"
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Other Name"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.Width = 350
-        '
-        'DataGridViewTextBoxColumn9
-        '
-        Me.DataGridViewTextBoxColumn9.DataPropertyName = "inactive"
-        Me.DataGridViewTextBoxColumn9.HeaderText = "X"
-        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
-        Me.DataGridViewTextBoxColumn9.Width = 5
-        '
         'T_filesBindingSource
         '
         Me.T_filesBindingSource.DataMember = "t_files"
         Me.T_filesBindingSource.DataSource = Me.ProHelpDataSet
-        '
-        'ProHelpDataSet
-        '
-        Me.ProHelpDataSet.DataSetName = "ProHelpDataSet"
-        Me.ProHelpDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'TxtSearch
         '
@@ -268,7 +227,6 @@ Partial Class F_Main
         'TableAdapterManager
         '
         Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
-        Me.TableAdapterManager.t_files_saveTableAdapter = Nothing
         Me.TableAdapterManager.t_filesTableAdapter = Me.T_filesTableAdapter
         Me.TableAdapterManager.t_playlistsTableAdapter = Nothing
         Me.TableAdapterManager.tx_playlist_songTableAdapter = Nothing
@@ -301,6 +259,54 @@ Partial Class F_Main
         Me.BtnPlayVideo.TabIndex = 22
         Me.BtnPlayVideo.Text = "Play Videos"
         Me.BtnPlayVideo.UseVisualStyleBackColor = True
+        '
+        'ProHelpDataSet
+        '
+        Me.ProHelpDataSet.DataSetName = "ProHelpDataSet"
+        Me.ProHelpDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'FilenoDataGridViewTextBoxColumn
+        '
+        Me.FilenoDataGridViewTextBoxColumn.DataPropertyName = "file_no"
+        Me.FilenoDataGridViewTextBoxColumn.HeaderText = "#"
+        Me.FilenoDataGridViewTextBoxColumn.Name = "FilenoDataGridViewTextBoxColumn"
+        Me.FilenoDataGridViewTextBoxColumn.ReadOnly = True
+        Me.FilenoDataGridViewTextBoxColumn.Width = 5
+        '
+        'FnameDataGridViewTextBoxColumn
+        '
+        Me.FnameDataGridViewTextBoxColumn.DataPropertyName = "f_name"
+        Me.FnameDataGridViewTextBoxColumn.HeaderText = "PPT Name"
+        Me.FnameDataGridViewTextBoxColumn.Name = "FnameDataGridViewTextBoxColumn"
+        Me.FnameDataGridViewTextBoxColumn.Width = 200
+        '
+        'FpathDataGridViewTextBoxColumn
+        '
+        Me.FpathDataGridViewTextBoxColumn.DataPropertyName = "f_path"
+        Me.FpathDataGridViewTextBoxColumn.HeaderText = "L"
+        Me.FpathDataGridViewTextBoxColumn.Name = "FpathDataGridViewTextBoxColumn"
+        Me.FpathDataGridViewTextBoxColumn.Width = 5
+        '
+        'FaltnameDataGridViewTextBoxColumn
+        '
+        Me.FaltnameDataGridViewTextBoxColumn.DataPropertyName = "f_altname"
+        Me.FaltnameDataGridViewTextBoxColumn.HeaderText = "Other Name"
+        Me.FaltnameDataGridViewTextBoxColumn.Name = "FaltnameDataGridViewTextBoxColumn"
+        Me.FaltnameDataGridViewTextBoxColumn.Width = 200
+        '
+        'InactiveDataGridViewTextBoxColumn
+        '
+        Me.InactiveDataGridViewTextBoxColumn.DataPropertyName = "inactive"
+        Me.InactiveDataGridViewTextBoxColumn.HeaderText = "X"
+        Me.InactiveDataGridViewTextBoxColumn.Name = "InactiveDataGridViewTextBoxColumn"
+        Me.InactiveDataGridViewTextBoxColumn.Width = 5
+        '
+        'SsearchDataGridViewTextBoxColumn
+        '
+        Me.SsearchDataGridViewTextBoxColumn.DataPropertyName = "s_search"
+        Me.SsearchDataGridViewTextBoxColumn.HeaderText = "Search Text"
+        Me.SsearchDataGridViewTextBoxColumn.Name = "SsearchDataGridViewTextBoxColumn"
+        Me.SsearchDataGridViewTextBoxColumn.Width = 500
         '
         'F_Main
         '
@@ -337,16 +343,10 @@ Partial Class F_Main
 
     Friend WithEvents LBPlayList As ListBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents ProHelpDataSet As ProHelpDataSet
     Friend WithEvents T_filesBindingSource As BindingSource
     Friend WithEvents T_filesTableAdapter As ProHelpDataSetTableAdapters.t_filesTableAdapter
     Friend WithEvents TableAdapterManager As ProHelpDataSetTableAdapters.TableAdapterManager
     Friend WithEvents T_filesDataGridView As DataGridView
-    Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn9 As DataGridViewTextBoxColumn
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents TxtSearch As TextBox
     Friend WithEvents Label2 As Label
@@ -363,4 +363,11 @@ Partial Class F_Main
     Friend WithEvents Label4 As Label
     Friend WithEvents ChkShortList As CheckBox
     Friend WithEvents BtnPlayVideo As Button
+    Friend WithEvents ProHelpDataSet As ProHelpDataSet
+    Friend WithEvents FilenoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents FnameDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents FpathDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents FaltnameDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents InactiveDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents SsearchDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
 End Class

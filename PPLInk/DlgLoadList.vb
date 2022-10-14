@@ -21,8 +21,7 @@
 
     Private Sub DlgLoadList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim nSongs As Integer = LstQueue.Items.Count
-        Dim mySettings As New Settings
-        Dim szConn As String = mySettings.ProHelpConnectionUser
+        Dim szConn As String = My.Settings.ProHelpConnectionUser
 
         If szConn <> "" Then
             Dim connection As New System.Data.SqlClient.SqlConnection(szConn)

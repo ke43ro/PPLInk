@@ -20,7 +20,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ProHelpSelected" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Y</Value>
+      <Value Profile="(Default)">N</Value>
     </Setting>
     <Setting Name="ProHelpAutoShortList" Type="System.String" Scope="User">
       <Value Profile="(Default)">Y</Value>
@@ -30,6 +30,9 @@
     </Setting>
     <Setting Name="ProHelpServerUser" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ProHelpConnectionSuffix" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Initial Catalog=ProHelp;Integrated Security=True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -1,17 +1,16 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class F_CompareWithMaster
-    Private ReadOnly mySettings As New Settings
     Private connection As SqlConnection
 
     Private Sub F_CompareWithMaster_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim szConn = mySettings.ProHelpConnectionUser
+        Dim szConn = My.Settings.ProHelpConnectionUser
 
         connection = New SqlConnection(szConn)
         T_filesTableAdapter.Connection = connection
         Me.T_filesTableAdapter.FillAll(Me.ProHelpDataSet.t_files)
 
-        TxtFolder.Text = mySettings.ProHelpMasterFolder
+        TxtFolder.Text = My.Settings.ProHelpMasterFolder
     End Sub
 
 
@@ -24,8 +23,8 @@ Public Class F_CompareWithMaster
             MessageBox.Show("I can't find folder " & TxtFolder.Text & ".  Please try again", "PowerPoint Link: Update Files List",
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
-            mySettings.ProHelpMasterFolder = TxtFolder.Text
-            mySettings.Save()
+            My.Settings.ProHelpMasterFolder = TxtFolder.Text
+            My.Settings.Save()
         End If
 
     End Sub
