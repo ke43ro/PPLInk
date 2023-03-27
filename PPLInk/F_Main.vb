@@ -573,15 +573,12 @@ Public Class F_Main
         CanonizeVersion = szTemp
 
     End Function
-
-    Private Sub LblVersion_Click(sender As Object, e As EventArgs) Handles LblVersion.Click
-
-    End Sub
 End Class
 
 'Version number
 'Z.Y.X.W - Z.Y.X is major version.minor version.build; W is VS publish number
-'1.7.0.75
+'1.7.0.76 Removed pre-requisite of SQL Express 2019 - auto install was insufficient to run
+'1.7.0.75 Solve installation issues - local settings vs global settings
 '1.7.0.71 Enhanced Upgrade procedures to allow for initial installation at current level
 '1.6.0.65 Recover source after rebuild; optimisations
 '1.6.0.61 RELEASE: Add video play feature
