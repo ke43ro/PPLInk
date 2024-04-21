@@ -7,6 +7,7 @@ Public Class F_Main
     Private ReadOnly PlayList As New PlayList
     Private isShort As String
     Private isAutoShort As String
+    Private myStatus As String = "Loading"
 
     Private Sub F_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim szVersion, szUpdated, szTemp As String
@@ -14,18 +15,19 @@ Public Class F_Main
         Dim connection As SqlConnection
 
         szDebug = My.Settings.ProHelpDebug
+        'szDebug = "Yes"
 
         Try
             szVersion = My.Application.Deployment.CurrentVersion.ToString
         Catch
-            szVersion = "1.6.0.76 Proto"
+            szVersion = "1.7.0.86 Proto"
         End Try
         LblVersion.Text = szVersion
         'Z.Y.X.W - Z.Y is major/minor version; X is build number, always 0; W is VS publish number
         'Z.X.Y are set in Project Properties, W is automatic (also controlled in Project Properties)
         'See the end of the file for history
 
-        If szDebug = "Yes" Then MessageBox.Show("Connecting to database")
+        'If szDebug = "Yes" Then MessageBox.Show("Getting database connection string")
         szConn = My.Settings.ProHelpConnectionUser
         If szConn = "" Then
             result = MessageBox.Show("It looks like this is a new installation of PowerPoint Link." & vbCrLf &
@@ -42,6 +44,8 @@ Public Class F_Main
             End If
 
         End If
+
+        'If szDebug = "Yes" Then MessageBox.Show("Connecting to database")
         Try
             ' Use saved settings
             connection = New SqlConnection(szConn)
@@ -96,23 +100,28 @@ Public Class F_Main
             End Select
         End If
 
-        If szDebug = "Yes" Then MessageBox.Show("Filling tables")
-        If My.Settings.ProHelpSelected = "Y" Then
+        isShort = My.Settings.ProHelpSelected
+        If isShort = "Y" Then
             ChkShortList.Checked = True
-            isShort = "Y"
         Else
             ChkShortList.Checked = False
-            isShort = "N"
         End If
+
         isAutoShort = My.Settings.ProHelpAutoShortList
 
+        'If szDebug = "Yes" Then MessageBox.Show("Set Files Connector")
         T_filesTableAdapter.Connection = connection
+        'If szDebug = "Yes" Then MessageBox.Show("Files Connector set")
+
         If (ProHelpDataSet.t_files.IsInitialized) Then
+            'If szDebug = "Yes" Then MessageBox.Show("Filling tables")
             T_filesTableAdapter.Fill(ProHelpDataSet.t_files, isShort)
             'T_filesDataGridView.Update()
             TxtSearch.Focus()
             'Else
         End If
+
+        myStatus = "Loaded"
     End Sub
 
     Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
@@ -358,11 +367,27 @@ Public Class F_Main
             isShort = "N"
         End If
 
-        If (ProHelpDataSet.t_files.IsInitialized) Then
-            T_filesTableAdapter.FillByPhrase(Me.ProHelpDataSet.t_files, isShort, TxtSearch.Text)
-            My.Settings.ProHelpSelected = isShort
-            My.Settings.Save()
+        'If szDebug = "Yes" Then MessageBox.Show("ChkChgd - Check if Files Initialized. Conn String=" &
+        '   T_filesTableAdapter.Connection.ConnectionString)
+
+        If myStatus = "Loaded" Then
+            Try
+                If (ProHelpDataSet.t_files.IsInitialized) Then
+                    'If szDebug = "Yes" Then MessageBox.Show("ChkChgd - Files Initialized: Fill")
+                    T_filesTableAdapter.FillByPhrase(Me.ProHelpDataSet.t_files, isShort, TxtSearch.Text)
+                    'If szDebug = "Yes" Then MessageBox.Show("ChkChgd - Files Initialized: Save settings")
+                    My.Settings.ProHelpSelected = isShort
+                    My.Settings.Save()
+                End If
+
+            Catch ex As Exception
+                If ex.HResult <> 26 Then
+                    MessageBox.Show("ChkChgd - caught error #" & ex.HResult & ", " & ex.Message)
+                End If
+            End Try
         End If
+
+        'If szDebug = "Yes" Then MessageBox.Show("ChkShortList_CheckedChanged Done")
     End Sub
 
     Private Sub TextBox1_KeyDown(sender As Object, e As KeyEventArgs) 'Handles TextBox1.KeyDown
@@ -455,7 +480,7 @@ Public Class F_Main
 
     Private Function DoUpdates(priorVersion As String, connection As SqlConnection) As String
         Try
-            If szDebug = "Yes" Then MessageBox.Show("priorVersion is " & priorVersion)
+            'If szDebug = "Yes" Then MessageBox.Show("priorVersion is " & priorVersion)
             If priorVersion = "" Then
                 ' Initial installation. Latest version of database will have been installed through Set Up
                 DoUpdates = "No Action: Initial Installation"
@@ -576,8 +601,10 @@ Public Class F_Main
 End Class
 
 'Version number
-'Z.Y.X.W - Z.Y.X is major version.minor version.build; W is VS publish number
-'1.7.0.76 Removed pre-requisite of SQL Express 2019 - auto install was insufficient to run
+'Z.Y.X.W - Z.Y.X is major version.minor version.build; W is VS publish number.  Missing publish numbers were used in testing
+'1.7.0.86 Debug unhandled exception on W11 on load.  Found in ChkShortlist.CheckedChanged table fill
+'1.7.0.77 Removed pre-requisite of SQL Express 2019 - auto install was insufficient to run
+'1.7.0.76 Additional Debug output
 '1.7.0.75 Solve installation issues - local settings vs global settings
 '1.7.0.71 Enhanced Upgrade procedures to allow for initial installation at current level
 '1.6.0.65 Recover source after rebuild; optimisations
