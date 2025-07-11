@@ -21,4 +21,4 @@ By providing an SQL database containing a matching table with your own fill meth
 
 [Edit 20 July 2018] PPLink now contains all the features of ProHelp and more.
 
-[Edit 9 July 2025] PPLink is now superseded by my peroject ProjHelp (Projection Helper) at https:[//github.com/ke43ro/ProjHelp](url)
+[Edit 9 July 2025] PPLink is now superseded by my project ProjHelp (Projection Helper) at https:[//github.com/ke43ro/ProjHelp](url)
